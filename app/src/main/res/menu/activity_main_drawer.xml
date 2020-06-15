@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/vehecle"
+        android:icon="@drawable/ic_vehicle"
+        android:title="@string/vehicle" />
+    <item
+        android:id="@+id/connect"
+        android:icon="@drawable/ic_connect"
+        android:title="@string/connect_your_car" />
+    <item
+        android:id="@+id/comment"
+        android:icon="@drawable/ic_comment"
+        android:title="@string/comment" />
+    <item
+        android:id="@+id/survey"
+        android:icon="@drawable/ic_connect"
+        android:title="@string/survey" />
+    <item
+        android:id="@+id/financing"
+        android:icon="@drawable/ic_comment"
+        android:title="@string/financing" />
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/ic_connect"
+        android:title="@string/setting" />
+    <item
+        android:id="@+id/assistant"
+        android:icon="@drawable/ic_comment"
+        android:title="@string/assistant" />
+    <item
+        android:id="@+id/social_main"
+        android:title="@string/social_network">
+        <menu>
+            <item
+                android:id="@+id/social"
+                android:title=""
+                app:actionLayout="@layout/item_socail_network"
+                app:showAsAction="always" />
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/power"
+        android:title="@string/power_by">
+        <menu>
+            <item
+                android:id="@+id/power_by"
+                android:title=""
+                app:actionLayout="@layout/item_power_by"
+                app:showAsAction="always" />
+        </menu>
+    </item>
+
+</menu>

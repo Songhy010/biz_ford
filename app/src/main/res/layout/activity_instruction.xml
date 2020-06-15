@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/iv_height_10"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.ActivityInstruction">
+
+    <TextView
+
+        android:id="@+id/tv_skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text=""
+        android:textSize="@dimen/text_size_medium" />
+
+    <TextView
+        android:layout_marginTop="@dimen/iv_height_20"
+        android:id="@+id/tv_ford"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_skip"
+        android:text="@string/ford"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_medium" />
+
+    <TextView
+        android:id="@+id/tv_cambodia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tv_ford"
+        android:layout_marginLeft="@dimen/iv_height_5"
+        android:layout_toEndOf="@id/tv_ford"
+        android:layout_toRightOf="@id/tv_ford"
+        android:text="@string/cambodia"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_medium" />
+
+    <ImageView
+        android:layout_alignTop="@id/tv_ford"
+        android:layout_width="@dimen/iv_height_45"
+        android:layout_height="@dimen/iv_height_30"
+        android:layout_below="@id/tv_skip"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/img_ford" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_marginBottom="@dimen/iv_height_50"
+        android:layout_marginTop="@dimen/iv_height_10"
+        android:layout_above="@id/btn_next"
+        android:layout_below="@id/tv_ford"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_next"
+        android:layout_alignParentBottom="true"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center"
+            android:padding="@dimen/iv_height_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_next"
+                android:text="@string/next"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/layout_dots"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/iv_height_20"
+        android:layout_above="@id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
