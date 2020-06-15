@@ -144,7 +144,6 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
 
     private void addBottomDots(LinearLayout layout_dots, int size, int current) {
         ImageView[] dots = new ImageView[size];
-
         layout_dots.removeAllViews();
         for (int i = 0; i < dots.length; i++) {
             dots[i] = new ImageView(this);
@@ -177,6 +176,20 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         };
         handler.postDelayed(runnable, 4*1000);
 
+    }
+
+    public void centerMenuOnClick(View view){
+        switch (view.getId()){
+            case R.id.btn_product:
+                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityProduct.class);
+                break;
+            case R.id.btn_services:
+                break;
+            case R.id.btn_news:
+                break;
+            case R.id.btn_chat:
+                break;
+        }
     }
 
     @Override

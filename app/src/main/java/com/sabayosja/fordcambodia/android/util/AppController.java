@@ -45,6 +45,8 @@ public class AppController extends Application {
         Global.arData[10] = "image_720";
         Global.arData[11] = "home_banner";
         Global.arData[12] = "data";
+        Global.arData[13] = "home_data";
+        Global.arData[14] = "product_list_data";
 
 
 

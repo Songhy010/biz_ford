@@ -59,7 +59,7 @@ public class ActivityMain extends ActivityController {
         final String url = Global.arData[0]+Global.arData[1]+Global.arData[5];
         final HashMap<String,String> param = new HashMap<>();
         param.put(Global.arData[6],lang);
-        param.put(Global.arData[7],Global.HOME);
+        param.put(Global.arData[7],Global.arData[13]);
         MyFunction.getInstance().requestString(this, Request.Method.POST, url, param, new VolleyCallback() {
             @Override
             public void onResponse(String response) {
