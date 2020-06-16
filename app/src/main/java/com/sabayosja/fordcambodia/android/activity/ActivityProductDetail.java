@@ -53,10 +53,10 @@ public class ActivityProductDetail extends ActivityController {
     private void initView() {
         initToolbar();
         loadProductDetail();
+        initMoreGallery();
     }
 
     private void initToolbar() {
-
         final ImageView iv_ford = findViewById(R.id.iv_ford);
         final ImageView iv_search = findViewById(R.id.iv_search);
         final ImageView iv_back = findViewById(R.id.iv_back);
@@ -70,6 +70,15 @@ public class ActivityProductDetail extends ActivityController {
         });
         iv_ford.setVisibility(View.GONE);
         iv_search.setVisibility(View.GONE);
+    }
+
+    private void initMoreGallery(){
+        findViewById(R.id.iv_moreGallery).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyFunction.getInstance().openActivity(ActivityProductDetail.this,ActivityGallery.class);
+            }
+        });
     }
 
     private String getIntentData(){

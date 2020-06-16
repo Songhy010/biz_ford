@@ -58,6 +58,8 @@ public class AppController extends Application {
         Global.arData[22] = "exterior";
         Global.arData[23] = "interior";
         Global.arData[24] = "url";
+        Global.arData[25] = "content";
+        Global.arData[26] = "type";
 
 
 

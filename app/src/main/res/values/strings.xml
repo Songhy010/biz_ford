@@ -31,5 +31,9 @@
     <string name="start_use">Start Use</string>
 
     <string name="Product">Product</string>
+    <string name="gallery">Gallery</string>
+    <string name="key">Key Feature</string>
+    <string name="video">Video</string>
+    <string name="color">Colorizer</string>
 
 </resources>
