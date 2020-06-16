@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.sabayosja.fordcambodia.android.R;
-import com.sabayosja.fordcambodia.android.adapter.AdapterBanner;
+import com.sabayosja.fordcambodia.android.adapter.AdapterBannerHome;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -41,7 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ActivityHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private AdapterBanner adapter;
+    private AdapterBannerHome adapter;
     private ViewPager viewPager;
     private Runnable runnable = null;
     private Handler handler = new Handler();
@@ -110,7 +110,7 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
     private void initPagerBanner(JSONArray array) {
         final LinearLayout layout_dots = findViewById(R.id.layout_dots);
         try {
-            adapter = new AdapterBanner(this, array);
+            adapter = new AdapterBannerHome(this, array);
             viewPager = findViewById(R.id.pager);
             int height  = MyFunction.getInstance().getBannerHeight(ActivityHome.this);
 

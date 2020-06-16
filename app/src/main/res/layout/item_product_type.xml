@@ -3,9 +3,11 @@
     android:orientation="vertical"
     android:padding="@dimen/iv_height_5"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
+        android:padding="@dimen/iv_height_5"
+        android:id="@+id/tv_category"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:text="@string/app_name"
@@ -14,6 +16,7 @@
         android:layout_height="wrap_content" />
 
     <ImageView
+        android:id="@+id/iv_banner"
         android:layout_marginTop="@dimen/iv_height_5"
         android:scaleType="center"
         android:src="@drawable/img_nav_head"

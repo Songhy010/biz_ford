@@ -1040,6 +1040,42 @@ public class MyFunction {
         return 0;
     }
 
+    public int getProductHeight(final Context ct) {
+        try {
+            int org_width = 720;
+            int org_height = 250;
+            int req_width = getScreenWidth(0, ct);
+            return getHeightNew(org_height, req_width, org_width);
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+        return 0;
+    }
+
+    public int getGalleryHeight(final Context ct) {
+        try {
+            int org_width = 720;
+            int org_height = 300;
+            int req_width = getScreenWidth(0, ct);
+            return getHeightNew(org_height, req_width, org_width);
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+        return 0;
+    }
+
+    public int getProductBannerHeight(final Context ct) {
+        try {
+            int org_width = 720;
+            int org_height = 350;
+            int req_width = getScreenWidth(0, ct);
+            return getHeightNew(org_height, req_width, org_width);
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+        return 0;
+    }
+
     public int getBannerHeightTab(final Context ct) {
         try {
             int org_width = 720;
