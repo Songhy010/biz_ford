@@ -1076,6 +1076,18 @@ public class MyFunction {
         return 0;
     }
 
+    public int getProductVideoHeight(final Context ct) {
+        try {
+            int org_width = 720;
+            int org_height = 400;
+            int req_width = getScreenWidth(0, ct);
+            return getHeightNew(org_height, req_width, org_width);
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+        return 0;
+    }
+
     public int getBannerHeightTab(final Context ct) {
         try {
             int org_width = 720;

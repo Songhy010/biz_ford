@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ActivityService">
+    <include layout="@layout/top_menu_activity"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:paddingRight="@dimen/iv_height_3"
+        android:paddingLeft="@dimen/iv_height_3"
+        android:id="@+id/recycleService"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

@@ -35,5 +35,23 @@
     <string name="key">Key Feature</string>
     <string name="video">Video</string>
     <string name="color">Colorizer</string>
+    <string name="interior">Interior</string>
+    <string name="exterior">Exterior</string>
+    <string name="price">Price</string>
+    <string name="finance_calculator">Ford Financing Calculator</string>
+    <string name="contact_for">Contact us for more information</string>
+    <string name="phone_1">012 333 975 (Phnom Penh)</string>
+    <string name="phone_2">063 766 661 (Siem Reap)</string>
+    <string name="load_pay">Load Payment Calculator</string>
+    <string name="reset">Reset</string>
+    <string name="calculate">Calculate</string>
+    <string name="amount_load">Load Amount</string>
+    <string name="down_pay">Down Payment%</string>
+    <string name="interest_rate">Interest Rate%</string>
+    <string name="term_or_year">Term or Year</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="service_center">Ford Service Center</string>
+
 
 </resources>

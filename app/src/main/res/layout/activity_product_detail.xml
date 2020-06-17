@@ -8,168 +8,226 @@
     tools:context=".activity.ActivityProductDetail">
     <include layout="@layout/top_menu_activity"/>
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/view"
+        android:visibility="gone"
         android:padding="@dimen/iv_height_10"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/iv_height_5"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/iv_height_5"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/pager"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/iv_height_170" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_marginTop="@dimen/iv_height_5"
-                    android:padding="@dimen/iv_height_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/iv_height_170" />
+
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/iv_height_5"
+                        android:padding="@dimen/iv_height_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/gallery"
+                            android:textColor="@color/colorPrimary" />
+
+                        <ImageView
+                            android:id="@+id/iv_moreGallery"
+                            android:layout_width="@dimen/iv_height_30"
+                            android:layout_height="@dimen/iv_height_30"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:padding="@dimen/iv_height_8"
+                            android:src="@drawable/iv_more" />
+                    </RelativeLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleGallery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                     <TextView
+                        android:layout_marginLeft="@dimen/iv_height_5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="@string/gallery"
+                        android:layout_marginTop="@dimen/iv_height_25"
+                        android:text="@string/key"
                         android:textColor="@color/colorPrimary" />
 
-                    <ImageView
-                        android:id="@+id/iv_moreGallery"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:padding="@dimen/iv_height_8"
-                        android:src="@drawable/iv_more" />
-                </RelativeLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycleGallery"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/iv_height_145" />
-
-                <TextView
-                    android:layout_marginLeft="@dimen/iv_height_5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/iv_height_25"
-                    android:text="@string/key"
-                    android:textColor="@color/colorPrimary" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycleKey"
-                    android:padding="@dimen/iv_height_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_marginTop="@dimen/iv_height_20"
-                    android:layout_marginLeft="@dimen/iv_height_5"
-                    android:textColor="@color/colorPrimary"
-                    android:text="@string/video"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_marginTop="@dimen/iv_height_10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/iv_height_5"
-                    app:cardElevation="@dimen/iv_height_4"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true">
-
-                    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleKey"
+                        android:padding="@dimen/iv_height_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tv_video"
+                        android:layout_marginTop="@dimen/iv_height_20"
+                        android:layout_marginLeft="@dimen/iv_height_5"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/video"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:autoPlay="true"
-                        app:showFullScreenButton="true"
-                        app:videoId="pzWrY_0Q3nA" />
-                </androidx.cardview.widget.CardView>
+                        android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:layout_marginTop="@dimen/iv_height_20"
-                    android:layout_marginLeft="@dimen/iv_height_5"
-                    android:textColor="@color/colorPrimary"
-                    android:text="@string/color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <ImageView
-                    android:src="@drawable/img_nav_head"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/iv_height_200"/>
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:src="@drawable/shape_circle"
+                    <androidx.viewpager.widget.ViewPager
                         android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
+                        android:id="@+id/viewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/iv_height_170"/>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/iv_height_20"
+                        android:layout_marginLeft="@dimen/iv_height_5"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
                     <ImageView
-                        android:src="@drawable/shape_circle"
-                        android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
-                    <ImageView
-                        android:src="@drawable/shape_circle"
-                        android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
-                    <ImageView
-                        android:src="@drawable/shape_circle"
-                        android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
-                    <ImageView
-                        android:src="@drawable/shape_circle"
-                        android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
-                    <ImageView
-                        android:src="@drawable/shape_circle"
-                        android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
-                    <ImageView
-                        android:src="@drawable/shape_circle"
-                        android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
-                    <ImageView
-                        android:src="@drawable/shape_circle"
-                        android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
-                    <ImageView
-                        android:src="@drawable/shape_circle"
-                        android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
-                    <ImageView
-                        android:src="@drawable/shape_circle"
-                        android:padding="@dimen/iv_height_5"
-                        android:layout_width="@dimen/iv_height_30"
-                        android:layout_height="@dimen/iv_height_30"/>
+                        android:id="@+id/iv_colorizer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
-            </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_marginTop="@dimen/iv_height_15"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/price"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="@dimen/iv_height_20"
+                android:textSize="@dimen/text_size_medium"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnFinance"
+                app:cardBackgroundColor="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/iv_height_15"
+                app:cardElevation="@dimen/iv_height_5"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:padding="@dimen/iv_height_13">
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/finance_calculator"
+                        android:textSize="@dimen/text_size_small" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/iv_height_20"
+                app:cardElevation="@dimen/iv_height_5"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:padding="@dimen/iv_height_10"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_marginTop="@dimen/iv_height_15"
+                        android:textSize="@dimen/text_size_tiny"
+                        android:text="@string/contact_for"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_phone1"
+                        app:cardBackgroundColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/iv_height_15"
+                        app:cardElevation="@dimen/iv_height_5"
+                        app:cardPreventCornerOverlap="false"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:padding="@dimen/iv_height_13">
+
+                            <TextView
+                                android:gravity="center"
+                                android:textColor="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/phone_1"
+                                android:textSize="@dimen/text_size_small" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_phone2"
+                        app:cardBackgroundColor="@color/colorPrimary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:cardElevation="@dimen/iv_height_5"
+                        app:cardPreventCornerOverlap="false"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:padding="@dimen/iv_height_13">
+
+                            <TextView
+                                android:gravity="center"
+                                android:textColor="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/phone_2"
+                                android:textSize="@dimen/text_size_small" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
 
-        </androidx.cardview.widget.CardView>
-
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

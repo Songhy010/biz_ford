@@ -184,6 +184,7 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
                 MyFunction.getInstance().openActivity(ActivityHome.this,ActivityProduct.class);
                 break;
             case R.id.btn_services:
+                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityService.class);
                 break;
             case R.id.btn_news:
                 break;
