@@ -9,7 +9,7 @@
     <include layout="@layout/top_menu_activity"/>
     <androidx.core.widget.NestedScrollView
         android:id="@+id/view"
-        android:visibility="gone"
+        android:visibility="visible"
         android:padding="@dimen/iv_height_10"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -57,7 +57,7 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:padding="@dimen/iv_height_8"
-                            android:src="@drawable/iv_more" />
+                            android:src="@drawable/ic_more" />
                     </RelativeLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -87,11 +87,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-                    <androidx.viewpager.widget.ViewPager
-                        android:padding="@dimen/iv_height_5"
-                        android:id="@+id/viewPager"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/iv_height_170"/>
+                        android:layout_height="wrap_content">
+                        <androidx.viewpager.widget.ViewPager
+                            android:padding="@dimen/iv_height_5"
+                            android:id="@+id/viewPager"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/iv_height_170"/>
+                        <LinearLayout
+                            android:paddingBottom="@dimen/iv_height_10"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentBottom="true"
+                            android:orientation="horizontal"
+                            android:id="@+id/layout_dots"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </RelativeLayout>
+
+
 
                     <TextView
                         android:layout_marginTop="@dimen/iv_height_20"

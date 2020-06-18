@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.activity.ActivityGallery;
+import com.sabayosja.fordcambodia.android.activity.ActivityMaintenanceTip;
 import com.sabayosja.fordcambodia.android.activity.ActivityServiceDetail;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
@@ -59,6 +60,17 @@ public class AdapterService extends RecyclerView.Adapter<AdapterService.ItemHold
                             final HashMap<String,String> map = new HashMap<>();
                             map.put(Global.arData[7],object.getString(Global.arData[7]));
                             MyFunction.getInstance().openActivity(context, ActivityServiceDetail.class,map);
+                        }else {
+                            switch (object.getString(Global.arData[7])){
+                                case "134": //Maintenance
+                                    MyFunction.getInstance().openActivity(context, ActivityMaintenanceTip.class);
+                                    break;
+                                case "139":
+                                    final HashMap<String,String> map = new HashMap<>();
+                                    map.put(Global.arData[7],object.getString(Global.arData[7]));
+                                    MyFunction.getInstance().openActivity(context, ActivityServiceDetail.class,map);
+                                    break;
+                            }
                         }
                     } catch (JSONException e) {
                         Log.e("Err",e.getMessage()+"");

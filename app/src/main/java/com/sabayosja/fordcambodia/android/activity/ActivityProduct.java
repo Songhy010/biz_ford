@@ -83,6 +83,8 @@ public class ActivityProduct extends ActivityController {
                         Log.e("response",response);
                         final JSONArray array = new JSONArray(response);
                         initRecycle(array);
+                    }else {
+                        MyFunction.getInstance().alertMessage(ActivityProduct.this,getString(R.string.warning),getString(R.string.ok),getString(R.string.server_error),1);
                     }
                 }catch (Exception e){
                     Log.e("Err",e.getMessage()+"");

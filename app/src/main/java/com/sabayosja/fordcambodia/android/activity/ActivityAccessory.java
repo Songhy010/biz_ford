@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ActivityAccessory extends AppCompatActivity {
+import com.sabayosja.fordcambodia.android.R;
+
+public class ActivityAccessory extends ActivityController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

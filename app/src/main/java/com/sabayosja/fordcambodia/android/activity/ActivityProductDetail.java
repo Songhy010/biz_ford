@@ -258,6 +258,8 @@ public class ActivityProductDetail extends ActivityController {
                         initColor(object.getJSONArray(Global.arData[30]));
                         initPrice(object.getString(Global.arData[32]));
                         initCalculator(object.getString(Global.arData[32]));
+                    }else {
+                        MyFunction.getInstance().alertMessage(ActivityProductDetail.this,getString(R.string.warning),getString(R.string.ok),getString(R.string.server_error),1);
                     }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");

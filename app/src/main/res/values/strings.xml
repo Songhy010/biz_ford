@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Ford Cambodia</string>
     <string name="information">Information</string>
+    <string name="error">Error</string>
+    <string name="warning">Warning</string>
     <string name="ok">OK</string>
+    <string name="server_error">Server Error</string>
     <string name="cancel">Cancel</string>
     <string name="version">Version</string>
     <string name="khmer">ភាសាខ្មែរ</string>
@@ -52,6 +55,8 @@
     <string name="year">Year</string>
     <string name="month">Month</string>
     <string name="service_center">Ford Service Center</string>
+    <string name="maintenance_tip">Maintenance Tip</string>
+    <string name="all_type">All Type</string>
 
 
 </resources>

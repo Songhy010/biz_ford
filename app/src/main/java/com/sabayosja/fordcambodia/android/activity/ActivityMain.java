@@ -80,6 +80,8 @@ public class ActivityMain extends ActivityController {
                             MyFunction.getInstance().openActivity(ActivityMain.this, ActivityChooseLanguage.class, map);
                             finish();
                         }
+                    }else {
+                        MyFunction.getInstance().alertMessage(ActivityMain.this,getString(R.string.warning),getString(R.string.ok),getString(R.string.server_error),1);
                     }
                 }catch (Exception e){
                     Log.e("Err",e.getMessage()+"");

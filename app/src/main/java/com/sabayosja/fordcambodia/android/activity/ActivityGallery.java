@@ -16,7 +16,6 @@ import com.google.android.material.tabs.TabLayout;
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.adapter.AdapterPagerGallery;
 import com.sabayosja.fordcambodia.android.fragment.FragmentExterior;
-import com.sabayosja.fordcambodia.android.fragment.FragmentInterior;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -92,7 +91,7 @@ public class ActivityGallery extends ActivityController {
             final String[] titles = {getString(R.string.exterior), getString(R.string.interior)};
             adapterGallery = new AdapterPagerGallery(getSupportFragmentManager(),this,titles);
             adapterGallery.addFrag(FragmentExterior.newInstance(arrFromIntent(Global.arData[22])));
-            adapterGallery.addFrag(FragmentInterior.newInstance(arrFromIntent(Global.arData[23])));
+            adapterGallery.addFrag(FragmentExterior.newInstance(arrFromIntent(Global.arData[23])));
             final ViewPager view_pager = findViewById(R.id.viewPager);
             view_pager.setOffscreenPageLimit(4);
 

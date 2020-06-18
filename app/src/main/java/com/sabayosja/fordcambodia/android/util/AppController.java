@@ -67,6 +67,10 @@ public class AppController extends Application {
         Global.arData[31] = "color";
         Global.arData[32] = "price";
         Global.arData[33] = "service_list_data";
+        Global.arData[34] = "maintenance_type";
+        Global.arData[35] = "name";
+        Global.arData[36] = "maintenance/maintenance_list";
+        Global.arData[37] = "cate_id";
 
 
 

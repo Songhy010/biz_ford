@@ -86,6 +86,8 @@ public class ActivityService extends ActivityController {
                     if (MyFunction.getInstance().isValidJSON(response)) {
                         Log.e("response", response);
                         initService(new JSONArray(response));
+                    }else {
+                        MyFunction.getInstance().alertMessage(ActivityService.this,getString(R.string.warning),getString(R.string.ok),getString(R.string.server_error),1);
                     }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");
