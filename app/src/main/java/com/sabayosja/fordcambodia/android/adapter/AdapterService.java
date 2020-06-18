@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
+import com.sabayosja.fordcambodia.android.activity.ActivityAccessory;
 import com.sabayosja.fordcambodia.android.activity.ActivityGallery;
 import com.sabayosja.fordcambodia.android.activity.ActivityMaintenanceTip;
 import com.sabayosja.fordcambodia.android.activity.ActivityServiceDetail;
@@ -66,9 +67,7 @@ public class AdapterService extends RecyclerView.Adapter<AdapterService.ItemHold
                                     MyFunction.getInstance().openActivity(context, ActivityMaintenanceTip.class);
                                     break;
                                 case "139":
-                                    final HashMap<String,String> map = new HashMap<>();
-                                    map.put(Global.arData[7],object.getString(Global.arData[7]));
-                                    MyFunction.getInstance().openActivity(context, ActivityServiceDetail.class,map);
+                                    MyFunction.getInstance().openActivity(context, ActivityAccessory.class);
                                     break;
                             }
                         }

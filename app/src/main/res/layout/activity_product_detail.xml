@@ -9,7 +9,7 @@
     <include layout="@layout/top_menu_activity"/>
     <androidx.core.widget.NestedScrollView
         android:id="@+id/view"
-        android:visibility="visible"
+        android:visibility="gone"
         android:padding="@dimen/iv_height_10"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

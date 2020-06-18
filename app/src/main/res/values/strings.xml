@@ -57,6 +57,9 @@
     <string name="service_center">Ford Service Center</string>
     <string name="maintenance_tip">Maintenance Tip</string>
     <string name="all_type">All Type</string>
+    <string name="accessory_price">Accessory and Price</string>
+    <string name="all_model">All Model</string>
+    <string name="all_year">Model Year</string>
 
 
 </resources>

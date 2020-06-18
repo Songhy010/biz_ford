@@ -42,7 +42,7 @@ public class AdapterMaintenanceType extends RecyclerView.Adapter<AdapterMaintena
             final JSONObject object = array.getJSONObject(position);
             holder.tv_type.setText(object.getString(Global.arData[15]));
             final LinearLayoutManager manager = new LinearLayoutManager(context,RecyclerView.VERTICAL,false);
-            final AdapterMaintenance adapterMaintenance = new AdapterMaintenance(object.optJSONArray("maintenance"),context);
+            final AdapterMaintenance adapterMaintenance = new AdapterMaintenance(object.optJSONArray(Global.arData[40]),context);
             holder.recycleMaintenance.setLayoutManager(manager);
             holder.recycleMaintenance.setAdapter(adapterMaintenance);
         } catch (Exception e) {

@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.adapter.AdapterMaintenanceType;
+import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
 import com.sabayosja.fordcambodia.android.listener.SelectedListener;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
 import com.sabayosja.fordcambodia.android.util.Global;
@@ -42,7 +43,7 @@ public class ActivityMaintenanceTip extends ActivityController {
 
     private void initView() {
         initToolbar();
-        loadMaintenance();
+        loadMaintenanceType();
         loadMaintenanceList("");
     }
 
@@ -84,7 +85,6 @@ public class ActivityMaintenanceTip extends ActivityController {
                             final JSONObject object = arrType.getJSONObject(str-1);
                             loadMaintenanceList("_"+object.getString(Global.arData[7]));
                         }
-
                     }catch (Exception e){
                         Log.e("Er",e.getMessage()+"");
                     }
@@ -108,7 +108,7 @@ public class ActivityMaintenanceTip extends ActivityController {
         final HashMap<String, String> param = new HashMap<>();
         param.put(Global.arData[6], lang);
         param.put(Global.arData[7], Global.arData[36]+id);
-        loadDataServer(param, new LoadData() {
+        loadDataServer(param, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
                 try {
@@ -121,12 +121,12 @@ public class ActivityMaintenanceTip extends ActivityController {
         });
     }
 
-    private void loadMaintenance() {
+    private void loadMaintenanceType() {
         final String lang = MyFunction.getInstance().getText(ActivityMaintenanceTip.this, Global.arData[6]);
         final HashMap<String, String> param = new HashMap<>();
         param.put(Global.arData[6], lang);
         param.put(Global.arData[7], Global.arData[34]);
-        loadDataServer(param, new LoadData() {
+        loadDataServer(param, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
                 try {
@@ -139,7 +139,7 @@ public class ActivityMaintenanceTip extends ActivityController {
         });
     }
 
-    private void loadDataServer(HashMap<String, String> param, final LoadData loadData) {
+    private void loadDataServer(HashMap<String, String> param, final LoadDataListener loadData) {
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
         showDialog();
         MyFunction.getInstance().requestString(this, Request.Method.POST, url, param, new VolleyCallback() {
@@ -165,7 +165,5 @@ public class ActivityMaintenanceTip extends ActivityController {
         });
     }
 
-    interface LoadData {
-        void onSuccess(String response);
-    }
+
 }
