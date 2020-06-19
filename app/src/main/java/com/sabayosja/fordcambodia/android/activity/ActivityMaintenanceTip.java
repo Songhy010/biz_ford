@@ -164,6 +164,4 @@ public class ActivityMaintenanceTip extends ActivityController {
             }
         });
     }
-
-
 }

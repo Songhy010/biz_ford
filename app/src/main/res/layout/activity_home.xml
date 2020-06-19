@@ -218,7 +218,7 @@
                 android:layout_marginBottom="@dimen/iv_height_15"
                 android:src="@drawable/ic_home"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView3"
+                app:layout_constraintEnd_toStartOf="@+id/ivBook"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
@@ -234,7 +234,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivBook"
                 android:layout_width="@dimen/iv_height_35"
                 android:layout_height="@dimen/iv_height_35"
                 android:layout_alignParentBottom="true"
@@ -251,9 +251,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/booking"
                 android:textSize="@dimen/text_size_small"
-                app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                app:layout_constraintStart_toStartOf="@+id/imageView3"
-                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+                app:layout_constraintEnd_toEndOf="@+id/ivBook"
+                app:layout_constraintStart_toStartOf="@+id/ivBook"
+                app:layout_constraintTop_toBottomOf="@+id/ivBook" />
 
             <ImageView
                 android:id="@+id/imageView5"
@@ -266,7 +266,7 @@
                 android:src="@drawable/ic_location"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView3" />
+                app:layout_constraintStart_toEndOf="@+id/ivBook" />
 
             <TextView
                 android:layout_marginTop="@dimen/iv_height_2"

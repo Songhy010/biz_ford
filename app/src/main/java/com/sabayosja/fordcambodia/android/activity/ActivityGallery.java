@@ -1,20 +1,17 @@
 package com.sabayosja.fordcambodia.android.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.sabayosja.fordcambodia.android.R;
-import com.sabayosja.fordcambodia.android.adapter.AdapterPagerGallery;
+import com.sabayosja.fordcambodia.android.adapter.AdapterPager;
 import com.sabayosja.fordcambodia.android.fragment.FragmentExterior;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
@@ -29,7 +26,7 @@ import java.util.HashMap;
 public class ActivityGallery extends ActivityController {
 
     private TabLayout tabLayout;
-    private AdapterPagerGallery adapterGallery;
+    private AdapterPager adapterGallery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +86,7 @@ public class ActivityGallery extends ActivityController {
         try {
             tabLayout = findViewById(R.id.tabLayout);
             final String[] titles = {getString(R.string.exterior), getString(R.string.interior)};
-            adapterGallery = new AdapterPagerGallery(getSupportFragmentManager(),this,titles);
+            adapterGallery = new AdapterPager(getSupportFragmentManager(),this,titles);
             adapterGallery.addFrag(FragmentExterior.newInstance(arrFromIntent(Global.arData[22])));
             adapterGallery.addFrag(FragmentExterior.newInstance(arrFromIntent(Global.arData[23])));
             final ViewPager view_pager = findViewById(R.id.viewPager);

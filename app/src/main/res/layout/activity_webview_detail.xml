@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ActivityServiceDetail">
+    tools:context=".activity.ActivityWebviewDetail">
     <include layout="@layout/top_menu_activity"/>
     <WebView
         android:id="@+id/webView"

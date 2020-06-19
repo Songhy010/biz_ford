@@ -23,6 +23,8 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class AdapterAccessory extends RecyclerView.Adapter<AdapterAccessory.ItemHolder> {
 
     private JSONArray array;
@@ -55,7 +57,10 @@ public class AdapterAccessory extends RecyclerView.Adapter<AdapterAccessory.Item
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MyFunction.getInstance().openActivity(context, ActivityAccessoryDetail.class);
+                    final HashMap<String,String> map = new HashMap<>();
+                    map.put(Global.arData[12],object.toString());
+                    map.put(Global.arData[18],enName);
+                    MyFunction.getInstance().openActivity(context, ActivityAccessoryDetail.class,map);
                 }
             });
         }catch (Exception e){

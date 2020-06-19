@@ -2,7 +2,9 @@ package com.sabayosja.fordcambodia.android.util;
 
 import com.sabayosja.fordcambodia.android.activity.ActivityChooseLanguage;
 import com.sabayosja.fordcambodia.android.activity.ActivityInstruction;
+import com.sabayosja.fordcambodia.android.activity.ActivityLogin;
 import com.sabayosja.fordcambodia.android.activity.ActivityMain;
+import com.sabayosja.fordcambodia.android.activity.ActivityOtp;
 
 public class Global {
     public static String[] arData;
@@ -10,8 +12,10 @@ public class Global {
     public static String NOTIFICATION = "notification";
     public static String FIRST_TIME = "first_tile";
     public static final String SPLASH_SCREEN = "splash_screen";
-
-    public static final String HTML_HEADER_CONTENT_TYPE = "Content-Type";
+    public static final String URI_MESSENGER = "fb-messenger://user-thread/";
+    public static final String URI_STORE = "https://play.google.com/store/apps/details?id=";
+    public static final String PACKAGE_MG = "com.facebook.orca";
+    public static final  String HTML_HEADER_CONTENT_TYPE = "Content-Type";
     public static final String HTML_HEADER_CONTENT_TYPE_VALUE_JSON = "application/json; charset=UTF-8";
     public static int PERMISSION_ALL = 1;
 
@@ -24,4 +28,6 @@ public class Global {
     public static ActivityMain activityMain;
     public static ActivityChooseLanguage activityChooseLanguage;
     public static ActivityInstruction activityInstruction;
+    public static ActivityOtp activityOtp;
+    public static ActivityLogin activityLogin;
 }

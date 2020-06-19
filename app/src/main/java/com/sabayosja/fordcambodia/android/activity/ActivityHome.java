@@ -8,7 +8,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -73,6 +75,12 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
             final ConstraintLayout tab = findViewById(R.id.tab);
             tab.getLayoutParams().height = height;
         }
+        findViewById(R.id.ivBook).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityLogin.class);
+            }
+        });
     }
 
     private String getIntentData(){
@@ -187,9 +195,21 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
                 MyFunction.getInstance().openActivity(ActivityHome.this,ActivityService.class);
                 break;
             case R.id.btn_news:
+                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityPromotion.class);
                 break;
             case R.id.btn_chat:
+                initMessenger();
                 break;
+        }
+    }
+    private void initMessenger(){
+        try{
+            Uri uri = Uri.parse(Global.URI_MESSENGER + "295959650502207");
+            Intent sendIntent = new Intent(Intent.ACTION_VIEW,uri);
+            startActivity(sendIntent);
+        }catch (Exception e){
+            Log.e("Err",e.getMessage()+"");
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Global.URI_STORE+ Global.PACKAGE_MG)));
         }
     }
 

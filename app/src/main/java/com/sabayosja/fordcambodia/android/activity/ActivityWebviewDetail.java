@@ -24,15 +24,15 @@ import com.sabayosja.fordcambodia.android.util.Tools;
 
 import java.util.HashMap;
 
-public class ActivityServiceDetail extends AppCompatActivity {
+public class ActivityWebviewDetail extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_detail);
+        setContentView(R.layout.activity_webview_detail);
         Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
-        MyFont.getInstance().setFont(ActivityServiceDetail.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        MyFont.getInstance().setFont(ActivityWebviewDetail.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         initView();
     }
 
@@ -56,12 +56,11 @@ public class ActivityServiceDetail extends AppCompatActivity {
         });
         iv_ford.setVisibility(View.GONE);
         iv_search.setVisibility(View.GONE);
-        tv_title.setText(getString(R.string.service_center));
+        tv_title.setText(getIntentData().get(Global.arData[18]).toString());
     }
 
-    private String getIntentData(){
-        final HashMap<String,String> map = MyFunction.getInstance().getIntentHashMap(getIntent());
-        return map.get(Global.arData[7]);
+    private HashMap getIntentData(){
+        return MyFunction.getInstance().getIntentHashMap(getIntent());
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -80,6 +79,6 @@ public class ActivityServiceDetail extends AppCompatActivity {
                 onReceivedError(view, rerr.getErrorCode(), rerr.getDescription().toString(), req.getUrl().toString());
             }
         });
-        mWebview .loadUrl(getIntentData());
+        mWebview .loadUrl(getIntentData().get(Global.arData[7]).toString());
     }
 }

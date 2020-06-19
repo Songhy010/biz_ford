@@ -3,6 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sabayosja.fordcambodia.android">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.USE_SIP" />
+
     <application
         android:name=".util.AppController"
         android:allowBackup="true"
@@ -11,10 +23,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ActivityAccessoryDetail"></activity>
+        <activity android:name=".activity.ActivityYourBooking"></activity>
+        <activity android:name=".activity.ActivityOtp" />
+        <activity android:name=".activity.ActivityLogin" />
+        <activity android:name=".activity.ActivityPromotion" />
+        <activity android:name=".activity.ActivityAccessoryDetail" />
         <activity android:name=".activity.ActivityAccessory" />
         <activity android:name=".activity.ActivityMaintenanceTip" />
-        <activity android:name=".activity.ActivityServiceDetail" />
+        <activity android:name=".activity.ActivityWebviewDetail" />
         <activity android:name=".activity.ActivityService" />
         <activity android:name=".activity.ActivityFinancingCalculator" />
         <activity android:name=".activity.ActivityGallery" />
@@ -53,17 +69,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-    <uses-permission android:name="android.permission.USE_SIP" />
 
 </manifest>

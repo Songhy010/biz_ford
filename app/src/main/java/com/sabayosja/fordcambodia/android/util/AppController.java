@@ -81,6 +81,14 @@ public class AppController extends Application {
         Global.arData[45] = "price";
         Global.arData[46] = "models_id";
         Global.arData[47] = "years_id";
+        Global.arData[48] = "post_type";
+        Global.arData[49] = "pt-news-promo";
+        Global.arData[50] = "news_promotions";
+        Global.arData[51] = "phone";
+        Global.arData[52] = "sendotp.php";
+        Global.arData[53] = "verify_otp.php";
+        Global.arData[54] = "otp";
+        Global.arData[55] = "booking/booking_list_855";
 
 
 

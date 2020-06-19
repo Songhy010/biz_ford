@@ -14,9 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.activity.ActivityAccessory;
-import com.sabayosja.fordcambodia.android.activity.ActivityGallery;
 import com.sabayosja.fordcambodia.android.activity.ActivityMaintenanceTip;
-import com.sabayosja.fordcambodia.android.activity.ActivityServiceDetail;
+import com.sabayosja.fordcambodia.android.activity.ActivityWebviewDetail;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -59,8 +58,9 @@ public class AdapterService extends RecyclerView.Adapter<AdapterService.ItemHold
                     try {
                         if (object.getString(Global.arData[26]).equals("1")) {// 1 webview ,0 interface
                             final HashMap<String,String> map = new HashMap<>();
+                            map.put(Global.arData[18],object.getString(Global.arData[18]));
                             map.put(Global.arData[7],object.getString(Global.arData[7]));
-                            MyFunction.getInstance().openActivity(context, ActivityServiceDetail.class,map);
+                            MyFunction.getInstance().openActivity(context, ActivityWebviewDetail.class,map);
                         }else {
                             switch (object.getString(Global.arData[7])){
                                 case "134": //Maintenance

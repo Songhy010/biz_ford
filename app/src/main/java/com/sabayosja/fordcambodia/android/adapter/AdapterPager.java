@@ -12,19 +12,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.sabayosja.fordcambodia.android.R;
+import com.sabayosja.fordcambodia.android.util.MyFont;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 
-public class AdapterPagerGallery extends FragmentPagerAdapter {
+public class AdapterPager extends FragmentPagerAdapter {
     private String[] titles;
     private final List<Fragment> fragments = new ArrayList<>();
     private Context context;
 
 
-    public AdapterPagerGallery(final FragmentManager manager, Context context, String[] titles) {
+    public AdapterPager(final FragmentManager manager, Context context, String[] titles) {
         super(manager);
         this.context = context;
         this.titles = titles;
@@ -65,6 +66,7 @@ public class AdapterPagerGallery extends FragmentPagerAdapter {
 
     public View getTabView(int position) {
         View view = LayoutInflater.from(context).inflate(R.layout.custom_tap_in, null);
+        MyFont.getInstance().setFont(context,view,1);
         TextView tabTextView = view.findViewById(R.id.tab);
         tabTextView.setText(titles[position]);
         return view;
