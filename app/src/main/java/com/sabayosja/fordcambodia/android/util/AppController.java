@@ -89,6 +89,19 @@ public class AppController extends Application {
         Global.arData[53] = "verify_otp.php";
         Global.arData[54] = "otp";
         Global.arData[55] = "booking/booking_list_855";
+        Global.arData[56] = "customer";
+        Global.arData[57] = "model";
+        Global.arData[58] = "plate_number";
+        Global.arData[59] = "mileage";
+        Global.arData[60] = "issues";
+        Global.arData[61] = "service_date";
+        Global.arData[62] = "service_time";
+        Global.arData[63] = "branch";
+        Global.arData[64] = "booking_id";
+        Global.arData[65] = "update_booking_status.php";
+        Global.arData[66] = "time";
+        Global.arData[67] = "branch_id";
+        Global.arData[68] = "date";
 
 
 

@@ -2,6 +2,8 @@ package com.sabayosja.fordcambodia.android.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +15,15 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.sabayosja.fordcambodia.android.R;
+import com.sabayosja.fordcambodia.android.adapter.AdapterYourBooking;
 import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
+
+import org.json.JSONArray;
 
 import java.util.HashMap;
 
@@ -61,16 +66,52 @@ public class ActivityYourBooking extends ActivityController {
         tv_title.setText(getString(R.string.your_booking));
     }
 
-    private void initYourBooking() {
-        final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
-        final String lang = MyFunction.getInstance().getText(ActivityYourBooking.this, Global.arData[6]);
-        final HashMap<String, String> param = new HashMap<>();
-        param.put(Global.arData[6], lang);
-        param.put(Global.arData[7], Global.arData[55]+phone());
+    private void initRecyclerBooking(final JSONArray arrBooking){
+        final LinearLayoutManager manager = new LinearLayoutManager(ActivityYourBooking.this, RecyclerView.VERTICAL,false);
+        final RecyclerView recyclerBooking = findViewById(R.id.recycleBook);
+        final AdapterYourBooking adapterYourBooking = new AdapterYourBooking(arrBooking,ActivityYourBooking.this);
+        recyclerBooking.setLayoutManager(manager);
+        recyclerBooking.setAdapter(adapterYourBooking);
+    }
+
+    public void initCancel(final HashMap<String,String> param) {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[65];
         loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
+                try{
+                    if(response.equals("1")){
+                        MyFunction.getInstance().alertMessage(ActivityYourBooking.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.cancel_booking), 1);
+                        initYourBooking();
+                    }else{
+                        MyFunction.getInstance().alertMessage(ActivityYourBooking.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                    }
+                }catch (Exception e){
+                    Log.e("Err",e.getMessage()+"");
+                }
+            }
+        });
+    }
 
+    private void initYourBooking() {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
+        final String lang = MyFunction.getInstance().getText(ActivityYourBooking.this, Global.arData[6]);
+        final char isZero = phone().charAt(0);
+        String phoneNumber = phone();
+        if(isZero == '0'){
+            phoneNumber = phone().substring(1,phone().length());
+        }
+        final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[6], lang);
+        param.put(Global.arData[7], Global.arData[55]+phoneNumber);
+        loadDataServer(param, url, new LoadDataListener() {
+            @Override
+            public void onSuccess(String response) {
+                try{
+                    initRecyclerBooking(new JSONArray(response));
+                }catch (Exception e){
+                    Log.e("Err",e.getMessage()+"");
+                }
             }
         });
     }

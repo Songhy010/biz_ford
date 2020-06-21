@@ -74,7 +74,7 @@ public class ActivityOtp extends ActivityController {
         final LinearLayout linearResend = findViewById(R.id.linearResend);
         tvCount.setVisibility(View.VISIBLE);
         linearResend.setVisibility(View.GONE);
-        new CountDownTimer(30000, 1000) {
+        new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 tvCount.setText("seconds remaining: " + millisUntilFinished / 1000);

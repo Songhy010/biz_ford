@@ -75,6 +75,14 @@
     <string name="verify_code">Verify Code</string>
     <string name="wrong_code">Your code is invalid! Please check and try again</string>
     <string name="your_booking">Your Booking</string>
+    <string name="mileage">Mileage :</string>
+    <string name="inspection">Inspection</string>
+    <string name="date">Date :</string>
+    <string name="time">Time :</string>
+    <string name="booking_id">Booking ID</string>
+    <string name="plate_number">Plate Number</string>
+    <string name="add_new_booking">Add New Booking</string>
+    <string name="cancel_booking">your booking has been cancelled</string>
 
 
 </resources>
