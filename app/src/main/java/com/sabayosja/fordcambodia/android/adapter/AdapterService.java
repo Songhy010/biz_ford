@@ -100,7 +100,7 @@ public class AdapterService extends RecyclerView.Adapter<AdapterService.ItemHold
             gradient = itemView.findViewById(R.id.gradient);
             tv_service = itemView.findViewById(R.id.tv_service);
 
-            final int height = MyFunction.getInstance().getProductBannerHeight(context);
+            final int height = MyFunction.getInstance().getHeight_350(context);
             cardView.getLayoutParams().height = height;
         }
     }

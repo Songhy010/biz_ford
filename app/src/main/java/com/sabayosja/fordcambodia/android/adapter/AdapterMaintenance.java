@@ -20,7 +20,6 @@ import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -83,7 +82,7 @@ public class AdapterMaintenance extends RecyclerView.Adapter<AdapterMaintenance.
             tv_name = itemView.findViewById(R.id.tv_name);
             iv_maintenance = itemView.findViewById(R.id.iv_maintenance);
             card = itemView.findViewById(R.id.card);
-            final int height = MyFunction.getInstance().getBannerHeightTab(context);
+            final int height = MyFunction.getInstance().getHeight_450(context);
             card.getLayoutParams().height = height;
         }
     }

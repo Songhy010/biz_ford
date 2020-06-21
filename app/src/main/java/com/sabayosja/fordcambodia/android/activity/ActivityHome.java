@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -35,9 +34,7 @@ import com.sabayosja.fordcambodia.android.util.Tools;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -71,7 +68,7 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
 
     private void initTab() {
         if(MyFunction.getInstance().isTablet(this)){
-            final int height = MyFunction.getInstance().getHeightTab(this);
+            final int height = MyFunction.getInstance().getHeight_95(this);
             final ConstraintLayout tab = findViewById(R.id.tab);
             tab.getLayoutParams().height = height;
         }
@@ -120,10 +117,10 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         try {
             adapter = new AdapterBannerHome(this, array);
             viewPager = findViewById(R.id.pager);
-            int height  = MyFunction.getInstance().getBannerHeight(ActivityHome.this);
+            int height  = MyFunction.getInstance().getHeight_650(ActivityHome.this);
 
             if(MyFunction.getInstance().isTablet(ActivityHome.this)){
-                height = MyFunction.getInstance().getBannerHeightTab(ActivityHome.this);
+                height = MyFunction.getInstance().getHeight_450(ActivityHome.this);
             }
             viewPager.getLayoutParams().height = height;
             viewPager.setAdapter(adapter);

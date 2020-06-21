@@ -1,7 +1,6 @@
 package com.sabayosja.fordcambodia.android.adapter;
 
 import android.content.Context;
-import android.graphics.fonts.Font;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -82,7 +80,7 @@ public class AdapterPromotion extends RecyclerView.Adapter<AdapterPromotion.Item
             card = itemView.findViewById(R.id.card);
             ivPromotion = itemView.findViewById(R.id.ivPromotion);
             tvPromotion = itemView.findViewById(R.id.tvPromotion);
-            final int height = MyFunction.getInstance().getBannerHeightTab(context);
+            final int height = MyFunction.getInstance().getHeight_450(context);
             card.getLayoutParams().height = height;
         }
     }

@@ -1027,11 +1027,10 @@ public class MyFunction {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 
-
-    public int getBannerHeight(final Context ct) {
+    public int getHeight_95(final Context ct) {
         try {
             int org_width = 720;
-            int org_height = 650;
+            int org_height = 95;
             int req_width = getScreenWidth(0, ct);
             return getHeightNew(org_height, req_width, org_width);
         } catch (Exception e) {
@@ -1040,7 +1039,19 @@ public class MyFunction {
         return 0;
     }
 
-    public int getProductHeight(final Context ct) {
+    public int getHeight_180(final Context ct) {
+        try {
+            int org_width = 720;
+            int org_height = 180;
+            int req_width = getScreenWidth(0, ct);
+            return getHeightNew(org_height, req_width, org_width);
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+        return 0;
+    }
+
+    public int getHeight_250(final Context ct) {
         try {
             int org_width = 720;
             int org_height = 250;
@@ -1052,7 +1063,7 @@ public class MyFunction {
         return 0;
     }
 
-    public int getGalleryHeight(final Context ct) {
+    public int getHeight_300(final Context ct) {
         try {
             int org_width = 720;
             int org_height = 300;
@@ -1064,7 +1075,7 @@ public class MyFunction {
         return 0;
     }
 
-    public int getProductBannerHeight(final Context ct) {
+    public int getHeight_350(final Context ct) {
         try {
             int org_width = 720;
             int org_height = 350;
@@ -1076,7 +1087,7 @@ public class MyFunction {
         return 0;
     }
 
-    public int getProductVideoHeight(final Context ct) {
+    public int getHeight_400(final Context ct) {
         try {
             int org_width = 720;
             int org_height = 400;
@@ -1088,7 +1099,7 @@ public class MyFunction {
         return 0;
     }
 
-    public int getBannerHeightTab(final Context ct) {
+    public int getHeight_450(final Context ct) {
         try {
             int org_width = 720;
             int org_height = 450;
@@ -1099,10 +1110,11 @@ public class MyFunction {
         }
         return 0;
     }
-    public int getHeightTab(final Context ct) {
+
+    public int getHeight_650(final Context ct) {
         try {
             int org_width = 720;
-            int org_height = 95;
+            int org_height = 650;
             int req_width = getScreenWidth(0, ct);
             return getHeightNew(org_height, req_width, org_width);
         } catch (Exception e) {

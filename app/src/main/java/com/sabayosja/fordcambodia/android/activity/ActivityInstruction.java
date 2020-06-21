@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ActivityInstruction extends AppCompatActivity {
+public class ActivityInstruction extends ActivityController {
 
     private AdapterInstruction adapter;
     private ViewPager viewPager;
@@ -67,8 +67,8 @@ public class ActivityInstruction extends AppCompatActivity {
                     viewPager.setCurrentItem(po+1);
                 }else{
                     MyFunction.getInstance().saveText(ActivityInstruction.this, Global.FIRST_TIME,"0");
-                    MyFunction.getInstance().openActivity(ActivityInstruction.this,ActivityHome.class,getIntentData());
                     MyFunction.getInstance().finishActivity(Global.activityChooseLanguage);
+                    MyFunction.getInstance().openActivity(ActivityInstruction.this,ActivityHome.class,getIntentData());
                     finish();
                 }
             }

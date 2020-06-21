@@ -13,7 +13,6 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
-import com.sabayosja.fordcambodia.android.activity.ActivityAccessory;
 import com.sabayosja.fordcambodia.android.activity.ActivityAccessoryDetail;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
@@ -89,7 +88,7 @@ public class AdapterAccessory extends RecyclerView.Adapter<AdapterAccessory.Item
             tvCode = itemView.findViewById(R.id.tvCode);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             ivAccessory = itemView.findViewById(R.id.ivAccessory);
-            int height = MyFunction.getInstance().getBannerHeightTab(context);
+            int height = MyFunction.getInstance().getHeight_450(context);
             card.getLayoutParams().height = height;
         }
     }

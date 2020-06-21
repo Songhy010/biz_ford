@@ -88,7 +88,7 @@ public class ActivityProductDetail extends ActivityController {
         try {
 
             if (MyFunction.getInstance().isTablet(ActivityProductDetail.this)) {
-                height = MyFunction.getInstance().getBannerHeightTab(ActivityProductDetail.this);
+                height = MyFunction.getInstance().getHeight_450(ActivityProductDetail.this);
             }
             pager.getLayoutParams().height = height;
             pager.setAdapter(adapter);
@@ -151,7 +151,7 @@ public class ActivityProductDetail extends ActivityController {
     private void setProductBanner(final JSONArray arrBanner) {
         pagerBanner = findViewById(R.id.pager);
         if (arrBanner.length() > 0) {
-            int height = MyFunction.getInstance().getProductBannerHeight(ActivityProductDetail.this);
+            int height = MyFunction.getInstance().getHeight_350(ActivityProductDetail.this);
             adapterBanner = new AdapterBanner(ActivityProductDetail.this, arrBanner);
             initBanner(pagerBanner, adapterBanner, height);
         } else {
@@ -162,7 +162,7 @@ public class ActivityProductDetail extends ActivityController {
     private void setVideo(final JSONArray arrVideo) {
         pagerVideo = findViewById(R.id.viewPager);
         if (arrVideo.length() > 0) {
-            int height = MyFunction.getInstance().getProductVideoHeight(ActivityProductDetail.this);
+            int height = MyFunction.getInstance().getHeight_400(ActivityProductDetail.this);
             adapterVideo = new AdapterVideo(ActivityProductDetail.this, arrVideo);
             initBanner(pagerVideo, adapterVideo, height);
         } else {
@@ -175,7 +175,7 @@ public class ActivityProductDetail extends ActivityController {
     public void initColorlizer(final String url) {
         try {
             final ImageView iv_colorizer = findViewById(R.id.iv_colorizer);
-            int height = MyFunction.getInstance().getProductVideoHeight(ActivityProductDetail.this);
+            int height = MyFunction.getInstance().getHeight_400(ActivityProductDetail.this);
             iv_colorizer.getLayoutParams().height = height;
             Picasso.get().load(url).error(R.drawable.img_loading).error(R.drawable.img_loading).into(iv_colorizer);
             adapterColor.notifyDataSetChanged();

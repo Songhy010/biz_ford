@@ -61,7 +61,7 @@ public class AdapterGallery extends RecyclerView.Adapter<AdapterGallery.ItemHold
         ItemHolder(@NonNull View itemView, final Context context) {
             super(itemView);
             iv_banner = itemView.findViewById(R.id.iv_banner);
-            iv_banner.getLayoutParams().height = MyFunction.getInstance().getGalleryHeight(context);
+            iv_banner.getLayoutParams().height = MyFunction.getInstance().getHeight_300(context);
         }
     }
 }

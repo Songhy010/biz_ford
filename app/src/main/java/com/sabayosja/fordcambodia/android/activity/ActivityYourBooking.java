@@ -42,6 +42,16 @@ public class ActivityYourBooking extends ActivityController {
     private void initView() {
         initToolbar();
         initYourBooking();
+        initNewBook();
+    }
+
+    private void initNewBook() {
+        findViewById(R.id.cardView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyFunction.getInstance().openActivity(ActivityYourBooking.this,ActivitySelectCar.class);
+            }
+        });
     }
 
     private String phone() {

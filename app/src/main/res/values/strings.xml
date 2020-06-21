@@ -82,7 +82,11 @@
     <string name="booking_id">Booking ID</string>
     <string name="plate_number">Plate Number</string>
     <string name="add_new_booking">Add New Booking</string>
+    <string name="add_new_vehicle">Add New Vehicle</string>
     <string name="cancel_booking">your booking has been cancelled</string>
+    <string name="select_your_car">Please Select Your Car</string>
+    <string name="select_car">Select Car</string>
+    <string name="select_service">Please Choose The Service Type</string>
 
 
 </resources>

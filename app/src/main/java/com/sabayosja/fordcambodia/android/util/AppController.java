@@ -102,6 +102,7 @@ public class AppController extends Application {
         Global.arData[66] = "time";
         Global.arData[67] = "branch_id";
         Global.arData[68] = "date";
+        Global.arData[69] = "vehicle/vehicle_list_855";
 
 
 

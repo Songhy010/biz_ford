@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.flexbox.FlexboxLayout;
 import com.sabayosja.fordcambodia.android.R;
-import com.sabayosja.fordcambodia.android.activity.ActivityHome;
-import com.sabayosja.fordcambodia.android.activity.ActivityProduct;
 import com.sabayosja.fordcambodia.android.activity.ActivityProductDetail;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
@@ -24,7 +22,6 @@ import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -81,7 +78,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ItemHold
         CardView card = view.findViewById(R.id.card);
         ImageView iv_car = view.findViewById(R.id.iv_car);
         final TextView tv_car = view.findViewById(R.id.tv_car);
-        int height = MyFunction.getInstance().getProductHeight(context);
+        int height = MyFunction.getInstance().getHeight_250(context);
         card.getLayoutParams().height = height;
         try{
             String urlImg = objCar.getJSONObject(Global.arData[9]).getString(Global.arData[10]);

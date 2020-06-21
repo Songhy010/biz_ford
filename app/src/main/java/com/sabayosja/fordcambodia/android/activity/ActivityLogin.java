@@ -72,8 +72,9 @@ public class ActivityLogin extends ActivityController {
         findViewById(R.id.cardView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final EditText edtName = findViewById(R.id.edtName);
                 final EditText edtPhone = findViewById(R.id.edtPhone);
-                if(!edtPhone.getText().toString().isEmpty()){
+                if(!edtPhone.getText().toString().isEmpty() && !edtName.getText().toString().isEmpty()){
                     loadDataServer();
                 }else{
                     MyFunction.getInstance().alertMessage(ActivityLogin.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.require_input), 1);

@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -58,7 +57,7 @@ public class AdapterGalleryExterior extends RecyclerView.Adapter<AdapterGalleryE
         ItemHolder(@NonNull View itemView, final Context context) {
             super(itemView);
             iv_banner = itemView.findViewById(R.id.iv_banner);
-            iv_banner.getLayoutParams().height = MyFunction.getInstance().getGalleryHeight(context);
+            iv_banner.getLayoutParams().height = MyFunction.getInstance().getHeight_300(context);
         }
     }
 }

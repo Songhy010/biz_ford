@@ -1,18 +1,14 @@
 package com.sabayosja.fordcambodia.android.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
 import androidx.annotation.NonNull;
@@ -112,9 +108,9 @@ public class AdapterFeature extends RecyclerView.Adapter<AdapterFeature.ItemHold
             linear_video = itemView.findViewById(R.id.linear_video);
             tv_title = itemView.findViewById(R.id.tv_title);
             iv_img = itemView.findViewById(R.id.iv_img);
-            final int height = MyFunction.getInstance().getBannerHeightTab(context);
+            final int height = MyFunction.getInstance().getHeight_450(context);
             iv_img.getLayoutParams().height = height;
-            linear_video.getLayoutParams().height = MyFunction.getInstance().getProductBannerHeight(context);
+            linear_video.getLayoutParams().height = MyFunction.getInstance().getHeight_350(context);
         }
     }
 }
