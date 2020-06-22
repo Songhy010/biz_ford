@@ -85,7 +85,7 @@ public class ActivitySelectCar extends ActivityController {
         final String lang = MyFunction.getInstance().getText(ActivitySelectCar.this, Global.arData[6]);
         final HashMap<String,String> param = new HashMap<>();
         param.put(Global.arData[6],lang);
-        param.put((Global.arData[7]),Global.arData[69]+getPhone());
+        param.put(Global.arData[7],Global.arData[69]+getPhone());
         loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {

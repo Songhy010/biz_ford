@@ -51,7 +51,7 @@ public class ActivitySelectService extends AppCompatActivity {
         });
         iv_ford.setVisibility(View.GONE);
         iv_search.setVisibility(View.GONE);
-        tv_title.setText(getString(R.string.select_car));
+        tv_title.setText(getString(R.string.select_service));
     }
 
     private void initListService(){

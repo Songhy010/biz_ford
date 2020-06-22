@@ -86,7 +86,16 @@
     <string name="cancel_booking">your booking has been cancelled</string>
     <string name="select_your_car">Please Select Your Car</string>
     <string name="select_car">Select Car</string>
-    <string name="select_service">Please Choose The Service Type</string>
-
+    <string name="select_service_desc">Please Choose The Service Type</string>
+    <string name="select_mileage">Select Mileage</string>
+    <string name="select_service">Select Service</string>
+    <string name="select_mileage_desc">Pleas Select Mileage</string>
+    <string name="other_mile">Other Mileage</string>
+    <string name="input_mile">Please Input Mileage</string>
+    <string name="select_require">Please select mileage in list</string>
+    <string name="please_input_mile">Please input current mileage of your car</string>
+    <string name="other">Other</string>
+    <string name="select_issue">Select Issue</string>
+    <string name="text_here">Text Here</string>
 
 </resources>

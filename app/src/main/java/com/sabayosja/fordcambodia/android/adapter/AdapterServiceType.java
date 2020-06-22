@@ -12,6 +12,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
+import com.sabayosja.fordcambodia.android.activity.ActivitySelectIssue;
+import com.sabayosja.fordcambodia.android.activity.ActivitySelectMileage;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -33,31 +35,43 @@ public class AdapterServiceType extends RecyclerView.Adapter<AdapterServiceType.
     @NonNull
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = LayoutInflater.from(context).inflate(R.layout.item_service_type,parent,false);
-        return new ItemHolder(view,context);
+        final View view = LayoutInflater.from(context).inflate(R.layout.item_service_type, parent, false);
+        return new ItemHolder(view, context);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemHolder holder, final int position) {
         try {
             final JSONObject object = array.getJSONObject(position);
             holder.tvName.setText(object.getString(Global.arData[18]));
+            holder.card.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (position == 0)// Maintenance
+                        MyFunction.getInstance().openActivity(context, ActivitySelectMileage.class);
+                    else if(position == 1)// Repair
+                        MyFunction.getInstance().openActivity(context, ActivitySelectIssue.class);
+                    else //Maintenance and Repair
+                        MyFunction.getInstance().openActivity(context, ActivitySelectMileage.class);
+                }
+            });
         } catch (JSONException e) {
-            Log.e("Err",e.getMessage()+"");
+            Log.e("Err", e.getMessage() + "");
         }
     }
 
     @Override
     public int getItemCount() {
-        return Math.max(array.length(),0);
+        return Math.max(array.length(), 0);
     }
 
-    static class ItemHolder extends RecyclerView.ViewHolder{
+    static class ItemHolder extends RecyclerView.ViewHolder {
         private TextView tvName;
         private CardView card;
+
         public ItemHolder(@NonNull View itemView, Context context) {
             super(itemView);
-            MyFont.getInstance().setFont(context,itemView,1);
+            MyFont.getInstance().setFont(context, itemView, 1);
             tvName = itemView.findViewById(R.id.tvName);
             card = itemView.findViewById(R.id.card);
             final int height = MyFunction.getInstance().getHeight_180(context);

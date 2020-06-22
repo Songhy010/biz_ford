@@ -103,6 +103,14 @@ public class AppController extends Application {
         Global.arData[67] = "branch_id";
         Global.arData[68] = "date";
         Global.arData[69] = "vehicle/vehicle_list_855";
+        Global.arData[70] = "vehicle";
+        Global.arData[71] = "get_mileage.php";
+        Global.arData[72] = "code";
+
+        Global.arData[73] = "min_mileage";
+        Global.arData[74] = "max_mileage";
+        Global.arData[75] = "hour";
+        Global.arData[76] = "mileage";
 
 
 

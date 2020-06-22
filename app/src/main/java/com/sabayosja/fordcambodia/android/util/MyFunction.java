@@ -40,6 +40,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,6 +55,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -1241,6 +1243,8 @@ public class MyFunction {
         dialog.setContentView(layout);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setCancelable(true);
+        View view = dialog.getWindow().getDecorView().findViewById(android.R.id.content);
+        MyFont.getInstance().setFont(context,view,1);
 
         dialogCallBack.listener(dialog);
         dialog.show();
