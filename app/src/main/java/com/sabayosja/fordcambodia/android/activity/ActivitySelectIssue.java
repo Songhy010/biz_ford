@@ -41,6 +41,7 @@ public class ActivitySelectIssue extends ActivityController {
     private void initView() {
         initToolbar();
         initIssue();
+        initNext();
     }
 
     private void initToolbar() {
@@ -59,6 +60,15 @@ public class ActivitySelectIssue extends ActivityController {
         iv_ford.setVisibility(View.GONE);
         iv_search.setVisibility(View.GONE);
         tv_title.setText(getString(R.string.select_issue));
+    }
+
+    private void initNext() {
+        findViewById(R.id.cardView).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyFunction.getInstance().openActivity(ActivitySelectIssue.this,ActivitySelectDate.class);
+            }
+        });
     }
 
     private void initListIssue(final JSONArray array){

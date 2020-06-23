@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectIssue;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectMileage;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -21,6 +22,8 @@ import com.sabayosja.fordcambodia.android.util.MyFunction;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class AdapterServiceType extends RecyclerView.Adapter<AdapterServiceType.ItemHolder> {
 
@@ -47,12 +50,22 @@ public class AdapterServiceType extends RecyclerView.Adapter<AdapterServiceType.
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (position == 0)// Maintenance
-                        MyFunction.getInstance().openActivity(context, ActivitySelectMileage.class);
-                    else if(position == 1)// Repair
-                        MyFunction.getInstance().openActivity(context, ActivitySelectIssue.class);
-                    else //Maintenance and Repair
-                        MyFunction.getInstance().openActivity(context, ActivitySelectMileage.class);
+                    try{
+                        if (position == 0) {// Maintenance
+                            MyFunction.getInstance().openActivity(context, ActivitySelectMileage.class);
+                            ModelBooking.getInstance().setArrRepairID(new ArrayList<String>());
+                        }
+                        else if(position == 1) {// Repair
+                            MyFunction.getInstance().openActivity(context, ActivitySelectIssue.class);
+                            ModelBooking.getInstance().setMileageID("");
+                        }
+                        else { //Maintenance and Repair
+                            MyFunction.getInstance().openActivity(context, ActivitySelectIssue.class);
+                        }
+                        ModelBooking.getInstance().setServiceTypeID(object.getString(Global.arData[7]));
+                    }catch (Exception e){
+                        Log.e("Err",e.getMessage()+"");
+                    }
                 }
             });
         } catch (JSONException e) {

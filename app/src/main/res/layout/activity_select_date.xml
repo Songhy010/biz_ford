@@ -9,13 +9,100 @@
     <include
         android:id="@+id/include9"
         layout="@layout/top_menu_activity" />
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:visibility="visible"
-        android:id="@+id/calendarView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardCalendar"
         app:layout_constraintTop_toBottomOf="@+id/include9"
-        app:mcv_selectionColor="@color/colorPrimary" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:visibility="visible"
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mcv_dateTextAppearance="@style/TextAppearance.MyCustomDay"
+            app:mcv_selectionColor="@color/white"
+            app:mcv_showOtherDates="decorated_disabled"/>
+    </androidx.cardview.widget.CardView>
 
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/iv_height_10"
+        android:layout_marginTop="@dimen/iv_height_25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardCalendar">
+
+        <ImageView
+            android:layout_width="@dimen/iv_height_50"
+            android:layout_height="@dimen/iv_height_35"
+            android:background="@color/colorPrimary" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:text="@string/free"
+        android:id="@+id/tvAvailable"
+        android:layout_marginLeft="@dimen/iv_height_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView3"
+        app:layout_constraintStart_toEndOf="@+id/cardView3"
+        app:layout_constraintTop_toTopOf="@+id/cardView3" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/iv_height_10"
+        android:layout_marginTop="@dimen/iv_height_25"
+        app:layout_constraintStart_toEndOf="@+id/tvAvailable"
+        app:layout_constraintTop_toBottomOf="@+id/cardCalendar">
+
+        <ImageView
+            android:layout_width="@dimen/iv_height_50"
+            android:layout_height="@dimen/iv_height_35"
+            android:background="@color/grey" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:text="@string/full"
+        android:id="@+id/tvFull"
+        android:layout_marginLeft="@dimen/iv_height_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView4"
+        app:layout_constraintStart_toEndOf="@+id/cardView4"
+        app:layout_constraintTop_toTopOf="@+id/cardView4" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/iv_height_10"
+        android:layout_marginTop="@dimen/iv_height_25"
+        app:layout_constraintStart_toEndOf="@+id/tvFull"
+        app:layout_constraintTop_toBottomOf="@+id/cardCalendar">
+
+        <ImageView
+            android:layout_width="@dimen/iv_height_50"
+            android:layout_height="@dimen/iv_height_35"
+            android:background="@color/red_400" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:text="@string/holiday"
+        android:layout_marginLeft="@dimen/iv_height_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintBottom_toBottomOf="@+id/cardView5"
+        app:layout_constraintStart_toEndOf="@+id/cardView5"
+        app:layout_constraintTop_toTopOf="@+id/cardView5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

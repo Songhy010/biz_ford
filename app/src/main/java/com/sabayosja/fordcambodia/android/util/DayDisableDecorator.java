@@ -19,11 +19,7 @@ public class DayDisableDecorator implements DayViewDecorator {
     private int index = 0;
     private ArrayList<String> status;
 
-    public DayDisableDecorator(Context context , Collection<CalendarDay> dates) {
-        this.dates = new HashSet<>(dates);
-        this.context = context;
-        this.status = new ArrayList<>();
-    }
+
 
     public DayDisableDecorator(Context context , Collection<CalendarDay> dates,final ArrayList<String> status) {
         this.dates = new HashSet<>(dates);
@@ -39,7 +35,6 @@ public class DayDisableDecorator implements DayViewDecorator {
     @Override
     public void decorate(DayViewFacade view) {
         view.setDaysDisabled(true);
-        if(status.size()>0) {
             switch (status.get(index)) {
                 case "1":
                     view.addSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.red_400)));
@@ -48,9 +43,6 @@ public class DayDisableDecorator implements DayViewDecorator {
                     view.addSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.grey)));
                     break;
             }
-        }else{
-            view.addSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.red_400)));
-        }
         index++;
     }
 }

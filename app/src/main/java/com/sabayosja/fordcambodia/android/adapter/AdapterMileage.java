@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectMileage;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectStation;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -57,6 +58,8 @@ public class AdapterMileage extends RecyclerView.Adapter<AdapterMileage.ItemHold
                             ((ActivitySelectMileage)context).showOtherDialog(object.getString(Global.arData[73]));
                         else
                             MyFunction.getInstance().openActivity(context, ActivitySelectStation.class);
+
+                        ModelBooking.getInstance().setMileageID(object.getString(Global.arData[76]));
 
                     }catch (Exception e){
                         Log.e("Err",e.getMessage()+"");

@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 
@@ -26,6 +27,7 @@ public class AdapterIssue extends RecyclerView.Adapter<AdapterIssue.ItemHolder> 
     private JSONArray array;
     private Context context;
     private ArrayList<String> arrIdCheck = new ArrayList<>();
+    final ArrayList<String> arrRepairID = new ArrayList<>();
 
     public AdapterIssue(JSONArray array, Context context) {
         this.array = array;
@@ -40,7 +42,7 @@ public class AdapterIssue extends RecyclerView.Adapter<AdapterIssue.ItemHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ItemHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ItemHolder holder, final int position) {
         try{
             final JSONObject object = array.getJSONObject(position);
             holder.tvIssues.setText(object.getString(Global.arData[35]));
@@ -51,15 +53,18 @@ public class AdapterIssue extends RecyclerView.Adapter<AdapterIssue.ItemHolder> 
                         boolean setCheck = true;
                         for (int i = 0 ; i<arrIdCheck.size();i++) {
                             if (object.getString(Global.arData[7]).equals(arrIdCheck.get(i))) {
+                                arrRepairID.remove(position);
                                 arrIdCheck.remove(i);
                                 holder.ivChecked.setVisibility(View.GONE);
                                 setCheck = false;
                             }
                         }
                         if(setCheck){
+                            arrRepairID.add(object.getString(Global.arData[7]));
                             arrIdCheck.add(object.getString(Global.arData[7]));
                             holder.ivChecked.setVisibility(View.VISIBLE);
                         }
+                        ModelBooking.getInstance().setArrRepairID(arrRepairID);
                     }catch (Exception e){
                         Log.e("Err",e.getMessage()+"");
                     }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
@@ -41,9 +42,6 @@ import java.util.List;
 
 public class ActivitySelectDate extends ActivityController {
 
-    //Global Variables
-    private Calendar calendar = null;
-    private CalendarView calendarView;
     MaterialCalendarView materialCalendarView;
 
     @Override
@@ -70,7 +68,7 @@ public class ActivitySelectDate extends ActivityController {
         calendarNextMonth.add(Calendar.MONTH, 1);
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setMinimumDate(CalendarDay.from(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1))
+                .setMinimumDate(CalendarDay.from(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)))
                 .setMaximumDate(CalendarDay.from(calendarNextMonth.get(Calendar.YEAR), calendarNextMonth.get(Calendar.MONTH), calendarNextMonth.getActualMaximum(Calendar.DAY_OF_MONTH)))
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
@@ -84,16 +82,22 @@ public class ActivitySelectDate extends ActivityController {
         int month = cal.get(Calendar.MONTH);
         do {
             int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
-            if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
-                disable.add(cal.getTime());
+            if(ModelBooking.getInstance().getArrRepairID().size()>0) {
+                if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
+                    disable.add(cal.getTime());
+            }else{
+                if (dayOfWeek == Calendar.SUNDAY)
+                    disable.add(cal.getTime());
+            }
             cal.add(Calendar.DAY_OF_MONTH, 1);
         } while (cal.get(Calendar.MONTH) == month);
         final ArrayList<CalendarDay> enabledDates = new ArrayList<>();
-
+        final ArrayList<String> status = new ArrayList<>();
         for (Date date : disable) {
+            status.add("1");//holiday
             enabledDates.add(new CalendarDay(date));
         }
-        materialCalendarView.addDecorator(new DayDisableDecorator(ActivitySelectDate.this,enabledDates));
+        materialCalendarView.addDecorator(new DayDisableDecorator(ActivitySelectDate.this,enabledDates,status));
     }
 
     private void initToolbar() {
@@ -117,13 +121,15 @@ public class ActivitySelectDate extends ActivityController {
     private void blockDate(final JSONArray array) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
+            final ArrayList<String> status = new ArrayList<>();
             final ArrayList<CalendarDay> enabledDates = new ArrayList<>();
             for (int i = 0; i < array.length(); i++) {
                 final JSONObject object = array.getJSONObject(i);
                 final Date date = format.parse(object.getString(Global.arData[68]));
+                status.add(object.getString(Global.arData[79]));
                 enabledDates.add(new CalendarDay(date));
             }
-            materialCalendarView.addDecorator(new DayDisableDecorator(ActivitySelectDate.this,enabledDates));
+            materialCalendarView.addDecorator(new DayDisableDecorator(ActivitySelectDate.this,enabledDates,status));
         } catch (Exception e) {
             Log.e("Err", e.getMessage() + "");
         }
@@ -176,4 +182,6 @@ public class ActivitySelectDate extends ActivityController {
             }
         });
     }
+
+
 }
