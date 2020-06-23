@@ -4,15 +4,47 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.sabayosja.fordcambodia.android.R;
+import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
+import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
+import com.sabayosja.fordcambodia.android.util.DayDisableDecorator;
+import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
+import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
 
-public class ActivitySelectDate extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
+public class ActivitySelectDate extends ActivityController {
+
+    //Global Variables
+    private Calendar calendar = null;
+    private CalendarView calendarView;
+    MaterialCalendarView materialCalendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +54,46 @@ public class ActivitySelectDate extends AppCompatActivity {
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         initView();
+        initHoliday();
     }
 
     private void initView() {
         initToolbar();
+        initCalendar();
+    }
+
+    private void initCalendar() {
+        materialCalendarView = findViewById(R.id.calendarView);
+        MyFont.getInstance().setFont(this, materialCalendarView.getRootView(), 1);
+        final Calendar calendar = Calendar.getInstance();
+        final Calendar calendarNextMonth = Calendar.getInstance();
+        calendarNextMonth.add(Calendar.MONTH, 1);
+        materialCalendarView.state().edit()
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .setMinimumDate(CalendarDay.from(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1))
+                .setMaximumDate(CalendarDay.from(calendarNextMonth.get(Calendar.YEAR), calendarNextMonth.get(Calendar.MONTH), calendarNextMonth.getActualMaximum(Calendar.DAY_OF_MONTH)))
+                .setCalendarDisplayMode(CalendarMode.MONTHS)
+                .commit();
+        initWeekend(calendar);
+        initWeekend(calendarNextMonth);
+    }
+
+    private void initWeekend(Calendar cal) {
+        List<Date> disable = new ArrayList<>();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        int month = cal.get(Calendar.MONTH);
+        do {
+            int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+            if (dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY)
+                disable.add(cal.getTime());
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+        } while (cal.get(Calendar.MONTH) == month);
+        final ArrayList<CalendarDay> enabledDates = new ArrayList<>();
+
+        for (Date date : disable) {
+            enabledDates.add(new CalendarDay(date));
+        }
+        materialCalendarView.addDecorator(new DayDisableDecorator(ActivitySelectDate.this,enabledDates));
     }
 
     private void initToolbar() {
@@ -44,5 +112,68 @@ public class ActivitySelectDate extends AppCompatActivity {
         iv_ford.setVisibility(View.GONE);
         iv_search.setVisibility(View.GONE);
         tv_title.setText(getString(R.string.select_date));
+    }
+
+    private void blockDate(final JSONArray array) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            final ArrayList<CalendarDay> enabledDates = new ArrayList<>();
+            for (int i = 0; i < array.length(); i++) {
+                final JSONObject object = array.getJSONObject(i);
+                final Date date = format.parse(object.getString(Global.arData[68]));
+                enabledDates.add(new CalendarDay(date));
+            }
+            materialCalendarView.addDecorator(new DayDisableDecorator(ActivitySelectDate.this,enabledDates));
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+    }
+
+    private void initHoliday() {
+        final String lang = MyFunction.getInstance().getText(ActivitySelectDate.this, Global.arData[6]);
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
+        final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[6], lang);
+        param.put(Global.arData[7], String.format("%s_%s", Global.arData[78], ModelBooking.getInstance().getStationID()));
+        loadDataServer(param, url, new LoadDataListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    Log.e("response", response);
+                    if (!response.isEmpty()) {
+                        if (MyFunction.getInstance().isValidJSON(response)) {
+                            blockDate(new JSONArray(response));
+                        } else {
+                            MyFunction.getInstance().alertMessage(ActivitySelectDate.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+            }
+        });
+    }
+
+    private void loadDataServer(final HashMap<String, String> param, final String url, final LoadDataListener loadDataListener) {
+        showDialog();
+        MyFunction.getInstance().requestString(this, Request.Method.POST, url, param, new VolleyCallback() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    Log.e("Response", response);
+                    loadDataListener.onSuccess(response);
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+                hideDialog();
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                Log.e("Err", e.getMessage() + "");
+                MyFunction.getInstance().alertMessage(ActivitySelectDate.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                hideDialog();
+            }
+        });
     }
 }

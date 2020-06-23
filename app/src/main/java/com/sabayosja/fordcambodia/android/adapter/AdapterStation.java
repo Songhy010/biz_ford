@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectDate;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -45,7 +46,12 @@ public class AdapterStation extends RecyclerView.Adapter<AdapterStation.ItemHold
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MyFunction.getInstance().openActivity(context, ActivitySelectDate.class);
+                    try{
+                        ModelBooking.getInstance().setStationID(object.getString(Global.arData[7]));
+                        MyFunction.getInstance().openActivity(context, ActivitySelectDate.class);
+                    }catch (Exception e){
+                        Log.e("Err",e.getMessage()+"");
+                    }
                 }
             });
         }catch (Exception e){

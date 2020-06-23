@@ -13,6 +13,15 @@ public class ModelBooking {
     }
 
     private String carID;
+    private String stationID;
+
+    public String getStationID() {
+        return stationID;
+    }
+
+    public void setStationID(String stationID) {
+        this.stationID = stationID;
+    }
 
     public String getCarID() {
         return carID;

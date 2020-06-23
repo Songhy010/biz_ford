@@ -82,6 +82,8 @@ public class ActivitySelectIssue extends ActivityController {
                     Log.e("response",response);
                     if(MyFunction.getInstance().isValidJSON(response)){
                         initListIssue(new JSONArray(response));
+                    }else{
+                        MyFunction.getInstance().alertMessage(ActivitySelectIssue.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                     }
                 }catch (Exception e){
                     Log.e("Err",e.getMessage()+"");
@@ -112,5 +114,4 @@ public class ActivitySelectIssue extends ActivityController {
             }
         });
     }
-
 }

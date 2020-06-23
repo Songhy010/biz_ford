@@ -9,10 +9,13 @@
     <include
         android:id="@+id/include9"
         layout="@layout/top_menu_activity" />
-
-    <CalendarView
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:visibility="visible"
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/include9" />
+        app:layout_constraintTop_toBottomOf="@+id/include9"
+        app:mcv_selectionColor="@color/colorPrimary" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

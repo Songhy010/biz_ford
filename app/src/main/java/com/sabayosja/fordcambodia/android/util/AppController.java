@@ -113,6 +113,7 @@ public class AppController extends Application {
         Global.arData[76] = "mileage";
 
         Global.arData[77] = "branches";
+        Global.arData[78] = "schedule/schedule_holidays";
 
 
 
