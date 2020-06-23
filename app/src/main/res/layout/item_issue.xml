@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeIssue"
+    android:padding="@dimen/iv_height_5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/ivCheck"
+        android:src="@drawable/round_edittext"
+        android:layout_width="@dimen/iv_height_35"
+        android:layout_height="@dimen/iv_height_35"/>
+    <ImageView
+        android:visibility="gone"
+        android:tint="@color/colorPrimary"
+        android:id="@+id/ivChecked"
+        android:src="@drawable/ic_check"
+        android:layout_width="@dimen/iv_height_35"
+        android:layout_height="@dimen/iv_height_35"/>
+    <TextView
+        android:id="@+id/tvIssues"
+        android:layout_marginLeft="@dimen/iv_height_25"
+        android:layout_toEndOf="@+id/ivCheck"
+        android:layout_centerVertical="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

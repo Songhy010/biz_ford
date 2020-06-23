@@ -94,6 +94,7 @@ public class ActivitySelectMileage extends ActivityController {
                         } catch (Exception e) {
                             Log.e("Err", e.getMessage() + "");
                         }
+                        dialog.dismiss();
                     }
                 });
 

@@ -46,7 +46,7 @@ public class AdapterMileage extends RecyclerView.Adapter<AdapterMileage.ItemHold
             if (object.getString(Global.arData[76]).equals("0")){// Other mileage
                 holder.tvMileage.setText(String.format("%s",object.getString(Global.arData[74])));
             }else {
-                holder.tvMileage.setText(String.format("%skm - %skm",object.getString(Global.arData[73]),object.getString(Global.arData[74])));
+                holder.tvMileage.setText(String.format("%skm - %skm(%sh)",object.getString(Global.arData[73]),object.getString(Global.arData[74]),object.getString(Global.arData[75])));
             }
 
             holder.linearMileage.setOnClickListener(new View.OnClickListener() {

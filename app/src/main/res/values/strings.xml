@@ -97,5 +97,8 @@
     <string name="other">Other</string>
     <string name="select_issue">Select Issue</string>
     <string name="text_here">Text Here</string>
+    <string name="select_service_station">Please select service station</string>
+    <string name="service_station">Service Station</string>
+    <string name="select_date">Select Date</string>
 
 </resources>
