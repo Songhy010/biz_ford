@@ -33,6 +33,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
+        android:singleLine="true"
+        android:inputType="number"
         android:layout_marginLeft="@dimen/iv_height_25"
         android:layout_marginRight="@dimen/iv_height_25"
         android:id="@+id/edtCode"

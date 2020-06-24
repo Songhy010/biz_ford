@@ -1,5 +1,6 @@
 package com.sabayosja.fordcambodia.android.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -18,6 +20,7 @@ import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
@@ -31,7 +34,9 @@ import com.sabayosja.fordcambodia.android.util.Tools;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -43,7 +48,6 @@ import java.util.List;
 public class ActivitySelectDate extends ActivityController {
 
     MaterialCalendarView materialCalendarView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +62,24 @@ public class ActivitySelectDate extends ActivityController {
     private void initView() {
         initToolbar();
         initCalendar();
+        initCalendarSelected();
+    }
+
+    private void initCalendarSelected() {
+        materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                try {
+                    SimpleDateFormat spf=new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aaa");
+                    Date newDate=spf.parse(date.getDate().toString());
+                    spf= new SimpleDateFormat("yyyy-MM-dd");
+                    String date1 = spf.format(newDate);
+                    Toast.makeText(ActivitySelectDate.this, date1, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void initCalendar() {

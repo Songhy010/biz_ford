@@ -10,6 +10,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:paddingRight="@dimen/iv_height_3"
         android:paddingLeft="@dimen/iv_height_3"
+        android:paddingBottom="@dimen/iv_height_15"
         android:id="@+id/recycleService"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

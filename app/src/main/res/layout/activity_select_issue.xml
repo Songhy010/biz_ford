@@ -29,6 +29,9 @@
                 android:textSize="@dimen/text_size_normal" />
 
             <EditText
+                android:singleLine="true"
+                android:id="@+id/edtMile"
+                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/iv_height_10"
@@ -70,6 +73,8 @@
                     android:textSize="@dimen/text_size_small" />
 
                 <EditText
+                    android:id="@+id/edtOther"
+                    android:singleLine="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

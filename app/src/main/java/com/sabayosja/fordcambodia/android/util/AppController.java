@@ -32,7 +32,8 @@ public class AppController extends Application {
        /* final String global = MyFunction.getInstance().getDecrypted(this, MyFunction.getInstance().readFileAsset(this, getFilename()));
         Global.arData = global.split(";");*/
         Global.arData = new String[100];
-        Global.arData[0] = "http://rmagroup.phumtest.com/";
+        //Global.arData[0] = "http://rmagroup.phumtest.com/";
+        Global.arData[0] = "https://ford.khimsokhengapp.com/";
         Global.arData[1] = "mobile/";
         Global.arData[2] = "Authorization";
         Global.arData[3] = "Bearer";
@@ -115,9 +116,6 @@ public class AppController extends Application {
         Global.arData[77] = "branches";
         Global.arData[78] = "schedule/schedule_holidays";
         Global.arData[79] = "status";
-
-
-
 
 
 /*

@@ -1,6 +1,8 @@
 package com.sabayosja.fordcambodia.android.model;
 
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 public class ModelBooking {
@@ -17,10 +19,37 @@ public class ModelBooking {
     private String stationID;
     private String MileageID;
     private String ServiceTypeID;
-    private ArrayList<String> arrRepairID;
+    private ArrayList<String> arrRepairID = new ArrayList<>();
+    private ArrayList<String> arrRepairName = new ArrayList<>();
+    private JSONArray arrRepair = new JSONArray();
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public JSONArray getArrRepair() {
+        return arrRepair;
+    }
+
+    public void setArrRepair(JSONArray arrRepair) {
+        this.arrRepair = arrRepair;
+    }
 
     public ArrayList<String> getArrRepairID() {
         return arrRepairID;
+    }
+
+    public ArrayList<String> getArrRepairName() {
+        return arrRepairName;
+    }
+
+    public void setArrRepairName(ArrayList<String> arrRepairName) {
+        this.arrRepairName = arrRepairName;
     }
 
     public void setArrRepairID(ArrayList<String> arrRepairID) {

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,12 +18,14 @@ import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.adapter.AdapterIssue;
 import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -66,7 +69,43 @@ public class ActivitySelectIssue extends ActivityController {
         findViewById(R.id.cardView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyFunction.getInstance().openActivity(ActivitySelectIssue.this,ActivitySelectDate.class);
+                try{
+                    final EditText edtMile = findViewById(R.id.edtMile);
+                    final EditText edtOther = findViewById(R.id.edtOther);
+                    if(!edtMile.getText().toString().isEmpty()){
+                        if(ModelBooking.getInstance().getArrRepairID().size()>0 || !edtOther.getText().toString().isEmpty()) {
+                            if(!edtOther.getText().toString().isEmpty()){
+                                final JSONArray arrRepair = new JSONArray();
+                                for (int i = 0 ; i<ModelBooking.getInstance().getArrRepairID().size();i++){
+                                    final JSONObject object = new JSONObject();
+                                    object.put(Global.arData[7],ModelBooking.getInstance().getArrRepairID().get(i));
+                                    object.put(Global.arData[18],ModelBooking.getInstance().getArrRepairName().get(i));
+                                    arrRepair.put(object);
+                                }
+                                final JSONObject object = new JSONObject();
+                                object.put(Global.arData[7],"0");
+                                object.put(Global.arData[18],edtOther.getText().toString());
+                                arrRepair.put(object);
+                                ModelBooking.getInstance().setArrRepair(arrRepair);
+                            }else {
+                                final JSONArray arrRepair = new JSONArray();
+                                for (int i = 0 ; i<ModelBooking.getInstance().getArrRepairID().size();i++){
+                                    final JSONObject object = new JSONObject();
+                                    object.put(Global.arData[7],ModelBooking.getInstance().getArrRepairID().get(i));
+                                    object.put(Global.arData[18],ModelBooking.getInstance().getArrRepairName().get(i));
+                                    arrRepair.put(object);
+                                }
+                                ModelBooking.getInstance().setArrRepair(arrRepair);
+                            }
+                            MyFunction.getInstance().openActivity(ActivitySelectIssue.this, ActivitySelectDate.class);
+                        }else
+                            MyFunction.getInstance().alertMessage(ActivitySelectIssue.this, getString(R.string.information), getString(R.string.ok), getString(R.string.please_select_issue), 1);
+                    }else
+                        MyFunction.getInstance().alertMessage(ActivitySelectIssue.this, getString(R.string.information), getString(R.string.ok), getString(R.string.require_input), 1);
+                }catch (Exception e){
+                    Log.e("Err",e.getMessage()+"");
+                }
+
             }
         });
     }

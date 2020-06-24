@@ -101,7 +101,10 @@
     <string name="service_station">Service Station</string>
     <string name="select_date">Select Date</string>
 
+    <string name="select_time">Select Time</string>
     <string name="full">Full</string>
     <string name="free">Available</string>
     <string name="holiday">Holiday</string>
+
+    <string name="please_select_issue">Please Select Issue</string>
 </resources>
