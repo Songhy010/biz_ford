@@ -97,7 +97,7 @@ public class ActivitySelectIssue extends ActivityController {
                                 }
                                 ModelBooking.getInstance().setArrRepair(arrRepair);
                             }
-                            MyFunction.getInstance().openActivity(ActivitySelectIssue.this, ActivitySelectDate.class);
+                            MyFunction.getInstance().openActivity(ActivitySelectIssue.this, ActivitySelectStation.class);
                         }else
                             MyFunction.getInstance().alertMessage(ActivitySelectIssue.this, getString(R.string.information), getString(R.string.ok), getString(R.string.please_select_issue), 1);
                     }else

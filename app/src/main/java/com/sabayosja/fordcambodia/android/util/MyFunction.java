@@ -92,6 +92,7 @@ import java.io.Writer;
 import java.security.MessageDigest;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -1041,6 +1042,18 @@ public class MyFunction {
         return 0;
     }
 
+    public int getHeight_170(final Context ct) {
+        try {
+            int org_width = 720;
+            int org_height = 170;
+            int req_width = getScreenWidth(0, ct);
+            return getHeightNew(org_height, req_width, org_width);
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+        return 0;
+    }
+
     public int getHeight_180(final Context ct) {
         try {
             int org_width = 720;
@@ -1256,6 +1269,13 @@ public class MyFunction {
         } else {
             textView.setText(Html.fromHtml(strHTML));
         }
+    }
+
+    public String formatDate (String date, String initDateFormat, String endDateFormat) throws ParseException {
+        Date initDate = new SimpleDateFormat(initDateFormat).parse(date);
+        SimpleDateFormat formatter = new SimpleDateFormat(endDateFormat);
+        String parsedDate = formatter.format(initDate);
+        return parsedDate;
     }
 
     public void okhttpSendRequest(final Context context, String url, MultipartBody.Builder multipartBody, final OkhttpListenner okhttpListenner) throws Exception {

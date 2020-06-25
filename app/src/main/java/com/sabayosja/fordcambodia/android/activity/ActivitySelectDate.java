@@ -1,9 +1,11 @@
 package com.sabayosja.fordcambodia.android.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -34,9 +36,9 @@ import com.sabayosja.fordcambodia.android.util.Tools;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -70,17 +72,16 @@ public class ActivitySelectDate extends ActivityController {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 try {
-                    SimpleDateFormat spf=new SimpleDateFormat("MMM dd, yyyy hh:mm:ss aaa");
-                    Date newDate=spf.parse(date.getDate().toString());
-                    spf= new SimpleDateFormat("yyyy-MM-dd");
-                    String date1 = spf.format(newDate);
-                    Toast.makeText(ActivitySelectDate.this, date1, Toast.LENGTH_SHORT).show();
+                    String strDate = DateFormat.getDateInstance(DateFormat.SHORT).format(date.getDate());
+                    ModelBooking.getInstance().setDate(MyFunction.getInstance().formatDate(strDate,"dd/MM/yyyy","yyyy-MM-dd"));
+                    MyFunction.getInstance().openActivity(ActivitySelectDate.this,ActivitySelectTime.class);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
     }
+
 
     private void initCalendar() {
         materialCalendarView = findViewById(R.id.calendarView);

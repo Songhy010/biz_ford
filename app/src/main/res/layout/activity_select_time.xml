@@ -7,13 +7,49 @@
     tools:context=".activity.ActivitySelectTime">
 
     <include
-        android:id="@+id/include10"
+        android:id="@+id/include"
         layout="@layout/top_menu_activity" />
 
+    <TextView
+        android:layout_marginLeft="@dimen/iv_height_10"
+        android:layout_marginTop="@dimen/iv_height_15"
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/morning"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/iv_height_15"
+        android:paddingLeft="@dimen/iv_height_5"
+        android:paddingRight="@dimen/iv_height_5"
+        android:id="@+id/recycleMorning"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include10" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <TextView
+        android:layout_marginLeft="@dimen/iv_height_10"
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/iv_height_15"
+        android:text="@string/afternoon"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycleMorning" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/iv_height_15"
+        android:paddingLeft="@dimen/iv_height_5"
+        android:paddingRight="@dimen/iv_height_5"
+        android:id="@+id/recycleAfternoon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

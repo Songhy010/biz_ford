@@ -2,6 +2,8 @@ package com.sabayosja.fordcambodia.android.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.sabayosja.fordcambodia.android.R;
+import com.sabayosja.fordcambodia.android.adapter.AdapterTime;
 import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
 import com.sabayosja.fordcambodia.android.model.ModelBooking;
@@ -38,6 +41,7 @@ public class ActivitySelectTime extends ActivityController {
 
     private void initView() {
         initToolbar();
+        initTime();
     }
 
     private void initToolbar() {
@@ -58,12 +62,19 @@ public class ActivitySelectTime extends ActivityController {
         tv_title.setText(getString(R.string.select_time));
     }
 
+    private void initListTime(){
+        final GridLayoutManager manager = new GridLayoutManager(this,4);
+        final RecyclerView recyclerMorning = findViewById(R.id.recycleMorning);
+        final AdapterTime adapterTime = new AdapterTime(this,null);
+        recyclerMorning.setLayoutManager(manager);
+        recyclerMorning.setAdapter(adapterTime);
+    }
+
     private void initTime() {
-        final String lang = MyFunction.getInstance().getText(ActivitySelectTime.this, Global.arData[6]);
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
         final HashMap<String, String> param = new HashMap<>();
         param.put(Global.arData[67], ModelBooking.getInstance().getStationID());
-        param.put(Global.arData[68], String.format("%s_%s", Global.arData[78], ModelBooking.getInstance().getStationID()));
+        param.put(Global.arData[68], ModelBooking.getInstance().getDate());
         loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
@@ -71,7 +82,7 @@ public class ActivitySelectTime extends ActivityController {
                     Log.e("response", response);
                     if (!response.isEmpty()) {
                         if (MyFunction.getInstance().isValidJSON(response)) {
-
+                            initListTime();
                         } else {
                             MyFunction.getInstance().alertMessage(ActivitySelectTime.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                         }

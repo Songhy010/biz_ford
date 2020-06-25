@@ -107,4 +107,7 @@
     <string name="holiday">Holiday</string>
 
     <string name="please_select_issue">Please Select Issue</string>
+    <string name="morning">Morning</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="eight">12:00</string>
 </resources>
