@@ -62,12 +62,11 @@ public class ActivitySelectTime extends ActivityController {
         tv_title.setText(getString(R.string.select_time));
     }
 
-    private void initListTime(){
+    private void initListTime(final RecyclerView recycler){
         final GridLayoutManager manager = new GridLayoutManager(this,4);
-        final RecyclerView recyclerMorning = findViewById(R.id.recycleMorning);
         final AdapterTime adapterTime = new AdapterTime(this,null);
-        recyclerMorning.setLayoutManager(manager);
-        recyclerMorning.setAdapter(adapterTime);
+        recycler.setLayoutManager(manager);
+        recycler.setAdapter(adapterTime);
     }
 
     private void initTime() {
@@ -82,7 +81,10 @@ public class ActivitySelectTime extends ActivityController {
                     Log.e("response", response);
                     if (!response.isEmpty()) {
                         if (MyFunction.getInstance().isValidJSON(response)) {
-                            initListTime();
+                            final RecyclerView recyclerMorning = findViewById(R.id.recycleMorning);
+                            initListTime(recyclerMorning);
+                            final RecyclerView recyclerAfternoon = findViewById(R.id.recycleAfternoon);
+                            initListTime(recyclerAfternoon);
                         } else {
                             MyFunction.getInstance().alertMessage(ActivitySelectTime.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                         }

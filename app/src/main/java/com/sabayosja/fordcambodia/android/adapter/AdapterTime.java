@@ -38,7 +38,7 @@ public class AdapterTime extends RecyclerView.Adapter<AdapterTime.ItemHolder> {
 
     @Override
     public int getItemCount() {
-        return 22;
+        return 13;
     }
 
     static class ItemHolder extends RecyclerView.ViewHolder{
