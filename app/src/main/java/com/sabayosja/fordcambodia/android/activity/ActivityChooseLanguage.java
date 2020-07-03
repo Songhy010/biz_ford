@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.sabayosja.fordcambodia.android.R;
+import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
 
@@ -19,6 +20,7 @@ public class ActivityChooseLanguage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_language);
         MyFont.getInstance().setFont(ActivityChooseLanguage.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        Global.activityChooseLanguage = this;
         initView();
     }
 

@@ -48,6 +48,7 @@ public class AdapterStation extends RecyclerView.Adapter<AdapterStation.ItemHold
                 public void onClick(View view) {
                     try{
                         ModelBooking.getInstance().setStationID(object.getString(Global.arData[7]));
+                        ModelBooking.getInstance().setStation(object.getString(Global.arData[35]));
                         MyFunction.getInstance().openActivity(context, ActivitySelectDate.class);
                     }catch (Exception e){
                         Log.e("Err",e.getMessage()+"");

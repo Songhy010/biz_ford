@@ -29,6 +29,7 @@ public class ActivityMain extends ActivityController {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Tools.setSystemBarColor(this, R.color.colorPrimary);
+        Global.activityMain = this;
         initView();
     }
 

@@ -57,13 +57,14 @@ public class ActivitySelectDate extends ActivityController {
         Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        Global.activitySelectDate = this;
         initView();
-        initHoliday();
     }
 
     private void initView() {
         initToolbar();
         initCalendar();
+        initHoliday();
         initCalendarSelected();
     }
 

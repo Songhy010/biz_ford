@@ -5,6 +5,11 @@ import com.sabayosja.fordcambodia.android.activity.ActivityInstruction;
 import com.sabayosja.fordcambodia.android.activity.ActivityLogin;
 import com.sabayosja.fordcambodia.android.activity.ActivityMain;
 import com.sabayosja.fordcambodia.android.activity.ActivityOtp;
+import com.sabayosja.fordcambodia.android.activity.ActivitySelectDate;
+import com.sabayosja.fordcambodia.android.activity.ActivitySelectIssue;
+import com.sabayosja.fordcambodia.android.activity.ActivitySelectMileage;
+import com.sabayosja.fordcambodia.android.activity.ActivitySelectStation;
+import com.sabayosja.fordcambodia.android.activity.ActivitySelectTime;
 
 public class Global {
     public static String[] arData;
@@ -23,11 +28,22 @@ public class Global {
     public static final String EN = "en";
     public static final String KM = "km";
     public static final String HOME = "home_data";
-
+    public static final String MORNING = "morning.json";
+    public static final String AFTERNOON = "afternoon.json";
+    public static final String IS_EDIT = "is_edit";
     /* Activity */
     public static ActivityMain activityMain;
     public static ActivityChooseLanguage activityChooseLanguage;
     public static ActivityInstruction activityInstruction;
     public static ActivityOtp activityOtp;
     public static ActivityLogin activityLogin;
+
+    public static ActivitySelectIssue activitySelectIssue;
+    public static ActivitySelectMileage activitySelectMileage;
+    public static ActivitySelectStation activitySelectStation;
+    public static ActivitySelectDate activitySelectDate;
+    public static ActivitySelectTime activitySelectTime ;
+
+    /*code*/
+    public static int ActivityViewBooking = 300;
 }

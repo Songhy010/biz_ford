@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text=""
+        android:text="@string/skip"
         android:textSize="@dimen/text_size_medium" />
 
     <TextView

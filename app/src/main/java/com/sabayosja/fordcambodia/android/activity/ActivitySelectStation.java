@@ -35,6 +35,7 @@ public class ActivitySelectStation extends ActivityController {
         Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        Global.activitySelectStation = this;
         initView();
     }
 

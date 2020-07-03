@@ -38,6 +38,7 @@ public class ActivitySelectIssue extends ActivityController {
         Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        Global.activitySelectIssue = this;
         initView();
     }
 
@@ -45,6 +46,23 @@ public class ActivitySelectIssue extends ActivityController {
         initToolbar();
         initIssue();
         initNext();
+        initIntentData();
+    }
+
+    private void initIntentData() {
+        try {
+            final HashMap<String, String> map = MyFunction.getInstance().getIntentHashMap(getIntent());
+            Log.e("ActivitySelectIssue", "Open From ViewBooking");
+            final String isEdit = map.get(Global.IS_EDIT);
+            if (isEdit.equals("1")) {
+                final TextView tvNext = findViewById(R.id.tvNext);
+                tvNext.setText(getString(R.string.ok));
+                final EditText edtMile = findViewById(R.id.edtMile);
+                edtMile.setText(ModelBooking.getInstance().getMileage());
+            }
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
     }
 
     private void initToolbar() {
@@ -69,73 +87,80 @@ public class ActivitySelectIssue extends ActivityController {
         findViewById(R.id.cardView).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
+                try {
                     final EditText edtMile = findViewById(R.id.edtMile);
                     final EditText edtOther = findViewById(R.id.edtOther);
-                    if(!edtMile.getText().toString().isEmpty()){
-                        if(ModelBooking.getInstance().getArrRepairID().size()>0 || !edtOther.getText().toString().isEmpty()) {
-                            if(!edtOther.getText().toString().isEmpty()){
+                    final TextView tvNext = findViewById(R.id.tvNext);
+                    if (!edtMile.getText().toString().isEmpty()) {
+                        ModelBooking.getInstance().setMileage(edtMile.getText().toString());
+                        if (ModelBooking.getInstance().getArrRepairID().size() > 0 || !edtOther.getText().toString().isEmpty()) {
+                            if (!edtOther.getText().toString().isEmpty()) {
                                 final JSONArray arrRepair = new JSONArray();
-                                for (int i = 0 ; i<ModelBooking.getInstance().getArrRepairID().size();i++){
+                                for (int i = 0; i < ModelBooking.getInstance().getArrRepairID().size(); i++) {
                                     final JSONObject object = new JSONObject();
-                                    object.put(Global.arData[7],ModelBooking.getInstance().getArrRepairID().get(i));
-                                    object.put(Global.arData[18],ModelBooking.getInstance().getArrRepairName().get(i));
+                                    object.put(Global.arData[7], ModelBooking.getInstance().getArrRepairID().get(i));
+                                    object.put(Global.arData[18], ModelBooking.getInstance().getArrRepairName().get(i));
                                     arrRepair.put(object);
                                 }
                                 final JSONObject object = new JSONObject();
-                                object.put(Global.arData[7],"0");
-                                object.put(Global.arData[18],edtOther.getText().toString());
+                                object.put(Global.arData[7], "0");
+                                object.put(Global.arData[18], edtOther.getText().toString());
                                 arrRepair.put(object);
                                 ModelBooking.getInstance().setArrRepair(arrRepair);
-                            }else {
+                            } else {
                                 final JSONArray arrRepair = new JSONArray();
-                                for (int i = 0 ; i<ModelBooking.getInstance().getArrRepairID().size();i++){
+                                for (int i = 0; i < ModelBooking.getInstance().getArrRepairID().size(); i++) {
                                     final JSONObject object = new JSONObject();
-                                    object.put(Global.arData[7],ModelBooking.getInstance().getArrRepairID().get(i));
-                                    object.put(Global.arData[18],ModelBooking.getInstance().getArrRepairName().get(i));
+                                    object.put(Global.arData[7], ModelBooking.getInstance().getArrRepairID().get(i));
+                                    object.put(Global.arData[18], ModelBooking.getInstance().getArrRepairName().get(i));
                                     arrRepair.put(object);
                                 }
                                 ModelBooking.getInstance().setArrRepair(arrRepair);
                             }
-                            MyFunction.getInstance().openActivity(ActivitySelectIssue.this, ActivitySelectStation.class);
-                        }else
+                            if (tvNext.getText().toString().equals(getString(R.string.next))) {
+                                MyFunction.getInstance().openActivity(ActivitySelectIssue.this, ActivitySelectStation.class);
+                            } else {
+                                setResult(RESULT_OK);
+                                MyFunction.getInstance().finishActivity(ActivitySelectIssue.this);
+                            }
+                        } else
                             MyFunction.getInstance().alertMessage(ActivitySelectIssue.this, getString(R.string.information), getString(R.string.ok), getString(R.string.please_select_issue), 1);
-                    }else
+                    } else
                         MyFunction.getInstance().alertMessage(ActivitySelectIssue.this, getString(R.string.information), getString(R.string.ok), getString(R.string.require_input), 1);
-                }catch (Exception e){
-                    Log.e("Err",e.getMessage()+"");
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
                 }
 
             }
         });
     }
 
-    private void initListIssue(final JSONArray array){
-        final LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
+    private void initListIssue(final JSONArray array) {
+        final LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         final RecyclerView recycler = findViewById(R.id.recycle);
-        final AdapterIssue adapterIssue = new AdapterIssue(array,this);
+        final AdapterIssue adapterIssue = new AdapterIssue(array, this);
         recycler.setLayoutManager(manager);
         recycler.setAdapter(adapterIssue);
     }
 
-    private void initIssue(){
+    private void initIssue() {
         final String lang = MyFunction.getInstance().getText(ActivitySelectIssue.this, Global.arData[6]);
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
         final HashMap<String, String> param = new HashMap<>();
-        param.put(Global.arData[6],lang);
-        param.put(Global.arData[7],Global.arData[60]);
+        param.put(Global.arData[6], lang);
+        param.put(Global.arData[7], Global.arData[60]);
         loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
-                try{
-                    Log.e("response",response);
-                    if(MyFunction.getInstance().isValidJSON(response)){
+                try {
+                    Log.e("response", response);
+                    if (MyFunction.getInstance().isValidJSON(response)) {
                         initListIssue(new JSONArray(response));
-                    }else{
+                    } else {
                         MyFunction.getInstance().alertMessage(ActivitySelectIssue.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                     }
-                }catch (Exception e){
-                    Log.e("Err",e.getMessage()+"");
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
                 }
             }
         });

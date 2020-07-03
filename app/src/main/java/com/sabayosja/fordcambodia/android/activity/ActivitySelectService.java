@@ -19,7 +19,9 @@ import com.sabayosja.fordcambodia.android.util.Tools;
 
 import org.json.JSONArray;
 
-public class ActivitySelectService extends AppCompatActivity {
+import java.security.AccessController;
+
+public class ActivitySelectService extends ActivityController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

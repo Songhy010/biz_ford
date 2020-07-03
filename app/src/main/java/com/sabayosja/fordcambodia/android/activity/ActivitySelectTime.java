@@ -27,6 +27,11 @@ import org.json.JSONArray;
 
 import java.util.HashMap;
 
+import static com.sabayosja.fordcambodia.android.util.Global.activitySelectDate;
+import static com.sabayosja.fordcambodia.android.util.Global.activitySelectIssue;
+import static com.sabayosja.fordcambodia.android.util.Global.activitySelectStation;
+import static com.sabayosja.fordcambodia.android.util.Global.activitySelectTime;
+
 public class ActivitySelectTime extends ActivityController {
 
     @Override
@@ -36,6 +41,7 @@ public class ActivitySelectTime extends ActivityController {
         Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        Global.activitySelectTime = this;
         initView();
     }
 
@@ -62,11 +68,31 @@ public class ActivitySelectTime extends ActivityController {
         tv_title.setText(getString(R.string.select_time));
     }
 
-    private void initListTime(final RecyclerView recycler){
+    private String getPhone() {
+        final String phone = MyFunction.getInstance().getText(this,Global.INFO_FILE);
+        final char isZero = phone.charAt(0);
+        String phoneNumber = phone;
+        if(isZero == '0'){
+            phoneNumber = phone.substring(1,phone.length());
+        }
+        return phoneNumber;
+    }
+
+    private void initListTime(final RecyclerView recycler,final JSONArray array){
         final GridLayoutManager manager = new GridLayoutManager(this,4);
-        final AdapterTime adapterTime = new AdapterTime(this,null);
+        final AdapterTime adapterTime = new AdapterTime(this,array);
         recycler.setLayoutManager(manager);
         recycler.setAdapter(adapterTime);
+    }
+
+    private JSONArray readAssetData(final String fileName){
+        try {
+            final String morning = MyFunction.getInstance().readFileAsset(ActivitySelectTime.this,fileName);
+            return new JSONArray(morning);
+        }catch (Exception e){
+            Log.e("Err",e.getMessage());
+        }
+        return null;
     }
 
     private void initTime() {
@@ -82,9 +108,36 @@ public class ActivitySelectTime extends ActivityController {
                     if (!response.isEmpty()) {
                         if (MyFunction.getInstance().isValidJSON(response)) {
                             final RecyclerView recyclerMorning = findViewById(R.id.recycleMorning);
-                            initListTime(recyclerMorning);
+                            initListTime(recyclerMorning,readAssetData(Global.MORNING));
                             final RecyclerView recyclerAfternoon = findViewById(R.id.recycleAfternoon);
-                            initListTime(recyclerAfternoon);
+                            initListTime(recyclerAfternoon,readAssetData(Global.AFTERNOON));
+                        } else {
+                            MyFunction.getInstance().alertMessage(ActivitySelectTime.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+            }
+        });
+    }
+
+    public void initAddTempBook() {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
+        final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[81], ModelBooking.getInstance().getDate());
+        param.put(Global.arData[82], ModelBooking.getInstance().getTime());
+        param.put(Global.arData[67], ModelBooking.getInstance().getStationID());
+        param.put(Global.arData[79], "1");
+        param.put(Global.arData[51], String.format("855%s", getPhone()));
+        loadDataServer(param, url, new LoadDataListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    Log.e("response", response);
+                    if (!response.isEmpty()) {
+                        if (MyFunction.getInstance().isValidJSON(response)) {
+                            MyFunction.getInstance().openActivity(ActivitySelectTime.this, ActivityViewBooking.class);
                         } else {
                             MyFunction.getInstance().alertMessage(ActivitySelectTime.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                         }

@@ -41,6 +41,7 @@ public class ActivityInstruction extends ActivityController {
         Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(ActivityInstruction.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        Global.activityInstruction = this;
         initView();
     }
 
@@ -49,11 +50,11 @@ public class ActivityInstruction extends ActivityController {
         nextClick();
     }
 
-    private HashMap<String,String> getIntentData(){
-        try{
+    private HashMap<String, String> getIntentData() {
+        try {
             return MyFunction.getInstance().getIntentHashMap(getIntent());
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
             return null;
         }
     }
@@ -63,12 +64,13 @@ public class ActivityInstruction extends ActivityController {
             @Override
             public void onClick(View v) {
                 final int po = viewPager.getCurrentItem();
-                if(po != 2){// check last index
-                    viewPager.setCurrentItem(po+1);
-                }else{
-                    MyFunction.getInstance().saveText(ActivityInstruction.this, Global.FIRST_TIME,"0");
-                    MyFunction.getInstance().finishActivity(Global.activityChooseLanguage);
-                    MyFunction.getInstance().openActivity(ActivityInstruction.this,ActivityHome.class,getIntentData());
+                if (po != 2) {// check last index
+                    viewPager.setCurrentItem(po + 1);
+                } else {
+                    MyFunction.getInstance().saveText(ActivityInstruction.this, Global.FIRST_TIME, "0");
+                    if (Global.activityChooseLanguage != null)
+                        MyFunction.getInstance().finishActivity(Global.activityChooseLanguage);
+                    MyFunction.getInstance().openActivity(ActivityInstruction.this, ActivityHome.class, getIntentData());
                     finish();
                 }
             }
@@ -76,14 +78,15 @@ public class ActivityInstruction extends ActivityController {
     }
 
     private JSONArray initData() {
-        try{
+        try {
             final String global = MyFunction.getInstance().readFileAsset(this, getFilename());
             return new JSONArray(global);
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
             return null;
         }
     }
+
     private String getFilename() {
         StringBuilder result = new StringBuilder();
         final int[] st = {105, 110, 115, 116, 114, 117, 99, 116, 105, 111, 110, 46, 106, 115, 111, 110};
@@ -101,7 +104,7 @@ public class ActivityInstruction extends ActivityController {
             adapter = new AdapterInstruction(this, array);
             viewPager = findViewById(R.id.pager);
             viewPager.setAdapter(adapter);
-            MyFunction.getInstance().addBottomDots(this,layout_dots, adapter.getCount(), 0);
+            MyFunction.getInstance().addBottomDots(this, layout_dots, adapter.getCount(), 0);
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -110,11 +113,11 @@ public class ActivityInstruction extends ActivityController {
 
                 @Override
                 public void onPageSelected(int position) {
-                    MyFunction.getInstance().addBottomDots(ActivityInstruction.this,layout_dots, adapter.getCount(), position);
-                    tv_skip.setText("");
+                    MyFunction.getInstance().addBottomDots(ActivityInstruction.this, layout_dots, adapter.getCount(), position);
+                    tv_skip.setText(R.string.skip);
                     tv_next.setText(getString(R.string.next));
-                    if(position==2){//last position
-                        tv_skip.setText(getString(R.string.skip));
+                    if (position == 2) {//last position
+                        tv_skip.setText("");
                         tv_next.setText(getString(R.string.start_use));
                     }
                 }

@@ -47,6 +47,9 @@ public class AdapterCarList extends RecyclerView.Adapter<AdapterCarList.ItemHold
             holder.tvModel.setText(object.getString(Global.arData[57]));
             holder.tvYear.setText(String.format("%s : %s",context.getString(R.string.all_year),object.getString(Global.arData[42])));
             holder.tvPlate.setText(String.format("%s : %s",context.getString(R.string.plate_number),object.getString(Global.arData[58])));
+            ModelBooking.getInstance().setModel(object.getString(Global.arData[57]));
+            ModelBooking.getInstance().setModelYear(object.getString(Global.arData[42]));
+            ModelBooking.getInstance().setPlateNumber(object.getString(Global.arData[58]));
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

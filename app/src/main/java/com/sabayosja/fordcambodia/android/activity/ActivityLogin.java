@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -33,6 +34,7 @@ public class ActivityLogin extends ActivityController {
         Tools.setSystemBarColor(this,R.color.white);
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(ActivityLogin.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        Global.activityLogin = this;
         initView();
     }
 
@@ -74,6 +76,7 @@ public class ActivityLogin extends ActivityController {
             public void onClick(View v) {
                 final EditText edtName = findViewById(R.id.edtName);
                 final EditText edtPhone = findViewById(R.id.edtPhone);
+                ModelBooking.getInstance().setUserName(edtName.getText().toString());
                 if(!edtPhone.getText().toString().isEmpty() && !edtName.getText().toString().isEmpty()){
                     loadDataServer();
                 }else{

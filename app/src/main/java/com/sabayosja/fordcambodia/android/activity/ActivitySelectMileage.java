@@ -40,6 +40,7 @@ public class ActivitySelectMileage extends ActivityController {
         Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(ActivitySelectMileage.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        Global.activitySelectMileage = this;
         initView();
     }
 

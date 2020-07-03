@@ -17,12 +17,75 @@ public class ModelBooking {
 
     private String carID;
     private String stationID;
-    private String MileageID;
-    private String ServiceTypeID;
+    private String station;
+    private String mileageID;
+    private String serviceTypeID;
     private ArrayList<String> arrRepairID = new ArrayList<>();
     private ArrayList<String> arrRepairName = new ArrayList<>();
     private JSONArray arrRepair = new JSONArray();
     private String date;
+    private String userName;
+    private String model;
+    private String modelYear;
+    private String plateNumber;
+    private String mileage;
+    private String time;
+
+    public String getStation() {
+        return station;
+    }
+
+    public void setStation(String station) {
+        this.station = station;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(String mileage) {
+        this.mileage = mileage;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getModelYear() {
+        return modelYear;
+    }
+
+    public void setModelYear(String modelYear) {
+        this.modelYear = modelYear;
+    }
+
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getDate() {
         return date;
@@ -57,19 +120,20 @@ public class ModelBooking {
     }
 
     public String getServiceTypeID() {
-        return ServiceTypeID;
+        return serviceTypeID;
     }
 
     public void setServiceTypeID(String serviceTypeID) {
-        ServiceTypeID = serviceTypeID;
+        this.serviceTypeID = serviceTypeID;
     }
 
     public String getMileageID() {
-        return MileageID;
+        return mileageID;
     }
 
     public void setMileageID(String mileageID) {
-        MileageID = mileageID;
+
+        this.mileageID = mileageID;
     }
 
     public String getStationID() {
