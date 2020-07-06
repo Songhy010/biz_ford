@@ -2,11 +2,11 @@ package com.sabayosja.fordcambodia.android.activity;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,10 +29,6 @@ import com.sabayosja.fordcambodia.android.util.Tools;
 
 import java.util.HashMap;
 
-import static com.sabayosja.fordcambodia.android.util.Global.activitySelectDate;
-import static com.sabayosja.fordcambodia.android.util.Global.activitySelectIssue;
-import static com.sabayosja.fordcambodia.android.util.Global.activitySelectStation;
-import static com.sabayosja.fordcambodia.android.util.Global.activitySelectTime;
 
 public class ActivityViewBooking extends ActivityController {
 
@@ -45,13 +41,14 @@ public class ActivityViewBooking extends ActivityController {
         MyFont.getInstance().setFont(this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         initView();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK){
-            if(requestCode == Global.ActivityViewBooking){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Global.ActivityViewBooking) {
                 initListIssue();
-                setText(R.id.tvMileage,ModelBooking.getInstance().getMileage());
+                setText(R.id.tvMileage, ModelBooking.getInstance().getMileage());
             }
         }
     }
@@ -65,7 +62,7 @@ public class ActivityViewBooking extends ActivityController {
         initToolbar();
         initBookingView();
         initEditIssue();
-        initEditBooking();
+        initEditCancelBooking();
     }
 
     private void initToolbar() {
@@ -82,76 +79,98 @@ public class ActivityViewBooking extends ActivityController {
     }
 
     private String getPhone() {
-        final String phone = MyFunction.getInstance().getText(this,Global.INFO_FILE);
+        final String phone = MyFunction.getInstance().getText(this, Global.INFO_FILE);
         final char isZero = phone.charAt(0);
         String phoneNumber = phone;
-        if(isZero == '0'){
-            phoneNumber = phone.substring(1,phone.length());
+        if (isZero == '0') {
+            phoneNumber = phone.substring(1, phone.length());
         }
         return phoneNumber;
     }
 
-    private void setText(final @IdRes int id,final String text ){
-        try{
+    private void setText(final @IdRes int id, final String text) {
+        try {
             final TextView tv = findViewById(id);
             tv.setText(text);
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
         }
 
     }
 
-    private void initBookingView(){
-        setText(R.id.tvName,ModelBooking.getInstance().getUserName());
-        setText(R.id.tvPhone,getPhone());
-        setText(R.id.tvModel,ModelBooking.getInstance().getModel());
-        setText(R.id.tvYear,ModelBooking.getInstance().getModelYear());
-        setText(R.id.tvPlate,ModelBooking.getInstance().getPlateNumber());
-        setText(R.id.tvMileage,ModelBooking.getInstance().getMileage());
-        setText(R.id.tvDate,ModelBooking.getInstance().getDate());
-        setText(R.id.tvTime,ModelBooking.getInstance().getTime());
-        setText(R.id.tvLocation,ModelBooking.getInstance().getStation());
+    private void initBookingView() {
+        setText(R.id.tvName, ModelBooking.getInstance().getUserName());
+        setText(R.id.tvPhone, getPhone());
+        setText(R.id.tvModel, ModelBooking.getInstance().getModel());
+        setText(R.id.tvYear, ModelBooking.getInstance().getModelYear());
+        setText(R.id.tvPlate, ModelBooking.getInstance().getPlateNumber());
+        setText(R.id.tvMileage, ModelBooking.getInstance().getMileage());
+        setText(R.id.tvDate, ModelBooking.getInstance().getDate());
+        setText(R.id.tvTime, ModelBooking.getInstance().getTime());
+        setText(R.id.tvLocation, ModelBooking.getInstance().getStation());
         initListIssue();
 
     }
 
-    private void initListIssue(){
+    private void initListIssue() {
         final RecyclerView recycleIssue = findViewById(R.id.recycleIssue);
-        final LinearLayoutManager manager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
-        final AdapterListIssue adapterListIssue = new AdapterListIssue(ModelBooking.getInstance().getArrRepairName(),this);
+        final LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        final AdapterListIssue adapterListIssue = new AdapterListIssue(ModelBooking.getInstance().getArrRepairName(), this);
         recycleIssue.setLayoutManager(manager);
         recycleIssue.setAdapter(adapterListIssue);
     }
 
-    private void initEditIssue(){
-        try{
+    private void initEditIssue() {
+        try {
             final LinearLayout linear = findViewById(R.id.linear);
-            if(ModelBooking.getInstance().getServiceTypeID().equals("1")){
+            if (ModelBooking.getInstance().getServiceTypeID().equals("1")) {
                 linear.setVisibility(View.GONE);
             }
             linear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final HashMap<String,String> map = new HashMap<>();
-                    map.put(Global.IS_EDIT,"1");
-                    MyFunction.getInstance().openActivityForResult(ActivityViewBooking.this,ActivitySelectIssue.class,map,Global.ActivityViewBooking);
+                    final HashMap<String, String> map = new HashMap<>();
+                    map.put(Global.IS_EDIT, "1");
+                    MyFunction.getInstance().openActivityForResult(ActivityViewBooking.this, ActivitySelectIssue.class, map, Global.ActivityViewBooking);
                 }
             });
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
         }
     }
 
-    private void initEditBooking() {
+    private void initEditCancelBooking() {
         findViewById(R.id.btnEdit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initCancelTempBook();
+                initCancelTempBook(false);
+            }
+        });
+        findViewById(R.id.btnCancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initCancelTempBook(true);
+            }
+        });
+
+        findViewById(R.id.btnConfirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmBooking();
             }
         });
     }
 
-    private void initCancelTempBook() {
+    private void closeStackActivity(Activity activity) {
+        try {
+            if (activity != null)
+                MyFunction.getInstance().finishActivity(activity);
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+    }
+
+    private void initCancelTempBook(final Boolean isCancel) {
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
         final HashMap<String, String> param = new HashMap<>();
         param.put(Global.arData[81], ModelBooking.getInstance().getDate());
@@ -165,21 +184,80 @@ public class ActivityViewBooking extends ActivityController {
                 try {
                     Log.e("response", response);
                     if (!response.isEmpty()) {
-                        if (MyFunction.getInstance().isValidJSON(response)) {
-                            if(activitySelectIssue != null)
-                                MyFunction.getInstance().finishActivity(activitySelectIssue);
-                            if(activitySelectTime != null)
-                                MyFunction.getInstance().finishActivity(activitySelectTime);
-                            if(activitySelectStation != null)
-                                MyFunction.getInstance().finishActivity(activitySelectStation);
-                            if(activitySelectDate != null)
-                                MyFunction.getInstance().finishActivity(activitySelectDate);
-                            if(activitySelectTime != null)
-                                MyFunction.getInstance().finishActivity(activitySelectTime);
+                        if (response.equals(Global.FAIL)) {
+                            closeStackActivity(Global.activitySelectIssue);
+                            closeStackActivity(Global.activitySelectTime);
+                            closeStackActivity(Global.activitySelectStation);
+                            closeStackActivity(Global.activitySelectDate);
+                            if (isCancel) {
+                                closeStackActivity(Global.activityLogin);
+                                closeStackActivity(Global.activitySelectCar);
+                                closeStackActivity(Global.activityYourBooking);
+                                closeStackActivity(Global.activitySelectService);
+                            }
                             MyFunction.getInstance().finishActivity(ActivityViewBooking.this);
                         } else {
                             MyFunction.getInstance().alertMessage(ActivityViewBooking.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                         }
+                    } else {
+                        MyFunction.getInstance().alertMessage(ActivityViewBooking.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                    }
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+            }
+        });
+    }
+
+    private String initIssue(){
+        String issue = "";
+        if(ModelBooking.getInstance().getArrRepairName().size() > 0){
+            for(int i = 0 ; i< ModelBooking.getInstance().getArrRepairName().size();i++){
+                issue += (ModelBooking.getInstance().getArrRepairName().get(i) + ",");
+            }
+        }
+        return issue;
+    }
+
+    private void confirmBooking() {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[85];
+        final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[70], ModelBooking.getInstance().getCarID());
+        param.put(Global.arData[86], ModelBooking.getInstance().getServiceTypeID());
+        param.put(Global.arData[51], String.format("855%s", getPhone()));
+        param.put(Global.arData[87], initIssue());
+        param.put(Global.arData[88], "");
+        param.put(Global.arData[89],  ModelBooking.getInstance().getDuration());
+        param.put(Global.arData[59], ModelBooking.getInstance().getMileage());
+        param.put(Global.arData[61], ModelBooking.getInstance().getDate());
+        param.put(Global.arData[62], ModelBooking.getInstance().getTime());
+        param.put(Global.arData[67], ModelBooking.getInstance().getStationID());
+        param.put(Global.arData[90], ModelBooking.getInstance().getTokenFCM());
+        param.put(Global.arData[91], MyFunction.getInstance().getAndroidID(ActivityViewBooking.this));
+        param.put(Global.arData[56], ModelBooking.getInstance().getUserName());
+        param.put(Global.arData[76], ModelBooking.getInstance().getMileageID());
+        loadDataServer(param, url, new LoadDataListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    Log.e("response", response);
+                    if (!response.isEmpty()) {
+                        if (response.equals(Global.SUCCESS)) {
+                            closeStackActivity(Global.activitySelectIssue);
+                            closeStackActivity(Global.activitySelectTime);
+                            closeStackActivity(Global.activitySelectStation);
+                            closeStackActivity(Global.activitySelectDate);
+                            closeStackActivity(Global.activityLogin);
+                            closeStackActivity(Global.activitySelectCar);
+                            closeStackActivity(Global.activityYourBooking);
+                            closeStackActivity(Global.activitySelectService);
+                            MyFunction.getInstance().finishActivity(ActivityViewBooking.this);
+
+                        } else {
+                            MyFunction.getInstance().alertMessage(ActivityViewBooking.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                        }
+                    } else {
+                        MyFunction.getInstance().alertMessage(ActivityViewBooking.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                     }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");

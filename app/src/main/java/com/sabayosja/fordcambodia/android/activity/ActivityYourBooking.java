@@ -37,6 +37,7 @@ public class ActivityYourBooking extends ActivityController {
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(ActivityYourBooking.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         initView();
+        Global.activityYourBooking = this;
     }
 
     private void initView() {

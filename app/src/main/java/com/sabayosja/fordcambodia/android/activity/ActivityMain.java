@@ -30,6 +30,7 @@ public class ActivityMain extends ActivityController {
         setContentView(R.layout.activity_main);
         Tools.setSystemBarColor(this, R.color.colorPrimary);
         Global.activityMain = this;
+        MyFunction.getInstance().getToken();
         initView();
     }
 

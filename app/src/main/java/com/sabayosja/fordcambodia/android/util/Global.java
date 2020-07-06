@@ -5,11 +5,14 @@ import com.sabayosja.fordcambodia.android.activity.ActivityInstruction;
 import com.sabayosja.fordcambodia.android.activity.ActivityLogin;
 import com.sabayosja.fordcambodia.android.activity.ActivityMain;
 import com.sabayosja.fordcambodia.android.activity.ActivityOtp;
+import com.sabayosja.fordcambodia.android.activity.ActivitySelectCar;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectDate;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectIssue;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectMileage;
+import com.sabayosja.fordcambodia.android.activity.ActivitySelectService;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectStation;
 import com.sabayosja.fordcambodia.android.activity.ActivitySelectTime;
+import com.sabayosja.fordcambodia.android.activity.ActivityYourBooking;
 
 public class Global {
     public static String[] arData;
@@ -31,6 +34,8 @@ public class Global {
     public static final String MORNING = "morning.json";
     public static final String AFTERNOON = "afternoon.json";
     public static final String IS_EDIT = "is_edit";
+    public static final String FAIL = "0";
+    public static final String SUCCESS = "1";
     /* Activity */
     public static ActivityMain activityMain;
     public static ActivityChooseLanguage activityChooseLanguage;
@@ -42,7 +47,11 @@ public class Global {
     public static ActivitySelectMileage activitySelectMileage;
     public static ActivitySelectStation activitySelectStation;
     public static ActivitySelectDate activitySelectDate;
-    public static ActivitySelectTime activitySelectTime ;
+    public static ActivitySelectTime activitySelectTime;
+
+    public static ActivitySelectCar activitySelectCar;
+    public static ActivityYourBooking activityYourBooking;
+    public static ActivitySelectService activitySelectService;
 
     /*code*/
     public static int ActivityViewBooking = 300;

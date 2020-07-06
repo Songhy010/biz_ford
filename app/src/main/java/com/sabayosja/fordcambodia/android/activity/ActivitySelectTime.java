@@ -24,6 +24,7 @@ import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -69,31 +70,43 @@ public class ActivitySelectTime extends ActivityController {
     }
 
     private String getPhone() {
-        final String phone = MyFunction.getInstance().getText(this,Global.INFO_FILE);
+        final String phone = MyFunction.getInstance().getText(this, Global.INFO_FILE);
         final char isZero = phone.charAt(0);
         String phoneNumber = phone;
-        if(isZero == '0'){
-            phoneNumber = phone.substring(1,phone.length());
+        if (isZero == '0') {
+            phoneNumber = phone.substring(1, phone.length());
         }
         return phoneNumber;
     }
 
-    private void initListTime(final RecyclerView recycler,final JSONArray array){
-        final GridLayoutManager manager = new GridLayoutManager(this,4);
-        final AdapterTime adapterTime = new AdapterTime(this,array);
+    private void initListTime(final RecyclerView recycler, final JSONArray array) {
+        final GridLayoutManager manager = new GridLayoutManager(this, 4);
+        final AdapterTime adapterTime = new AdapterTime(this, array);
         recycler.setLayoutManager(manager);
         recycler.setAdapter(adapterTime);
     }
 
-    private JSONArray readAssetData(final String fileName){
+    private JSONArray readAssetData(final String fileName, final JSONArray arrBlock) {
         try {
-            final String morning = MyFunction.getInstance().readFileAsset(ActivitySelectTime.this,fileName);
-            return new JSONArray(morning);
-        }catch (Exception e){
-            Log.e("Err",e.getMessage());
+            final String strArr = MyFunction.getInstance().readFileAsset(ActivitySelectTime.this, fileName);
+            final JSONArray arrTime = new JSONArray(strArr);
+            for (int i = 0; i < arrTime.length(); i++) {
+                final JSONObject objTime = arrTime.getJSONObject(i);
+                for (int j = 0 ; j < arrBlock.length() ; j++){
+                    final JSONObject objBlock = arrBlock.getJSONObject(j);
+                    if(objTime.get(Global.arData[66]).equals(objBlock.getString(Global.arData[84]))){
+                        objTime.put(Global.arData[79],"0");
+                    }
+                }
+                arrTime.put(i,objTime);
+            }
+            return arrTime;
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
         }
         return null;
     }
+
 
     private void initTime() {
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
@@ -108,12 +121,39 @@ public class ActivitySelectTime extends ActivityController {
                     if (!response.isEmpty()) {
                         if (MyFunction.getInstance().isValidJSON(response)) {
                             final RecyclerView recyclerMorning = findViewById(R.id.recycleMorning);
-                            initListTime(recyclerMorning,readAssetData(Global.MORNING));
+                            initListTime(recyclerMorning, readAssetData(Global.MORNING, new JSONArray(response)));
                             final RecyclerView recyclerAfternoon = findViewById(R.id.recycleAfternoon);
-                            initListTime(recyclerAfternoon,readAssetData(Global.AFTERNOON));
+                            initListTime(recyclerAfternoon, readAssetData(Global.AFTERNOON, new JSONArray(response)));
                         } else {
                             MyFunction.getInstance().alertMessage(ActivitySelectTime.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                         }
+                    }
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+            }
+        });
+    }
+
+    public void initCheckAvailable(final String time) {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[83];
+        final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[68], ModelBooking.getInstance().getDate());
+        param.put(Global.arData[66], time);
+        param.put(Global.arData[63], ModelBooking.getInstance().getStationID());
+        loadDataServer(param, url, new LoadDataListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    Log.e("response", response);
+                    if (!response.isEmpty()) {
+                        if (!response.equals(Global.FAIL)) {
+                            initAddTempBook();
+                        } else {
+                            MyFunction.getInstance().alertMessage(ActivitySelectTime.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.unavailable_time), 1);
+                        }
+                    } else {
+                        MyFunction.getInstance().alertMessage(ActivitySelectTime.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                     }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");
@@ -136,10 +176,10 @@ public class ActivitySelectTime extends ActivityController {
                 try {
                     Log.e("response", response);
                     if (!response.isEmpty()) {
-                        if (MyFunction.getInstance().isValidJSON(response)) {
+                        if (response.equals(Global.FAIL)) {
                             MyFunction.getInstance().openActivity(ActivitySelectTime.this, ActivityViewBooking.class);
                         } else {
-                            MyFunction.getInstance().alertMessage(ActivitySelectTime.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                            MyFunction.getInstance().alertMessage(ActivitySelectTime.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.unavailable_time), 1);
                         }
                     }
                 } catch (Exception e) {

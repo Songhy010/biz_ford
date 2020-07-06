@@ -118,6 +118,7 @@ public class ActivitySelectIssue extends ActivityController {
                                 ModelBooking.getInstance().setArrRepair(arrRepair);
                             }
                             if (tvNext.getText().toString().equals(getString(R.string.next))) {
+                                ModelBooking.getInstance().setDuration("3");
                                 MyFunction.getInstance().openActivity(ActivitySelectIssue.this, ActivitySelectStation.class);
                             } else {
                                 setResult(RESULT_OK);

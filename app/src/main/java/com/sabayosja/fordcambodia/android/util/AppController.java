@@ -27,13 +27,28 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        /*
+"branch_id" -> "85569227026"
+"phone" -> "85569227026"
+"duration" -> "85569227026"
+"service_type" -> "2"
+"device_id" -> "85569227026"
+"others_issue" -> "85569227026"
+"issue" -> ",Electrical Issue,Air Conditioner,Suspension"
+"vehicle" -> "565"
+"notification_id" -> "85569227026"
+"service_date" -> "85569227026"
+"customer" -> "85569227026"
+"mileage" -> "85569227026"
+"service_time" -> "85569227026"
+*/
 
 
        /* final String global = MyFunction.getInstance().getDecrypted(this, MyFunction.getInstance().readFileAsset(this, getFilename()));
         Global.arData = global.split(";");*/
         Global.arData = new String[100];
-        //Global.arData[0] = "http://rmagroup.phumtest.com/";
-        Global.arData[0] = "https://ford.khimsokhengapp.com/";
+        Global.arData[0] = "https://rmagroup.phumtest.com/";
+        //Global.arData[0] = "https://ford.khimsokhengapp.com/";
         Global.arData[1] = "mobile/";
         Global.arData[2] = "Authorization";
         Global.arData[3] = "Bearer";
@@ -119,6 +134,15 @@ public class AppController extends Application {
         Global.arData[80] = "shift";
         Global.arData[81] = "select_date";
         Global.arData[82] = "select_time";
+        Global.arData[83] = "get_data_total_repairer_available.php";
+        Global.arData[84] = "block_time";
+        Global.arData[85] = "addedit_booking.php";
+        Global.arData[86] = "service_type";
+        Global.arData[87] = "issue";
+        Global.arData[88] = "others_issue";
+        Global.arData[89] = "duration";
+        Global.arData[90] = "notification_id";
+        Global.arData[91] = "device_id";
 
 
 /*

@@ -60,7 +60,7 @@ public class AdapterMileage extends RecyclerView.Adapter<AdapterMileage.ItemHold
                             MyFunction.getInstance().openActivity(context, ActivitySelectStation.class);
 
                         ModelBooking.getInstance().setMileageID(object.getString(Global.arData[76]));
-
+                        ModelBooking.getInstance().setDuration(object.getString(Global.arData[75]));
                     }catch (Exception e){
                         Log.e("Err",e.getMessage()+"");
                     }

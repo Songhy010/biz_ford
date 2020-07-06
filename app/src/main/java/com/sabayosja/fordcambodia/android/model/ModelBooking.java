@@ -30,6 +30,24 @@ public class ModelBooking {
     private String plateNumber;
     private String mileage;
     private String time;
+    private String duration;
+    private String tokenFCM;
+
+    public String getTokenFCM() {
+        return tokenFCM;
+    }
+
+    public void setTokenFCM(String tokenFCM) {
+        this.tokenFCM = tokenFCM;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 
     public String getStation() {
         return station;

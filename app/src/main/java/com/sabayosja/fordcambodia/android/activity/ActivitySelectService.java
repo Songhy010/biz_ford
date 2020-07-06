@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.adapter.AdapterServiceType;
+import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
@@ -31,6 +32,7 @@ public class ActivitySelectService extends ActivityController {
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(ActivitySelectService.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         initView();
+        Global.activitySelectService = this;
     }
 
     private void initView() {

@@ -44,19 +44,23 @@ public class AdapterTime extends RecyclerView.Adapter<AdapterTime.ItemHolder> {
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         try {
             final JSONObject object = array.getJSONObject(position);
-            holder.tvTime.setText(String.format("%s%s", object.getString(Global.arData[66]), object.getString(Global.arData[80])));
+            final String time = object.getString(Global.arData[66]);
+            final String[] split = time.split(":");
+            final int intTime = Integer.parseInt(split[0]) % 12;
+            holder.tvTime.setText(String.format("%s:%s%s", intTime,split[1], object.getString(Global.arData[80])));
             final int status = Integer.parseInt(object.getString(Global.arData[79]));
-            if(status != 1){
+            if (status != 1) {
                 holder.linearTime.setBackgroundColor(context.getResources().getColor(R.color.grey));
+                holder.linearTime.setEnabled(false);
             }
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try{
-                        ModelBooking.getInstance().setTime(String.format("%s%s", object.getString(Global.arData[66]), object.getString(Global.arData[80])));
-                        ((ActivitySelectTime)context).initAddTempBook();
-                    }catch (Exception e){
-                        Log.e("Err",e.getMessage()+"");
+                    try {
+                        ModelBooking.getInstance().setTime(String.format("%s", object.getString(Global.arData[66])));
+                        ((ActivitySelectTime) context).initCheckAvailable(object.getString(Global.arData[66]));
+                    } catch (Exception e) {
+                        Log.e("Err", e.getMessage() + "");
                     }
                 }
             });

@@ -1,6 +1,5 @@
 package com.sabayosja.fordcambodia.android.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +35,7 @@ public class ActivitySelectCar extends ActivityController {
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(ActivitySelectCar.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         initView();
+        Global.activitySelectCar = this;
     }
 
     private void initView() {

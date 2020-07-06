@@ -26,7 +26,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.Process;
 import android.os.StatFs;
 import android.provider.MediaStore;
@@ -40,7 +39,6 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,12 +52,10 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
 import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -68,12 +64,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.listener.AlertListenner;
 import com.sabayosja.fordcambodia.android.listener.DialogCallBack;
 import com.sabayosja.fordcambodia.android.listener.OkhttpListenner;
 import com.sabayosja.fordcambodia.android.listener.SelectedListener;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
 
 import org.myjson.JSONArray;
 import org.myjson.JSONException;
@@ -1331,5 +1333,26 @@ public class MyFunction {
             dots[current].setImageResource(R.drawable.shape_circle);
             dots[current].setColorFilter(ContextCompat.getColor(context, R.color.colorPrimaryDark), PorterDuff.Mode.SRC_ATOP);
         }
+    }
+
+    public void getToken() {
+        FirebaseInstanceId.getInstance()
+                .getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("task", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        ModelBooking.getInstance().setTokenFCM(token);
+                        // Log and toast
+                        //String msg = getString(R.string.msg_token_fmt, token);
+                        Log.e("Token", token);
+                    }
+                });
     }
 }
