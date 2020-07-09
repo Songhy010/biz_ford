@@ -77,7 +77,7 @@ public class ActivityOtp extends ActivityController {
         new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                tvCount.setText("seconds remaining: " + millisUntilFinished / 1000);
+                tvCount.setText(String.format("%s: %s",getString(R.string.second_remain),( millisUntilFinished / 1000)));
             }
 
             public void onFinish() {

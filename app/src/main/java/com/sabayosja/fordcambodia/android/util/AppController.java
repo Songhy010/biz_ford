@@ -27,21 +27,6 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        /*
-"branch_id" -> "85569227026"
-"phone" -> "85569227026"
-"duration" -> "85569227026"
-"service_type" -> "2"
-"device_id" -> "85569227026"
-"others_issue" -> "85569227026"
-"issue" -> ",Electrical Issue,Air Conditioner,Suspension"
-"vehicle" -> "565"
-"notification_id" -> "85569227026"
-"service_date" -> "85569227026"
-"customer" -> "85569227026"
-"mileage" -> "85569227026"
-"service_time" -> "85569227026"
-*/
 
 
        /* final String global = MyFunction.getInstance().getDecrypted(this, MyFunction.getInstance().readFileAsset(this, getFilename()));
@@ -143,6 +128,7 @@ public class AppController extends Application {
         Global.arData[89] = "duration";
         Global.arData[90] = "notification_id";
         Global.arData[91] = "device_id";
+        Global.arData[92] = "mileage_id";
 
 
 /*

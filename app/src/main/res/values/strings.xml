@@ -11,6 +11,7 @@
     <string name="english">English</string>
     <string name="edit">Edit</string>
     <string name="confirm">Confirm</string>
+    <string name="confirm_in">Confirm in</string>
 
     <string name="vehicle">Vehicle</string>
     <string name="connect_your_car">Connect Your Car</string>
@@ -114,4 +115,12 @@
     <string name="eight">12:00</string>
     <string name="confirm_booking">Confirm Booking</string>
     <string name="unavailable_time">Unavailable Time</string>
+    <string name="oil_engine">Replace the engine oil</string>
+    <string name="second_remain">Second Remaining</string>
+    <string name="add_vehicle">Add Vehicle</string>
+
+    <string name="plate">Plate(Ex: 2A-0000)</string>
+    <string name="chassis">Chassis(Ex: XXXXXX)</string>
+    <string name="prefix">Phnom Penh</string>
+    <string name="no_plate">Do not have plate number</string>
 </resources>

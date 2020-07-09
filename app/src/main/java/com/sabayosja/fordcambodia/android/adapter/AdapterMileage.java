@@ -23,6 +23,8 @@ import com.sabayosja.fordcambodia.android.util.MyFunction;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class AdapterMileage extends RecyclerView.Adapter<AdapterMileage.ItemHolder> {
 
     private Context context;
@@ -58,9 +60,12 @@ public class AdapterMileage extends RecyclerView.Adapter<AdapterMileage.ItemHold
                             ((ActivitySelectMileage)context).showOtherDialog(object.getString(Global.arData[73]));
                         else
                             MyFunction.getInstance().openActivity(context, ActivitySelectStation.class);
-
+                        final ArrayList<String> arr = new ArrayList<>();
+                        arr.add(context.getString(R.string.oil_engine));
+                        ModelBooking.getInstance().setMileage(String.format("%skm - %skm",object.getString(Global.arData[73]),object.getString(Global.arData[74])));
                         ModelBooking.getInstance().setMileageID(object.getString(Global.arData[76]));
                         ModelBooking.getInstance().setDuration(object.getString(Global.arData[75]));
+                        ModelBooking.getInstance().setArrRepairName(arr);
                     }catch (Exception e){
                         Log.e("Err",e.getMessage()+"");
                     }

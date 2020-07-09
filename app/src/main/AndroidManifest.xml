@@ -27,6 +27,7 @@
         <activity android:name=".activity.ActivityViewBooking"></activity>
         <activity android:name=".activity.ActivitySelectTime" />
         <activity android:name=".activity.ActivitySelectDate" />
+        <activity android:name=".activity.ActivityAddVehicle"/>
         <activity
             android:name=".activity.ActivitySelectIssue"
             android:screenOrientation="portrait"

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,9 +29,12 @@ import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 
 public class ActivityViewBooking extends ActivityController {
+
+    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,37 @@ public class ActivityViewBooking extends ActivityController {
         initBookingView();
         initEditIssue();
         initEditCancelBooking();
+        initCount();
+    }
+
+
+    private void initCount() {
+        final TextView tvCount = findViewById(R.id.tvCount);
+        tvCount.setVisibility(View.VISIBLE);
+        countDownTimer = new CountDownTimer(60000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tvCount.setText(String.format("%d min, %d sec",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
+
+            }
+
+            public void onFinish() {
+                finish();
+                closeStackActivity(Global.activitySelectIssue);
+                closeStackActivity(Global.activitySelectTime);
+                closeStackActivity(Global.activitySelectStation);
+                closeStackActivity(Global.activitySelectDate);
+                closeStackActivity(Global.activityLogin);
+                closeStackActivity(Global.activitySelectCar);
+                closeStackActivity(Global.activityYourBooking);
+                closeStackActivity(Global.activitySelectService);
+                closeStackActivity(Global.activitySelectMileage);
+            }
+
+        }.start();
     }
 
     private void initToolbar() {
@@ -95,7 +130,6 @@ public class ActivityViewBooking extends ActivityController {
         } catch (Exception e) {
             Log.e("Err", e.getMessage() + "");
         }
-
     }
 
     private void initBookingView() {
@@ -109,7 +143,6 @@ public class ActivityViewBooking extends ActivityController {
         setText(R.id.tvTime, ModelBooking.getInstance().getTime());
         setText(R.id.tvLocation, ModelBooking.getInstance().getStation());
         initListIssue();
-
     }
 
     private void initListIssue() {
@@ -209,10 +242,10 @@ public class ActivityViewBooking extends ActivityController {
         });
     }
 
-    private String initIssue(){
+    private String initIssue() {
         String issue = "";
-        if(ModelBooking.getInstance().getArrRepairName().size() > 0){
-            for(int i = 0 ; i< ModelBooking.getInstance().getArrRepairName().size();i++){
+        if (ModelBooking.getInstance().getArrRepairName().size() > 0) {
+            for (int i = 0; i < ModelBooking.getInstance().getArrRepairName().size(); i++) {
                 issue += (ModelBooking.getInstance().getArrRepairName().get(i) + ",");
             }
         }
@@ -227,7 +260,7 @@ public class ActivityViewBooking extends ActivityController {
         param.put(Global.arData[51], String.format("855%s", getPhone()));
         param.put(Global.arData[87], initIssue());
         param.put(Global.arData[88], "");
-        param.put(Global.arData[89],  ModelBooking.getInstance().getDuration());
+        param.put(Global.arData[89], ModelBooking.getInstance().getDuration());
         param.put(Global.arData[59], ModelBooking.getInstance().getMileage());
         param.put(Global.arData[61], ModelBooking.getInstance().getDate());
         param.put(Global.arData[62], ModelBooking.getInstance().getTime());
@@ -235,7 +268,7 @@ public class ActivityViewBooking extends ActivityController {
         param.put(Global.arData[90], ModelBooking.getInstance().getTokenFCM());
         param.put(Global.arData[91], MyFunction.getInstance().getAndroidID(ActivityViewBooking.this));
         param.put(Global.arData[56], ModelBooking.getInstance().getUserName());
-        param.put(Global.arData[76], ModelBooking.getInstance().getMileageID());
+        param.put(Global.arData[92], ModelBooking.getInstance().getMileageID());
         loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
@@ -251,6 +284,7 @@ public class ActivityViewBooking extends ActivityController {
                             closeStackActivity(Global.activitySelectCar);
                             closeStackActivity(Global.activityYourBooking);
                             closeStackActivity(Global.activitySelectService);
+                            closeStackActivity(Global.activitySelectMileage);
                             MyFunction.getInstance().finishActivity(ActivityViewBooking.this);
 
                         } else {
@@ -268,6 +302,7 @@ public class ActivityViewBooking extends ActivityController {
 
     private void loadDataServer(final HashMap<String, String> param, final String url, final LoadDataListener loadDataListener) {
         showDialog();
+        countDownTimer.cancel();
         MyFunction.getInstance().requestString(this, Request.Method.POST, url, param, new VolleyCallback() {
             @Override
             public void onResponse(String response) {

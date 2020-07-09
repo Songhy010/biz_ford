@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
@@ -42,6 +43,16 @@ public class ActivitySelectCar extends ActivityController {
         initToolbar();
         getPhone();
         initSelectList();
+        initAdd();
+    }
+
+    private void initAdd() {
+        findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyFunction.getInstance().openActivity(ActivitySelectCar.this,ActivityAddVehicle.class);
+            }
+        });
     }
 
     private String getPhone() {
