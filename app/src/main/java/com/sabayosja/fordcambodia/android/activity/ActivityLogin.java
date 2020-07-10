@@ -31,7 +31,7 @@ public class ActivityLogin extends ActivityController {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Tools.setSystemBarColor(this,R.color.white);
+        Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(ActivityLogin.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         Global.activityLogin = this;
@@ -43,6 +43,7 @@ public class ActivityLogin extends ActivityController {
         initNext();
         setPhone();
     }
+
     private void initToolbar() {
         final TextView tv_title = findViewById(R.id.tv_title);
         final ImageView iv_ford = findViewById(R.id.iv_ford);
@@ -62,11 +63,15 @@ public class ActivityLogin extends ActivityController {
     }
 
     private void setPhone() {
-        final String phone = MyFunction.getInstance().getText(this,Global.INFO_FILE);
-        if(!phone.isEmpty()){
+        final String phone = MyFunction.getInstance().getText(this, Global.INFO_FILE);
+        if (!phone.isEmpty()) {
             final EditText edtPhone = findViewById(R.id.edtPhone);
             edtPhone.setText(phone);
         }
+    }
+
+    private HashMap<String, String> getDataIntent() {
+        return MyFunction.getInstance().getIntentHashMap(getIntent());
     }
 
 
@@ -77,9 +82,12 @@ public class ActivityLogin extends ActivityController {
                 final EditText edtName = findViewById(R.id.edtName);
                 final EditText edtPhone = findViewById(R.id.edtPhone);
                 ModelBooking.getInstance().setUserName(edtName.getText().toString());
-                if(!edtPhone.getText().toString().isEmpty() && !edtName.getText().toString().isEmpty()){
-                    loadDataServer();
-                }else{
+                if (!edtPhone.getText().toString().isEmpty() && !edtName.getText().toString().isEmpty()) {
+                    if (getDataIntent().get(Global.arData[12]).equals(Global.ActivityVehicle + ""))
+                        MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityVehicle.class);
+                    else if (getDataIntent().get(Global.arData[12]).equals(Global.ActivitySelectCar + ""))
+                        loadDataServer();
+                } else {
                     MyFunction.getInstance().alertMessage(ActivityLogin.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.require_input), 1);
                 }
             }
@@ -90,22 +98,22 @@ public class ActivityLogin extends ActivityController {
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[52];
         final EditText edtPhone = findViewById(R.id.edtPhone);
         final String phone = edtPhone.getText().toString();
-        final HashMap<String,String> param = new HashMap<>();
+        final HashMap<String, String> param = new HashMap<>();
         param.put(Global.arData[51], phone);
         showDialog();
         MyFunction.getInstance().requestString(this, Request.Method.POST, url, param, new VolleyCallback() {
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.e("Response",response);
-                    if(response.equals("1")){//is verified
-                        MyFunction.getInstance().saveText(ActivityLogin.this,Global.INFO_FILE,phone);
-                        MyFunction.getInstance().openActivity(ActivityLogin.this,ActivityYourBooking.class);
-                    }else if(response.equals("0")){
-                        final HashMap<String,String> map = new HashMap<>();
-                        map.put(Global.arData[51],phone);
-                        MyFunction.getInstance().openActivity(ActivityLogin.this,ActivityOtp.class,map);
-                    }else{
+                    Log.e("Response", response);
+                    if (response.equals("1")) {//is verified
+                        MyFunction.getInstance().saveText(ActivityLogin.this, Global.INFO_FILE, phone);
+                        MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityYourBooking.class);
+                    } else if (response.equals("0")) {
+                        final HashMap<String, String> map = new HashMap<>();
+                        map.put(Global.arData[51], phone);
+                        MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityOtp.class, map);
+                    } else {
                         MyFunction.getInstance().alertMessage(ActivityLogin.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                     }
                 } catch (Exception e) {
@@ -113,6 +121,7 @@ public class ActivityLogin extends ActivityController {
                 }
                 hideDialog();
             }
+
             @Override
             public void onErrorResponse(VolleyError e) {
                 Log.e("Err", e.getMessage() + "");

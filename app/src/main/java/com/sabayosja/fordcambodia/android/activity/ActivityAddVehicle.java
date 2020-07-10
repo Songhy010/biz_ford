@@ -24,6 +24,7 @@ import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,6 +32,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 public class ActivityAddVehicle extends ActivityController {
+
+    private String model;
+    private String year;
+    private String vehicle;
+    private String plate;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,8 @@ public class ActivityAddVehicle extends ActivityController {
         initToolbar();
         initCheckBox();
         loadModel();
+        loadPrefix();
+        initAdd();
     }
 
     private void initToolbar() {
@@ -84,25 +93,53 @@ public class ActivityAddVehicle extends ActivityController {
         });
     }
 
-    private void initSelectModelYear(final JSONArray array) {
+    private void initSelectItem(final JSONArray array, final String objName, View viewSelect, View viewDisplay, final SelectedListener selectedListener) {
         try {
-            final RelativeLayout relativeYear = findViewById(R.id.relativeYear);
-            final EditText edtYear = findViewById(R.id.edtYear);
             final String[] model = new String[array.length()];
             for (int i = 0; i < array.length(); i++) {
                 final JSONObject object = array.getJSONObject(i);
-                model[i] = object.getString(Global.arData[42]);
+                model[i] = object.getString(objName);
             }
-            MyFunction.getInstance().initSelectItem(ActivityAddVehicle.this, relativeYear, edtYear, model, 1, new SelectedListener() {
+            MyFunction.getInstance().initSelectItem(ActivityAddVehicle.this, viewSelect, viewDisplay, model, 1, new SelectedListener() {
                 @Override
                 public void onSelected(int str) {
-                    try {
+                    selectedListener.onSelected(str);
+                }
+            });
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+    }
 
-                    } catch (Exception e) {
-                        Log.e("Err", e.getMessage() + "");
+    private String getPhone() {
+        final String phone = MyFunction.getInstance().getText(this,Global.INFO_FILE);
+        return phone;
+    }
+
+    private void initSelectModelYear(final JSONArray array,final String modelID) {
+        try {
+
+            final RelativeLayout relativeYear = findViewById(R.id.relativeYear);
+            final TextView tvYear = findViewById(R.id.tvYear);
+            initSelectItem(array, Global.arData[42], relativeYear, tvYear, new SelectedListener() {
+                @Override
+                public void onSelected(int str) {
+                    try{
+                        String id = "";
+                        final JSONObject object = array.getJSONObject(str);
+                        if(object.getString(Global.arData[47]).equals("") || object.isNull(Global.arData[47])){
+                            id = modelID;
+                        }else{
+                            id = object.getString(Global.arData[47]);
+                        }
+                        year = object.getString(Global.arData[47]);
+                        loadImage(id);
+                    }catch (Exception e){
+                        Log.e("Err",e.getMessage()+"");
                     }
                 }
             });
+
         } catch (Exception e) {
             Log.e("Err", e.getMessage() + "");
         }
@@ -111,18 +148,16 @@ public class ActivityAddVehicle extends ActivityController {
     private void initSelectModel(final JSONArray array) {
         try {
             final RelativeLayout relativeModel = findViewById(R.id.relativeModel);
-            final EditText edtModel = findViewById(R.id.edtModel);
-            final String[] model = new String[array.length()];
-            for (int i = 0; i < array.length(); i++) {
-                final JSONObject object = array.getJSONObject(i);
-                model[i] = object.getString(Global.arData[39]);
-            }
-            MyFunction.getInstance().initSelectItem(ActivityAddVehicle.this, relativeModel, edtModel, model, 1, new SelectedListener() {
+            final TextView tvModel = findViewById(R.id.tvModel);
+            initSelectItem(array, Global.arData[39], relativeModel, tvModel, new SelectedListener() {
                 @Override
                 public void onSelected(int str) {
                     try {
+                        final TextView tvYear = findViewById(R.id.tvYear);
+                        tvYear.setText(getString(R.string.all_year));
                         final JSONObject object = array.getJSONObject(str);
-                        initSelectModelYear(object.getJSONArray(Global.arData[41]));
+                        model = object.getString(Global.arData[46]);
+                        initSelectModelYear(object.getJSONArray(Global.arData[41]),object.getString(Global.arData[46]));
                     } catch (Exception e) {
                         Log.e("Err", e.getMessage() + "");
                     }
@@ -133,16 +168,72 @@ public class ActivityAddVehicle extends ActivityController {
         }
     }
 
-    private void loadAccessory(final String id) {
+    private void initSelectPrefix(final JSONArray array) {
+        try {
+            final RelativeLayout relativePrefix = findViewById(R.id.relativePrefix);
+            final TextView tvPrefix = findViewById(R.id.tvPrefix);
+            initSelectItem(array, Global.arData[94], relativePrefix, tvPrefix, new SelectedListener() {
+                @Override
+                public void onSelected(int str) {
+                    final EditText edtPlate = findViewById(R.id.edtPlate);
+                    if (str != 0) {
+                        try {
+                            final JSONObject obj = array.getJSONObject(str);
+                            edtPlate.setText(String.format("%s 2", obj.getString(Global.arData[94])));
+                        } catch (Exception e) {
+                            Log.e("Err", e.getMessage() + "");
+                        }
+                    } else {
+                        edtPlate.setText("");
+                        edtPlate.setHint(getString(R.string.plate));
+                    }
+                }
+            });
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+    }
+
+    private void loadPrefix() {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[93];
         final String lang = MyFunction.getInstance().getText(ActivityAddVehicle.this, Global.arData[6]);
         final HashMap<String, String> param = new HashMap<>();
         param.put(Global.arData[6], lang);
-        param.put(Global.arData[7], Global.arData[43] + id);
-        loadDataServer(param, new LoadDataListener() {
+        loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
                 try {
-                    final JSONArray array = new JSONArray(response);
+                    if (MyFunction.getInstance().isValidJSON(response)) {
+                        final JSONObject obj = new JSONObject(response);
+                        if (obj.getString(Global.arData[72]).equals(Global.SUCCESS)) {
+                            final JSONArray array = obj.getJSONArray(Global.arData[12]);
+                            initSelectPrefix(array);
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+            }
+        });
+    }
+
+    private void loadImage(final String id) {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
+        final String lang = MyFunction.getInstance().getText(ActivityAddVehicle.this, Global.arData[6]);
+        final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[6], lang);
+        param.put(Global.arData[95], id);
+        loadDataServer(param, url, new LoadDataListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    if (MyFunction.getInstance().isValidJSON(response)) {
+                        final JSONObject obj = new JSONObject(response);
+                        vehicle = obj.getString(Global.arData[98]);
+                        final ImageView ivCar = findViewById(R.id.ivCar);
+                        final JSONObject objImage =  obj.getJSONObject(Global.arData[9]);
+                        Picasso.get().load(objImage.getString(Global.arData[10])).placeholder(R.drawable.img_loading).error(R.drawable.img_loading).into(ivCar);
+                    }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");
                 }
@@ -151,16 +242,19 @@ public class ActivityAddVehicle extends ActivityController {
     }
 
     private void loadModel() {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
         final String lang = MyFunction.getInstance().getText(ActivityAddVehicle.this, Global.arData[6]);
         final HashMap<String, String> param = new HashMap<>();
         param.put(Global.arData[6], lang);
         param.put(Global.arData[7], Global.arData[38]);
-        loadDataServer(param, new LoadDataListener() {
+        loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
                 try {
-                    final JSONArray array = new JSONArray(response);
-                    initSelectModel(array);
+                    if (MyFunction.getInstance().isValidJSON(response)) {
+                        final JSONArray array = new JSONArray(response);
+                        initSelectModel(array);
+                    }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");
                 }
@@ -168,18 +262,48 @@ public class ActivityAddVehicle extends ActivityController {
         });
     }
 
-    private void loadDataServer(HashMap<String, String> param, final LoadDataListener loadData) {
-        final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
+    private void initAdd(){
+        findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadAddCar();
+            }
+        });
+    }
+
+    private void loadAddCar(){
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[96];
+        final EditText edtPlate = findViewById(R.id.edtPlate);
+        final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[70], vehicle);
+        param.put(Global.arData[57], model);
+        param.put(Global.arData[42],year);
+        param.put(Global.arData[51],getPhone());
+        param.put(Global.arData[58],edtPlate.getText().toString());
+        param.put(Global.arData[97],"1");
+        loadDataServer(param, url, new LoadDataListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    if(response.equals(Global.SUCCESS)){
+                        setResult(RESULT_OK);
+                        MyFunction.getInstance().finishActivity(ActivityAddVehicle.this);
+                    }
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+            }
+        });
+    }
+
+    private void loadDataServer(HashMap<String, String> param, final String url, final LoadDataListener loadData) {
+
         showDialog();
         MyFunction.getInstance().requestString(this, Request.Method.POST, url, param, new VolleyCallback() {
             @Override
             public void onResponse(String response) {
                 try {
-                    if (MyFunction.getInstance().isValidJSON(response)) {
-                        loadData.onSuccess(response);
-                    } else {
-                        MyFunction.getInstance().alertMessage(ActivityAddVehicle.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
-                    }
+                    loadData.onSuccess(response);
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");
                 }

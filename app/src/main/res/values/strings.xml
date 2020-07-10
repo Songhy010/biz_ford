@@ -10,6 +10,7 @@
     <string name="khmer">ភាសាខ្មែរ</string>
     <string name="english">English</string>
     <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_in">Confirm in</string>
 
@@ -119,8 +120,11 @@
     <string name="second_remain">Second Remaining</string>
     <string name="add_vehicle">Add Vehicle</string>
 
-    <string name="plate">Plate(Ex: 2A-0000)</string>
+    <string name="plate">Plate(Ex:XXXX 2A-0000)</string>
     <string name="chassis">Chassis(Ex: XXXXXX)</string>
     <string name="prefix">Phnom Penh</string>
     <string name="no_plate">Do not have plate number</string>
+    <string name="notification">Notification</string>
+    <string name="history">Vehicle History Page</string>
+    <string name="histories">History</string>
 </resources>

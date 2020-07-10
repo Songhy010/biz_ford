@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,212 +12,220 @@
     <include
         android:id="@+id/include13"
         layout="@layout/top_menu_activity" />
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/ivCar"
-            android:layout_marginTop="@dimen/iv_height_30"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/img_default"
-            android:layout_width="@dimen/iv_height_180"
-            android:layout_height="@dimen/iv_height_80"/>
-        <RelativeLayout
-            android:padding="@dimen/iv_height_15"
-            android:id="@+id/relativeModel"
-            android:layout_marginTop="@dimen/iv_height_20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_centerVertical="true"
-                android:padding="@dimen/iv_height_3"
-                android:src="@drawable/ic_car"
-                android:id="@+id/imguser"
-                android:layout_width="@dimen/iv_height_35"
-                android:layout_height="@dimen/iv_height_35"/>
-
-            <EditText
-                android:enabled="false"
-                android:id="@+id/edtModel"
-                android:textSize="@dimen/text_size_small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/all_model"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/iv_height_10"
-                android:layout_toEndOf="@id/imguser"/>
-
-            <ImageView
-                android:layout_width="@dimen/iv_height_20"
-                android:layout_height="@dimen/iv_height_20"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:rotation="90"
-                android:src="@drawable/ic_more" />
-
-            <View
-                android:layout_marginTop="@dimen/iv_height_10"
-                android:layout_below="@id/imguser"
-                android:background="@color/grey_5"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/iv_height_1" />
-        </RelativeLayout>
-
-
-
-        <RelativeLayout
-            android:padding="@dimen/iv_height_15"
-            android:id="@+id/relativeYear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/iv1"
-                android:layout_centerVertical="true"
-                android:padding="@dimen/iv_height_3"
-                android:src="@drawable/ic_car"
-                android:layout_width="@dimen/iv_height_35"
-                android:layout_height="@dimen/iv_height_35"/>
-
-            <EditText
-                android:enabled="false"
-                android:id="@+id/edtYear"
-                android:layout_marginLeft="@dimen/iv_height_10"
-                android:layout_toRightOf="@+id/iv1"
-                android:textSize="@dimen/text_size_small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/all_year"
-                android:layout_centerVertical="true"/>
-
-            <ImageView
-                android:layout_width="@dimen/iv_height_20"
-                android:layout_height="@dimen/iv_height_20"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:rotation="90"
-                android:src="@drawable/ic_more" />
-
-            <View
-                android:layout_below="@+id/iv1"
-                android:layout_marginTop="@dimen/iv_height_10"
-                android:background="@color/grey_5"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/iv_height_1" />
-        </RelativeLayout>
-
-
-
-        <RelativeLayout
-            android:id="@+id/relativePrefix"
-            android:padding="@dimen/iv_height_15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:padding="@dimen/iv_height_3"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_plate"
-                android:id="@+id/imgemail"
-                android:layout_width="@dimen/iv_height_35"
-                android:layout_height="@dimen/iv_height_35"/>
-
-            <EditText
-                android:layout_marginLeft="@dimen/iv_height_10"
-                android:enabled="false"
-                android:id="@+id/edtPrefix"
-                android:textSize="@dimen/text_size_small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/prefix"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/imgemail"/>
-
-            <ImageView
-                android:layout_width="@dimen/iv_height_20"
-                android:layout_height="@dimen/iv_height_20"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:rotation="90"
-                android:src="@drawable/ic_more" />
-            <View
-                android:id="@+id/view"
-                android:layout_below="@+id/imgemail"
-                android:layout_marginTop="@dimen/iv_height_10"
-                android:background="@color/grey_5"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/iv_height_1" />
-        </RelativeLayout>
-
-
-
-        <RelativeLayout
-            android:id="@+id/relativePlate"
-            android:padding="@dimen/iv_height_15"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_centerVertical="true"
-                android:padding="@dimen/iv_height_3"
-                android:src="@drawable/ic_plate"
-                android:id="@+id/imgtopic"
-                android:layout_width="@dimen/iv_height_35"
-                android:layout_height="@dimen/iv_height_35"/>
-
-            <EditText
-                android:id="@+id/edtPlate"
-                android:layout_marginLeft="@dimen/iv_height_10"
-                android:textSize="@dimen/text_size_small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:hint="@string/plate"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/imgtopic"/>
-            <View
-                android:layout_below="@+id/imgtopic"
-                android:layout_marginTop="@dimen/iv_height_10"
-                android:background="@color/grey_5"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/iv_height_1" />
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <CheckBox
-                android:layout_marginRight="@dimen/iv_height_20"
-                android:id="@+id/ckNoPlate"
-                android:text="@string/no_plate"
-                android:layout_alignParentEnd="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </RelativeLayout>
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/btnAdd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/iv_height_25"
-        android:layout_marginEnd="@dimen/iv_height_25"
-        android:layout_marginTop="@dimen/iv_height_30">
-
+        android:layout_height="match_parent">
         <LinearLayout
-            android:background="@color/colorPrimary"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/iv_height_10">
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ivCar"
+                    android:layout_marginTop="@dimen/iv_height_30"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/img_default"
+                    android:layout_width="@dimen/iv_height_180"
+                    android:layout_height="@dimen/iv_height_80"/>
+                <RelativeLayout
+                    android:padding="@dimen/iv_height_15"
+                    android:id="@+id/relativeModel"
+                    android:layout_marginTop="@dimen/iv_height_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/iv_height_3"
+                        android:src="@drawable/ic_car"
+                        android:id="@+id/imguser"
+                        android:layout_width="@dimen/iv_height_35"
+                        android:layout_height="@dimen/iv_height_35"/>
 
-            <TextView
-                android:textSize="@dimen/text_size_small"
-                android:textColor="@color/white"
-                android:text="@string/add_vehicle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tvModel"
+                        android:textSize="@dimen/text_size_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:text="@string/all_model"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/iv_height_10"
+                        android:layout_toEndOf="@id/imguser"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/iv_height_20"
+                        android:layout_height="@dimen/iv_height_20"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:rotation="90"
+                        android:src="@drawable/ic_more" />
+
+                    <View
+                        android:layout_marginTop="@dimen/iv_height_10"
+                        android:layout_below="@id/imguser"
+                        android:background="@color/grey_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/iv_height_1" />
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:padding="@dimen/iv_height_15"
+                    android:id="@+id/relativeYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:id="@+id/iv1"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/iv_height_3"
+                        android:src="@drawable/ic_car"
+                        android:layout_width="@dimen/iv_height_35"
+                        android:layout_height="@dimen/iv_height_35"/>
+
+                    <TextView
+                        android:id="@+id/tvYear"
+                        android:layout_marginLeft="@dimen/iv_height_10"
+                        android:layout_toRightOf="@+id/iv1"
+                        android:textSize="@dimen/text_size_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:text="@string/all_year"
+                        android:layout_centerVertical="true"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/iv_height_20"
+                        android:layout_height="@dimen/iv_height_20"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:rotation="90"
+                        android:src="@drawable/ic_more" />
+
+                    <View
+                        android:layout_below="@+id/iv1"
+                        android:layout_marginTop="@dimen/iv_height_10"
+                        android:background="@color/grey_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/iv_height_1" />
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:id="@+id/relativePrefix"
+                    android:padding="@dimen/iv_height_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:padding="@dimen/iv_height_3"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_plate"
+                        android:id="@+id/imgemail"
+                        android:layout_width="@dimen/iv_height_35"
+                        android:layout_height="@dimen/iv_height_35"/>
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/iv_height_10"
+                        android:id="@+id/tvPrefix"
+                        android:textSize="@dimen/text_size_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:text="@string/prefix"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/imgemail"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/iv_height_20"
+                        android:layout_height="@dimen/iv_height_20"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:rotation="90"
+                        android:src="@drawable/ic_more" />
+                    <View
+                        android:id="@+id/view"
+                        android:layout_below="@+id/imgemail"
+                        android:layout_marginTop="@dimen/iv_height_10"
+                        android:background="@color/grey_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/iv_height_1" />
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:id="@+id/relativePlate"
+                    android:padding="@dimen/iv_height_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/iv_height_3"
+                        android:src="@drawable/ic_plate"
+                        android:id="@+id/imgtopic"
+                        android:layout_width="@dimen/iv_height_35"
+                        android:layout_height="@dimen/iv_height_35"/>
+
+                    <EditText
+                        android:padding="@dimen/iv_height_5"
+                        android:id="@+id/edtPlate"
+                        android:inputType="textCapCharacters"
+                        android:layout_marginLeft="@dimen/iv_height_10"
+                        android:textSize="@dimen/text_size_small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/plate"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/imgtopic"/>
+                    <View
+                        android:layout_below="@+id/imgtopic"
+                        android:layout_marginTop="@dimen/iv_height_10"
+                        android:background="@color/grey_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/iv_height_1" />
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <CheckBox
+                        android:layout_marginRight="@dimen/iv_height_20"
+                        android:id="@+id/ckNoPlate"
+                        android:text="@string/no_plate"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/iv_height_25"
+                android:layout_marginEnd="@dimen/iv_height_25"
+                android:layout_marginTop="@dimen/iv_height_30">
+
+                <LinearLayout
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/iv_height_10">
+
+                    <TextView
+                        android:textSize="@dimen/text_size_small"
+                        android:textColor="@color/white"
+                        android:text="@string/add_vehicle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 </LinearLayout>

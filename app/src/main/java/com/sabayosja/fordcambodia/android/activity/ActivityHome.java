@@ -61,9 +61,19 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
             initToolbar();
             initPagerBanner(getIntentData().equals("") ? null : new JSONArray(getIntentData()));
             initTab();
+            initNotification();
         }catch (Exception e){
             Log.e("Err",e.getMessage()+"");
         }
+    }
+
+    private void initNotification() {
+        findViewById(R.id.iv_search).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityNotification.class);
+            }
+        });
     }
 
     private void initTab() {
@@ -75,7 +85,9 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         findViewById(R.id.ivBook).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityLogin.class);
+                final HashMap<String,String> map = new HashMap<>();
+                map.put(Global.arData[12],Global.ActivitySelectCar+"");
+                MyFunction.getInstance().openActivityForResult(ActivityHome.this,ActivityLogin.class,map,Global.ActivityLogin);
             }
         });
     }
@@ -224,6 +236,11 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.power_by:
                 Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.vehecle:
+                final HashMap<String,String> map = new HashMap<>();
+                map.put(Global.arData[12],Global.ActivityVehicle+"");
+                MyFunction.getInstance().openActivityForResult(ActivityHome.this,ActivityLogin.class,map,Global.ActivityLogin);
                 break;
         }
         return true;

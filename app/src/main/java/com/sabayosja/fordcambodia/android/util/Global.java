@@ -55,4 +55,8 @@ public class Global {
 
     /*code*/
     public static int ActivityViewBooking = 300;
+    public static int ActivityAddVehicle = 301;
+    public static int ActivityLogin = 302;
+    public static int ActivityVehicle = 303;
+    public static int ActivitySelectCar = 304;
 }

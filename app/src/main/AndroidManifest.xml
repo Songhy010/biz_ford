@@ -24,10 +24,38 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.ActivityViewBooking"></activity>
-        <activity android:name=".activity.ActivitySelectTime" />
-        <activity android:name=".activity.ActivitySelectDate" />
-        <activity android:name=".activity.ActivityAddVehicle"/>
+
+        <activity
+            android:name=".activity.ActivityVehicleHistory"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".activity.ActivityVehicle"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".activity.ActivityNotification"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityViewBooking"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivitySelectTime"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivitySelectDate"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityAddVehicle"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.ActivitySelectIssue"
             android:screenOrientation="portrait"
@@ -39,19 +67,58 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".activity.ActivitySelectService" />
-        <activity android:name=".activity.ActivitySelectCar" />
-        <activity android:name=".activity.ActivityYourBooking" />
-        <activity android:name=".activity.ActivityOtp" />
-        <activity android:name=".activity.ActivityLogin" />
-        <activity android:name=".activity.ActivityPromotion" />
-        <activity android:name=".activity.ActivityAccessoryDetail" />
-        <activity android:name=".activity.ActivityAccessory" />
-        <activity android:name=".activity.ActivityMaintenanceTip" />
-        <activity android:name=".activity.ActivityWebviewDetail" />
-        <activity android:name=".activity.ActivityService" />
-        <activity android:name=".activity.ActivityFinancingCalculator" />
-        <activity android:name=".activity.ActivityGallery" />
+        <activity
+            android:name=".activity.ActivitySelectService"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivitySelectCar"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityYourBooking"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityOtp"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityLogin"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityPromotion"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityAccessoryDetail"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityAccessory"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityMaintenanceTip"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityWebviewDetail"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityService"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityFinancingCalculator"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activity.ActivityGallery"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activity.ActivityFullScreen"
             android:screenOrientation="landscape"
@@ -85,9 +152,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!--FCM Support-->
+        </activity> <!-- FCM Support -->
         <service
             android:name=".util.FCMMessagingService"
             android:exported="false">

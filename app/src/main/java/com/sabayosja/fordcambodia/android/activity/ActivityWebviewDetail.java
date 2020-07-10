@@ -24,7 +24,7 @@ import com.sabayosja.fordcambodia.android.util.Tools;
 
 import java.util.HashMap;
 
-public class ActivityWebviewDetail extends AppCompatActivity {
+public class ActivityWebviewDetail extends ActivityController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

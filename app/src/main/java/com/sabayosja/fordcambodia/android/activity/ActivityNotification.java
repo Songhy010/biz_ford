@@ -1,22 +1,21 @@
 package com.sabayosja.fordcambodia.android.activity;
 
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.sabayosja.fordcambodia.android.R;
-import com.sabayosja.fordcambodia.android.adapter.AdapterCarList;
+import com.sabayosja.fordcambodia.android.adapter.AdapterNotification;
 import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
 import com.sabayosja.fordcambodia.android.util.Global;
@@ -28,53 +27,21 @@ import org.json.JSONArray;
 
 import java.util.HashMap;
 
-public class ActivitySelectCar extends ActivityController {
+public class ActivityNotification extends ActivityController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_car);
+        setContentView(R.layout.activity_notification);
         Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
-        MyFont.getInstance().setFont(ActivitySelectCar.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
+        MyFont.getInstance().setFont(ActivityNotification.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         initView();
-        Global.activitySelectCar = this;
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (requestCode == Global.ActivityAddVehicle) {
-                initSelectList();
-            }
-        }
     }
 
     private void initView() {
         initToolbar();
-        getPhone();
-        initSelectList();
-        initAdd();
-    }
-
-    private void initAdd() {
-        findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyFunction.getInstance().openActivityForResult(ActivitySelectCar.this, ActivityAddVehicle.class, Global.ActivityAddVehicle);
-            }
-        });
-    }
-
-    private String getPhone() {
-        final String phone = MyFunction.getInstance().getText(this, Global.INFO_FILE);
-        final char isZero = phone.charAt(0);
-        String phoneNumber = phone;
-        if (isZero == '0') {
-            phoneNumber = phone.substring(1, phone.length());
-        }
-        return phoneNumber;
+        loadNotification();
     }
 
     private void initToolbar() {
@@ -92,40 +59,50 @@ public class ActivitySelectCar extends ActivityController {
         });
         iv_ford.setVisibility(View.GONE);
         iv_search.setVisibility(View.GONE);
-        tv_title.setText(getString(R.string.select_car));
+        tv_title.setText(getString(R.string.notification));
     }
 
-    private void initCarList(final JSONArray arrCar) {
-        final LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        final RecyclerView recycler = findViewById(R.id.recycle);
-        final AdapterCarList adapterCarList = new AdapterCarList(arrCar, this);
-        recycler.setLayoutManager(manager);
-        recycler.setAdapter(adapterCarList);
+    private String getPhone() {
+        final String phone = MyFunction.getInstance().getText(this, Global.INFO_FILE);
+        final char isZero = phone.charAt(0);
+        String phoneNumber = phone;
+        if (isZero == '0') {
+            phoneNumber = phone.substring(1, phone.length());
+        }
+        return phoneNumber;
     }
 
-    private void initSelectList() {
+    private void initRecycler(final JSONArray arr){
+        final LinearLayoutManager manager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+        final AdapterNotification adapterNotification = new AdapterNotification(this,arr);
+        final RecyclerView recyclerNotification = findViewById(R.id.recycleNotification);
+        recyclerNotification.setLayoutManager(manager);
+        recyclerNotification.setAdapter(adapterNotification);
+    }
+
+    private void loadNotification() {
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
-        final String lang = MyFunction.getInstance().getText(ActivitySelectCar.this, Global.arData[6]);
+        final String lang = MyFunction.getInstance().getText(ActivityNotification.this, Global.arData[6]);
         final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[99], "0");
+        param.put(Global.arData[51], String.format("855%s", getPhone()));
         param.put(Global.arData[6], lang);
-        param.put(Global.arData[7], Global.arData[69] + getPhone());
         loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
                 Log.e("Err", response);
-                try {
+                try{
                     if (MyFunction.getInstance().isValidJSON(response)) {
-                        initCarList(new JSONArray(response));
+                        initRecycler(new JSONArray(response));
                     } else {
-                        MyFunction.getInstance().alertMessage(ActivitySelectCar.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                        MyFunction.getInstance().alertMessage(ActivityNotification.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                     }
-                } catch (Exception e) {
-                    Log.e("Err", e.getMessage() + "");
+                }catch (Exception e){
+                    Log.e("Err",e.getMessage()+"");
                 }
             }
         });
     }
-
 
     private void loadDataServer(final HashMap<String, String> param, final String url, final LoadDataListener loadDataListener) {
         showDialog();
@@ -133,7 +110,6 @@ public class ActivitySelectCar extends ActivityController {
             @Override
             public void onResponse(String response) {
                 try {
-                    Log.e("Response", response);
                     loadDataListener.onSuccess(response);
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");
@@ -144,9 +120,10 @@ public class ActivitySelectCar extends ActivityController {
             @Override
             public void onErrorResponse(VolleyError e) {
                 Log.e("Err", e.getMessage() + "");
-                MyFunction.getInstance().alertMessage(ActivitySelectCar.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                MyFunction.getInstance().alertMessage(ActivityNotification.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                 hideDialog();
             }
         });
     }
+
 }

@@ -28,17 +28,20 @@ public class AppController extends Application {
         super.onCreate();
         mInstance = this;
 
+        //https://rmagroup.phumtest.com/mobi/api/v2/get_data
 
        /* final String global = MyFunction.getInstance().getDecrypted(this, MyFunction.getInstance().readFileAsset(this, getFilename()));
         Global.arData = global.split(";");*/
-        Global.arData = new String[100];
+        Global.arData = new String[101];
         Global.arData[0] = "https://rmagroup.phumtest.com/";
         //Global.arData[0] = "https://ford.khimsokhengapp.com/";
         Global.arData[1] = "mobile/";
+        //Global.arData[1] = "mobi/api/v2/";
         Global.arData[2] = "Authorization";
         Global.arData[3] = "Bearer";
         Global.arData[4] = "Access_Token";
         Global.arData[5] = "get_data.php";
+        //Global.arData[5] = "get_data";
         Global.arData[6] = "language";
         Global.arData[7] = "id";
         Global.arData[8] = "splash_screen";
@@ -53,7 +56,6 @@ public class AppController extends Application {
         Global.arData[17] = "products";
         Global.arData[18] = "title";
         Global.arData[19] = "products/product_detail_";
-
         Global.arData[20] = "slide";
         Global.arData[21] = "gallery";
         Global.arData[22] = "exterior";
@@ -87,7 +89,9 @@ public class AppController extends Application {
         Global.arData[50] = "news_promotions";
         Global.arData[51] = "phone";
         Global.arData[52] = "sendotp.php";
+        //Global.arData[52] = "sendotp";
         Global.arData[53] = "verify_otp.php";
+        //Global.arData[53] = "verify_otp";
         Global.arData[54] = "otp";
         Global.arData[55] = "booking/booking_list_855";
         Global.arData[56] = "customer";
@@ -100,12 +104,14 @@ public class AppController extends Application {
         Global.arData[63] = "branch";
         Global.arData[64] = "booking_id";
         Global.arData[65] = "update_booking_status.php";
+        //Global.arData[65] = "update_booking_status";
         Global.arData[66] = "time";
         Global.arData[67] = "branch_id";
         Global.arData[68] = "date";
         Global.arData[69] = "vehicle/vehicle_list_855";
         Global.arData[70] = "vehicle";
         Global.arData[71] = "get_mileage.php";
+        //Global.arData[71] = "get_mileage";
         Global.arData[72] = "code";
 
         Global.arData[73] = "min_mileage";
@@ -120,8 +126,10 @@ public class AppController extends Application {
         Global.arData[81] = "select_date";
         Global.arData[82] = "select_time";
         Global.arData[83] = "get_data_total_repairer_available.php";
+        //Global.arData[83] = "get_data_total_repairer_available";
         Global.arData[84] = "block_time";
         Global.arData[85] = "addedit_booking.php";
+        //Global.arData[85] = "addedit_booking";
         Global.arData[86] = "service_type";
         Global.arData[87] = "issue";
         Global.arData[88] = "others_issue";
@@ -129,6 +137,15 @@ public class AppController extends Application {
         Global.arData[90] = "notification_id";
         Global.arData[91] = "device_id";
         Global.arData[92] = "mileage_id";
+        Global.arData[93] = "get_plate_prefix.php";
+        //Global.arData[93] = "get_plate_prefix";
+        Global.arData[94] = "prefix_name";
+        Global.arData[95] = "model_id";
+        Global.arData[96] = "addedit_vehicle.php";
+        Global.arData[97] = "action";
+        Global.arData[98] = "wpid";
+        Global.arData[99] = "skip";
+        Global.arData[100] = "msg";
 
 
 /*
