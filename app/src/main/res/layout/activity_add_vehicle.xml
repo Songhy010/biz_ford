@@ -71,8 +71,6 @@
                         android:layout_height="@dimen/iv_height_1" />
                 </RelativeLayout>
 
-
-
                 <RelativeLayout
                     android:padding="@dimen/iv_height_15"
                     android:id="@+id/relativeYear"

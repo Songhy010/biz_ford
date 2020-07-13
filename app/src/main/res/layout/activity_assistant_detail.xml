@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ActivityAssistantDetail">
+
+    <include
+        android:id="@+id/tool"
+        layout="@layout/top_menu_activity" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/iv_height_5"
+        app:cardElevation="@dimen/iv_height_5"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toBottomOf="@+id/tool">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/iv_height_10"
+                android:text="@string/open_hour"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_normal" />
+
+            <TextView
+                android:id="@+id/tvWorkTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/iv_height_10"
+                android:text="@string/app_name"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_small" />
+
+            <View
+
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/iv_height_1"
+                android:layout_margin="@dimen/iv_height_10"
+                android:background="@color/grey_5" />
+
+            <TextView
+                android:id="@+id/tv_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/iv_height_10"
+                android:padding="@dimen/iv_height_10"
+                android:text="@string/contact_hotline"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_small" />
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/iv_height_10">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleService"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

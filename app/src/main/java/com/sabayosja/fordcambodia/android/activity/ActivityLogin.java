@@ -83,10 +83,7 @@ public class ActivityLogin extends ActivityController {
                 final EditText edtPhone = findViewById(R.id.edtPhone);
                 ModelBooking.getInstance().setUserName(edtName.getText().toString());
                 if (!edtPhone.getText().toString().isEmpty() && !edtName.getText().toString().isEmpty()) {
-                    if (getDataIntent().get(Global.arData[12]).equals(Global.ActivityVehicle + ""))
-                        MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityVehicle.class);
-                    else if (getDataIntent().get(Global.arData[12]).equals(Global.ActivitySelectCar + ""))
-                        loadDataServer();
+                    loadDataServer();
                 } else {
                     MyFunction.getInstance().alertMessage(ActivityLogin.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.require_input), 1);
                 }
@@ -108,10 +105,14 @@ public class ActivityLogin extends ActivityController {
                     Log.e("Response", response);
                     if (response.equals("1")) {//is verified
                         MyFunction.getInstance().saveText(ActivityLogin.this, Global.INFO_FILE, phone);
-                        MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityYourBooking.class);
+                        if (getDataIntent().get(Global.arData[12]).equals(Global.ActivityVehicle + ""))
+                            MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityVehicle.class);
+                        else if (getDataIntent().get(Global.arData[12]).equals(Global.ActivitySelectCar + ""))
+                            MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityYourBooking.class);
                     } else if (response.equals("0")) {
                         final HashMap<String, String> map = new HashMap<>();
                         map.put(Global.arData[51], phone);
+                        map.put(Global.arData[12],getDataIntent().get(Global.arData[12]));
                         MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityOtp.class, map);
                     } else {
                         MyFunction.getInstance().alertMessage(ActivityLogin.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);

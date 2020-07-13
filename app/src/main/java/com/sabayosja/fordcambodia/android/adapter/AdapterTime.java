@@ -51,7 +51,7 @@ public class AdapterTime extends RecyclerView.Adapter<AdapterTime.ItemHolder> {
             final int status = Integer.parseInt(object.getString(Global.arData[79]));
             if (status != 1) {
                 holder.linearTime.setBackgroundColor(context.getResources().getColor(R.color.grey));
-                holder.linearTime.setEnabled(false);
+                holder.card.setEnabled(false);
             }
             holder.card.setOnClickListener(new View.OnClickListener() {
                 @Override

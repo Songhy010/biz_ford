@@ -49,21 +49,21 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Tools.setSystemBarColor(this,R.color.white);
+        Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
         MyFont.getInstance().setFont(ActivityHome.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         initView();
     }
 
     private void initView() {
-        try{
+        try {
             initNavigation();
             initToolbar();
             initPagerBanner(getIntentData().equals("") ? null : new JSONArray(getIntentData()));
             initTab();
             initNotification();
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
         }
     }
 
@@ -71,13 +71,13 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         findViewById(R.id.iv_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityNotification.class);
+                MyFunction.getInstance().openActivity(ActivityHome.this, ActivityNotification.class);
             }
         });
     }
 
     private void initTab() {
-        if(MyFunction.getInstance().isTablet(this)){
+        if (MyFunction.getInstance().isTablet(this)) {
             final int height = MyFunction.getInstance().getHeight_95(this);
             final ConstraintLayout tab = findViewById(R.id.tab);
             tab.getLayoutParams().height = height;
@@ -85,20 +85,20 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         findViewById(R.id.ivBook).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final HashMap<String,String> map = new HashMap<>();
-                map.put(Global.arData[12],Global.ActivitySelectCar+"");
-                MyFunction.getInstance().openActivityForResult(ActivityHome.this,ActivityLogin.class,map,Global.ActivityLogin);
+                final HashMap<String, String> map = new HashMap<>();
+                map.put(Global.arData[12], Global.ActivitySelectCar + "");
+                MyFunction.getInstance().openActivityForResult(ActivityHome.this, ActivityLogin.class, map, Global.ActivityLogin);
             }
         });
     }
 
-    private String getIntentData(){
-        try{
-            final HashMap<String,String> map = MyFunction.getInstance().getIntentHashMap(getIntent());
+    private String getIntentData() {
+        try {
+            final HashMap<String, String> map = MyFunction.getInstance().getIntentHashMap(getIntent());
             final JSONObject object = new JSONObject(map.get(Global.arData[12]));
             return object.getString(Global.arData[11]);
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
             return "";
         }
     }
@@ -118,10 +118,19 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         Menu m = navigationView.getMenu();
-        for (int i=0;i<m.size();i++) {
+        for (int i = 0; i < m.size(); i++) {
             MenuItem mi = m.getItem(i);
-            MyFont.getInstance().applyFontToMenuItem(ActivityHome.this,mi);
+            MyFont.getInstance().applyFontToMenuItem(ActivityHome.this, mi);
         }
+    }
+
+    private void openWebView(final String endPoint, final String title) {
+        final String lang = MyFunction.getInstance().getText(ActivityHome.this, Global.arData[6]);
+        final String urlFeed = String.format("%s%s/%s", Global.arData[0], lang, endPoint);
+        final HashMap<String, String> map = new HashMap<>();
+        map.put(Global.arData[18], title);
+        map.put(Global.arData[7], urlFeed);
+        MyFunction.getInstance().openActivity(ActivityHome.this, ActivityWebviewDetail.class, map);
     }
 
     private void initPagerBanner(JSONArray array) {
@@ -129,9 +138,9 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         try {
             adapter = new AdapterBannerHome(this, array);
             viewPager = findViewById(R.id.pager);
-            int height  = MyFunction.getInstance().getHeight_650(ActivityHome.this);
+            int height = MyFunction.getInstance().getHeight_650(ActivityHome.this);
 
-            if(MyFunction.getInstance().isTablet(ActivityHome.this)){
+            if (MyFunction.getInstance().isTablet(ActivityHome.this)) {
                 height = MyFunction.getInstance().getHeight_450(ActivityHome.this);
             }
             viewPager.getLayoutParams().height = height;
@@ -188,43 +197,46 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
                 pos = pos + 1;
                 if (pos >= count) pos = 0;
                 viewPager.setCurrentItem(pos);
-                handler.postDelayed(runnable, 4*1000);
+                handler.postDelayed(runnable, 4 * 1000);
             }
         };
-        handler.postDelayed(runnable, 4*1000);
+        handler.postDelayed(runnable, 4 * 1000);
 
     }
 
-    public void centerMenuOnClick(View view){
-        switch (view.getId()){
+    public void centerMenuOnClick(View view) {
+        switch (view.getId()) {
             case R.id.btn_product:
-                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityProduct.class);
+                MyFunction.getInstance().openActivity(ActivityHome.this, ActivityProduct.class);
                 break;
             case R.id.btn_services:
-                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityService.class);
+                MyFunction.getInstance().openActivity(ActivityHome.this, ActivityService.class);
                 break;
             case R.id.btn_news:
-                MyFunction.getInstance().openActivity(ActivityHome.this,ActivityPromotion.class);
+                MyFunction.getInstance().openActivity(ActivityHome.this, ActivityPromotion.class);
                 break;
             case R.id.btn_chat:
                 initMessenger();
                 break;
         }
     }
-    private void initMessenger(){
-        try{
+
+    private void initMessenger() {
+        try {
             Uri uri = Uri.parse(Global.URI_MESSENGER + "295959650502207");
-            Intent sendIntent = new Intent(Intent.ACTION_VIEW,uri);
+            Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(sendIntent);
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Global.URI_STORE+ Global.PACKAGE_MG)));
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Global.URI_STORE + Global.PACKAGE_MG)));
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+        //final String lang  = MyFunction.getInstance().getText(ActivityHome.this, Global.arData[6]);
+        //
+        switch (menuItem.getItemId()) {
             case R.id.social:
                 CircleImageView img = menuItem.getActionView().findViewById(R.id.fb);
                 img.setOnClickListener(new View.OnClickListener() {
@@ -238,9 +250,24 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
                 Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.vehecle:
-                final HashMap<String,String> map = new HashMap<>();
-                map.put(Global.arData[12],Global.ActivityVehicle+"");
-                MyFunction.getInstance().openActivityForResult(ActivityHome.this,ActivityLogin.class,map,Global.ActivityLogin);
+                final HashMap<String, String> map = new HashMap<>();
+                map.put(Global.arData[12], Global.ActivityVehicle + "");
+                MyFunction.getInstance().openActivityForResult(ActivityHome.this, ActivityLogin.class, map, Global.ActivityLogin);
+                break;
+            case R.id.connect:
+                MyFunction.getInstance().openActivity(ActivityHome.this, ActivityConnectCar.class);
+                break;
+            case R.id.comment:
+                openWebView(Global.arData[102], getString(R.string.comment));
+                break;
+            case R.id.survey:
+                openWebView(Global.arData[103], getString(R.string.survey));
+                break;
+            case R.id.setting:
+                MyFunction.getInstance().openActivity(ActivityHome.this, ActivitySetting.class);
+                break;
+            case R.id.assistant:
+                MyFunction.getInstance().openActivity(ActivityHome.this, ActivityAssistant.class);
                 break;
         }
         return true;

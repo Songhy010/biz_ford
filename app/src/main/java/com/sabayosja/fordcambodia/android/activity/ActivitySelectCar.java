@@ -117,7 +117,8 @@ public class ActivitySelectCar extends ActivityController {
                     if (MyFunction.getInstance().isValidJSON(response)) {
                         initCarList(new JSONArray(response));
                     } else {
-                        MyFunction.getInstance().alertMessage(ActivitySelectCar.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                        if (!response.isEmpty())
+                            MyFunction.getInstance().alertMessage(ActivitySelectCar.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                     }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");

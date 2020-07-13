@@ -13,6 +13,7 @@
     <string name="delete">Delete</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_in">Confirm in</string>
+    <string name="language">Language</string>
 
     <string name="vehicle">Vehicle</string>
     <string name="connect_your_car">Connect Your Car</string>
@@ -127,4 +128,10 @@
     <string name="notification">Notification</string>
     <string name="history">Vehicle History Page</string>
     <string name="histories">History</string>
+    <string name="ass_sale">Sale Contact/Working Hour</string>
+    <string name="ass_service">Service Contact/Working Hour</string>
+    <string name="ass_roadside">24h Roadside Assistant</string>
+    <string name="open_hour">Open Hour</string>
+    <string name="contact_hotline">Contact Hotline</string>
+
 </resources>

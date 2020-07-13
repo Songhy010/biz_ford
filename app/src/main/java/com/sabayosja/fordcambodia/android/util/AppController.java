@@ -32,7 +32,7 @@ public class AppController extends Application {
 
        /* final String global = MyFunction.getInstance().getDecrypted(this, MyFunction.getInstance().readFileAsset(this, getFilename()));
         Global.arData = global.split(";");*/
-        Global.arData = new String[101];
+        Global.arData = new String[200];
         Global.arData[0] = "https://rmagroup.phumtest.com/";
         //Global.arData[0] = "https://ford.khimsokhengapp.com/";
         Global.arData[1] = "mobile/";
@@ -146,6 +146,18 @@ public class AppController extends Application {
         Global.arData[98] = "wpid";
         Global.arData[99] = "skip";
         Global.arData[100] = "msg";
+        Global.arData[101] = "connect_your_car_list_data";
+        Global.arData[102] = "comment-and-feedback";
+        Global.arData[103] = "customer-survey";
+        Global.arData[104] = "assistant_data";
+        Global.arData[105] = "banner";
+        Global.arData[106] = "sale_contact";
+        Global.arData[107] = "service_contact";
+        Global.arData[108] = "roadside_assistance";
+        Global.arData[109] = "working_hours";
+        Global.arData[110] = "contact_hotline";
+        Global.arData[111] = "label";
+
 
 
 /*

@@ -77,7 +77,7 @@ public class ActivityOtp extends ActivityController {
         new CountDownTimer(60000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                tvCount.setText(String.format("%s: %s",getString(R.string.second_remain),( millisUntilFinished / 1000)));
+                tvCount.setText(String.format("%s: %s", getString(R.string.second_remain), (millisUntilFinished / 1000)));
             }
 
             public void onFinish() {
@@ -140,7 +140,10 @@ public class ActivityOtp extends ActivityController {
                     if (Global.activityLogin != null)
                         MyFunction.getInstance().finishActivity(Global.activityLogin);
                     MyFunction.getInstance().saveText(ActivityOtp.this, Global.INFO_FILE, getDataIntent().get(Global.arData[51]));
-                    MyFunction.getInstance().openActivity(ActivityOtp.this, ActivityYourBooking.class);
+                    if (getDataIntent().get(Global.arData[12]).equals(Global.ActivityVehicle + ""))
+                        MyFunction.getInstance().openActivity(ActivityOtp.this, ActivityVehicle.class);
+                    else if (getDataIntent().get(Global.arData[12]).equals(Global.ActivitySelectCar + ""))
+                        MyFunction.getInstance().openActivity(ActivityOtp.this, ActivityYourBooking.class);
                 } else if (response.equals("-5")) {
                     MyFunction.getInstance().alertMessage(ActivityOtp.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.wrong_code), 1);
                 } else {
