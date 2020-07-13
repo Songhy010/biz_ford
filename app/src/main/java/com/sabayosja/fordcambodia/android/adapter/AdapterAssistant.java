@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.activity.ActivityAssistantDetail;
+import com.sabayosja.fordcambodia.android.activity.ActivityRoadside;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -60,6 +61,11 @@ public class AdapterAssistant extends RecyclerView.Adapter<AdapterAssistant.Item
                         map.put(Global.arData[18],title.get(position));
                         map.put(Global.arData[12],object.toString());
                         MyFunction.getInstance().openActivity(context, ActivityAssistantDetail.class,map);
+                    }else {
+                        final HashMap<String,String> map = new HashMap<>();
+                        map.put(Global.arData[18],title.get(position));
+                        map.put(Global.arData[12],object.toString());
+                        MyFunction.getInstance().openActivity(context, ActivityRoadside.class,map);
                     }
                 }
             });

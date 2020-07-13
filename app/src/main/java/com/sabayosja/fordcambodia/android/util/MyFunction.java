@@ -1355,4 +1355,11 @@ public class MyFunction {
                     }
                 });
     }
+
+    public void initPhoneCall(final Context context,String tel){
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse(String.format("%s:%s", "tel",tel)));
+        context.startActivity(intent);
+    }
+
 }

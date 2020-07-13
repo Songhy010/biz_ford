@@ -13,7 +13,58 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/iv_height_5"
+        app:cardElevation="@dimen/iv_height_5"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true"
         app:layout_constraintTop_toBottomOf="@+id/tool">
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:id="@+id/tvBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/iv_height_200"
+                    android:src="@drawable/img_nav_head" />
+                <LinearLayout
+                    android:padding="@dimen/iv_height_10"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginLeft="@dimen/iv_height_5"
+                        android:layout_marginTop="@dimen/iv_height_10"
+                        android:textSize="@dimen/text_size_normal"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/term_and_condition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleTerm"
+                        android:layout_marginTop="@dimen/iv_height_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_marginLeft="@dimen/iv_height_5"
+                        android:layout_marginTop="@dimen/iv_height_15"
+                        android:text="@string/give_us"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="@dimen/iv_height_15"
+                        android:id="@+id/recycleRoadside"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.navigation.NavigationView>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

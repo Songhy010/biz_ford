@@ -109,6 +109,7 @@ public class ActivityLogin extends ActivityController {
                             MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityVehicle.class);
                         else if (getDataIntent().get(Global.arData[12]).equals(Global.ActivitySelectCar + ""))
                             MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityYourBooking.class);
+                        MyFunction.getInstance().finishActivity(ActivityLogin.this);
                     } else if (response.equals("0")) {
                         final HashMap<String, String> map = new HashMap<>();
                         map.put(Global.arData[51], phone);

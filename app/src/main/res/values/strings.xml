@@ -133,5 +133,6 @@
     <string name="ass_roadside">24h Roadside Assistant</string>
     <string name="open_hour">Open Hour</string>
     <string name="contact_hotline">Contact Hotline</string>
-
+    <string name="term_and_condition">Term and Condition</string>
+    <string name="give_us">Give Us a Call Anytime</string>
 </resources>

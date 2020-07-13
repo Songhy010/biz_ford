@@ -86,7 +86,6 @@ public class ActivityAssistant extends ActivityController {
                         array.put(object.getJSONObject(Global.arData[106]));
                         array.put(object.getJSONObject(Global.arData[107]));
                         array.put(object.getJSONObject(Global.arData[108]));
-
                         initRecycler(array);
                     } else {
                         MyFunction.getInstance().alertMessage(ActivityAssistant.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
