@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.ActivityRoadside"></activity>
+        <activity android:name=".activity.ActivityViewHistory"></activity>
+        <activity android:name=".activity.ActivityRoadside" />
         <activity android:name=".activity.ActivityAssistantDetail" />
         <activity
             android:name=".activity.ActivityAssistant"

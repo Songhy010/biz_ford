@@ -1,6 +1,6 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/carlist"
+    android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/iv_height_5"
@@ -17,12 +17,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:ellipsize="end"
+            android:id="@+id/tvIssue"
+            android:maxLines="1"
             android:textColor="@color/black"
             android:text="@string/app_name"
             android:textSize="@dimen/text_size_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tvMileage"
+            android:lineSpacingExtra="@dimen/iv_height_5"
             android:textColor="@color/black"
             android:text="@string/app_name"
             android:textSize="@dimen/text_size_small"
@@ -30,6 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tvBooking"
+            android:lineSpacingExtra="@dimen/iv_height_5"
             android:textColor="@color/black"
             android:text="@string/app_name"
             android:textSize="@dimen/text_size_small"
@@ -37,12 +44,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tvDate"
+            android:lineSpacingExtra="@dimen/iv_height_5"
             android:text="@string/app_name"
             android:textSize="@dimen/text_size_small"
             android:layout_marginTop="@dimen/iv_height_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tvStatus"
+            android:lineSpacingExtra="@dimen/iv_height_5"
             android:text="@string/app_name"
             android:textSize="@dimen/text_size_small"
             android:layout_marginTop="@dimen/iv_height_5"

@@ -24,6 +24,7 @@ import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -112,8 +113,37 @@ public class ActivityVehicle extends ActivityController {
         });
     }
 
-    private void loadDataServer(HashMap<String, String> param, final String url, final LoadDataListener loadData) {
+    public void loadVehicleHistory(final String id,final JSONObject obj) {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
+        final String lang = MyFunction.getInstance().getText(ActivityVehicle.this, Global.arData[6]);
+        final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[6], lang);
+        param.put(Global.arData[7],String.format("%s%s%s",Global.arData[114],"855",getPhone()));
+        loadDataServer(param, url, new LoadDataListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    if (MyFunction.getInstance().isValidJSON(response)) {
+                        final JSONArray array = new JSONArray(response);
+                        for (int i = 0 ;i<array.length();i++){
+                            final JSONObject object = array.getJSONObject(i);
+                            if(id.equals(object.getString(Global.arData[7]))) {
+                                final HashMap<String, String> map = new HashMap<>();
+                                map.put(Global.arData[12],object.toString());
+                                map.put(Global.arData[70],obj.toString());
+                                MyFunction.getInstance().openActivity(ActivityVehicle.this, ActivityVehicleHistory.class, map);
+                                break;
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+            }
+        });
+    }
 
+    private void loadDataServer(HashMap<String, String> param, final String url, final LoadDataListener loadData) {
         showDialog();
         MyFunction.getInstance().requestString(this, Request.Method.POST, url, param, new VolleyCallback() {
             @Override

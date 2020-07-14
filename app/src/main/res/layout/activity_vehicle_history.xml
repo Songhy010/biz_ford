@@ -7,15 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".activity.ActivityVehicleHistory">
     <include
-        android:id="@+id/include14"
+        android:id="@+id/tool"
         layout="@layout/top_menu_activity" />
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedsroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include14">
+        app:layout_constraintTop_toBottomOf="@+id/tool">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,6 +22,7 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/iv_height_250"
                 android:layout_marginTop="@dimen/iv_height_3"
@@ -31,26 +31,32 @@
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
-                <RelativeLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="@dimen/iv_height_15">
 
                     <ImageView
                         android:id="@+id/ivCar"
-                        android:layout_width="@dimen/iv_height_145"
-                        android:layout_height="@dimen/iv_height_145"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/ic_user" />
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/ic_user"
+                        android:layout_marginBottom="@dimen/iv_height_10"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toTopOf="@+id/tvModel"
+                        app:layout_constraintLeft_toLeftOf="@+id/tvModel"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <TextView
+                        android:id="@+id/tvModel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_above="@+id/tvYear"
                         android:layout_marginBottom="@dimen/iv_height_8"
                         android:text="@string/app_name"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_normal" />
+                        android:textSize="@dimen/text_size_normal"
+                        app:layout_constraintLeft_toLeftOf="@+id/tvYear"
+                        app:layout_constraintBottom_toTopOf="@+id/tvYear"/>
 
                     <TextView
                         android:id="@+id/tvYear"
@@ -58,10 +64,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:text="@string/app_name"
-                        android:textSize="@dimen/text_size_small" />
+                        android:textSize="@dimen/text_size_small"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-                </RelativeLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <TextView

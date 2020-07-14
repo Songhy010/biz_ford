@@ -20,12 +20,11 @@ import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class ActivityRoadside extends AppCompatActivity {
+public class ActivityRoadside extends ActivityController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,29 +63,29 @@ public class ActivityRoadside extends AppCompatActivity {
         return MyFunction.getInstance().getIntentHashMap(getIntent());
     }
 
-    private void initData(){
-        try{
-            final JSONObject object = new JSONObject(getDataIntent().get(Global.arData[12]));
+    private void initData() {
+        try {
+            final String data = getDataIntent().get(Global.arData[12]);
+            final JSONObject object = new JSONObject(data);
             final ImageView ivBanner = findViewById(R.id.tvBanner);
-            final int height = MyFunction.getInstance().getHeight_350(this);
-            ivBanner.getLayoutParams().height = height;
+            ivBanner.getLayoutParams().height = MyFunction.getInstance().getHeight_350(this);
             final String urlImage = object.getJSONObject(Global.arData[9]).getString(Global.arData[10]);
             Picasso.get().load(urlImage).error(R.drawable.img_loading).placeholder(R.drawable.img_loading).into(ivBanner);
-            final AdapterTerm adapterTerm = new AdapterTerm(this,object.getJSONArray(Global.arData[112]));
+            final AdapterTerm adapterTerm = new AdapterTerm(this, object.getJSONArray(Global.arData[112]));
             final RecyclerView recycleTerm = findViewById(R.id.recycleTerm);
-            initRecycler(recycleTerm,adapterTerm);
+            initRecycler(recycleTerm, adapterTerm);
 
-            final AdapterRoadSide adapterRoadSide = new AdapterRoadSide(this,object.getJSONArray(Global.arData[113]));
+            final AdapterRoadSide adapterRoadSide = new AdapterRoadSide(this, object.getJSONArray(Global.arData[113]));
             final RecyclerView recycleRoadside = findViewById(R.id.recycleRoadside);
-            initRecycler(recycleRoadside,adapterRoadSide);
+            initRecycler(recycleRoadside, adapterRoadSide);
 
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
         }
     }
 
-    private void initRecycler(final RecyclerView recycler, final RecyclerView.Adapter adapter){
-        final LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
+    private void initRecycler(final RecyclerView recycler, final RecyclerView.Adapter adapter) {
+        final LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         recycler.setLayoutManager(manager);
         recycler.setAdapter(adapter);
     }

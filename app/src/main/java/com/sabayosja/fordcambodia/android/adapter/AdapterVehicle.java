@@ -13,7 +13,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
-import com.sabayosja.fordcambodia.android.activity.ActivityVehicleHistory;
+
+import com.sabayosja.fordcambodia.android.activity.ActivityVehicle;
 import com.sabayosja.fordcambodia.android.listener.SelectedListener;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
@@ -22,6 +23,8 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import static com.sabayosja.fordcambodia.android.util.Global.ActivityVehicle;
 
 public class AdapterVehicle extends RecyclerView.Adapter<AdapterVehicle.ItemHolder> {
     private Context context;
@@ -40,7 +43,7 @@ public class AdapterVehicle extends RecyclerView.Adapter<AdapterVehicle.ItemHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ItemHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ItemHolder holder, final int position) {
         try {
             final JSONObject object = array.getJSONObject(position);
             holder.tvModel.setText(object.getString(Global.arData[57]));
@@ -56,7 +59,11 @@ public class AdapterVehicle extends RecyclerView.Adapter<AdapterVehicle.ItemHold
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    MyFunction.getInstance().openActivity(context, ActivityVehicleHistory.class);
+                    try{
+                        ((ActivityVehicle)context).loadVehicleHistory(object.getString(Global.arData[7]),object);
+                    }catch (Exception e){
+                        Log.e("Err",e.getMessage()+"");
+                    }
                 }
             });
             final String urlImage = object.getJSONObject(Global.arData[9]).getString(Global.arData[10]);

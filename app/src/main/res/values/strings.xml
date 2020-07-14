@@ -80,7 +80,7 @@
     <string name="verify_code">Verify Code</string>
     <string name="wrong_code">Your code is invalid! Please check and try again</string>
     <string name="your_booking">Your Booking</string>
-    <string name="mileage">Mileage :</string>
+    <string name="mileage">Mileage: </string>
     <string name="inspection">Inspection</string>
     <string name="date">Date :</string>
     <string name="time">Time :</string>
@@ -128,6 +128,7 @@
     <string name="notification">Notification</string>
     <string name="history">Vehicle History Page</string>
     <string name="histories">History</string>
+    <string name="history_booking">History</string>
     <string name="ass_sale">Sale Contact/Working Hour</string>
     <string name="ass_service">Service Contact/Working Hour</string>
     <string name="ass_roadside">24h Roadside Assistant</string>
@@ -135,4 +136,7 @@
     <string name="contact_hotline">Contact Hotline</string>
     <string name="term_and_condition">Term and Condition</string>
     <string name="give_us">Give Us a Call Anytime</string>
+    <string name="at">at</string>
+    <string name="status_canceled">You booking has been canceled</string>
+    <string name="status_accepted">You booking has been accepted</string>
 </resources>

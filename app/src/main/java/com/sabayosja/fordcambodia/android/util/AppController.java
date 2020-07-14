@@ -159,6 +159,8 @@ public class AppController extends Application {
         Global.arData[111] = "label";
         Global.arData[112] = "terms_conditions";
         Global.arData[113] = "give_us_a_call_anytime";
+        Global.arData[114] = "booking/booking_history_list_";
+        Global.arData[115] = "booking";
 
 
 

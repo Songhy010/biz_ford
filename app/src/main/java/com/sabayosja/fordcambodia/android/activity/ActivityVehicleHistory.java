@@ -1,21 +1,35 @@
 package com.sabayosja.fordcambodia.android.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.adapter.AdapterVehicleHistory;
+import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
+import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
+import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
+import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
+import com.squareup.picasso.Picasso;
 
-public class ActivityVehicleHistory extends AppCompatActivity {
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
+public class ActivityVehicleHistory extends ActivityController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +43,13 @@ public class ActivityVehicleHistory extends AppCompatActivity {
 
     private void initView() {
         initToolbar();
-        initRecycler();
+        initVehicle();
+        initRecyclerHistory();
+    }
+
+
+    private HashMap<String, String> getDataIntent() {
+        return MyFunction.getInstance().getIntentHashMap(getIntent());
     }
 
     private void initToolbar() {
@@ -50,11 +70,35 @@ public class ActivityVehicleHistory extends AppCompatActivity {
         tv_title.setText(getString(R.string.history));
     }
 
-    private void initRecycler(){
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL,false);
-        final AdapterVehicleHistory vehicleHistory = new AdapterVehicleHistory(this,null);
-        final RecyclerView recyclerView = findViewById(R.id.listcar);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(vehicleHistory);
+    private void initRecyclerHistory() {
+        try{
+            final JSONObject objHistory = new JSONObject(getDataIntent().get(Global.arData[12]));
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+            final AdapterVehicleHistory vehicleHistory = new AdapterVehicleHistory(this, objHistory.getJSONArray(Global.arData[115]));
+            final RecyclerView recyclerView = findViewById(R.id.listcar);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setAdapter(vehicleHistory);
+        }catch (Exception e){
+            Log.e("Err",e.getMessage()+"");
+        }
+
     }
+
+    private void initVehicle() {
+        try {
+            final CardView card = findViewById(R.id.card);
+            final ImageView ivCar = findViewById(R.id.ivCar);
+            card.getLayoutParams().height = MyFunction.getInstance().getHeight_400(this);
+            final JSONObject objVehicle = new JSONObject(getDataIntent().get(Global.arData[70]));
+            final String imaUrl = objVehicle.getJSONObject(Global.arData[9]).getString(Global.arData[10]);
+            Picasso.get().load(imaUrl).error(R.drawable.img_loading).placeholder(R.drawable.img_loading).into(ivCar);
+            final TextView tvModel = findViewById(R.id.tvModel);
+            final TextView tvYear = findViewById(R.id.tvYear);
+            tvModel.setText(objVehicle.getString(Global.arData[57]));
+            tvYear.setText(String.format("%s / %s", objVehicle.getString(Global.arData[42]), objVehicle.getString(Global.arData[58])));
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+    }
+
 }
