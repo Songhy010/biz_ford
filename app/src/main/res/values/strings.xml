@@ -139,4 +139,5 @@
     <string name="at">at</string>
     <string name="status_canceled">You booking has been canceled</string>
     <string name="status_accepted">You booking has been accepted</string>
+    <string name="map_key">AIzaSyCpxO71kfVCbr1hOaqx8ZQK8advYnL7PCI</string>
 </resources>

@@ -9,7 +9,7 @@
     <include layout="@layout/top_menu_activity"/>
     <androidx.core.widget.NestedScrollView
         android:id="@+id/view"
-        android:visibility="gone"
+        android:visibility="visible"
         android:padding="@dimen/iv_height_10"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -51,12 +51,12 @@
 
                         <ImageView
                             android:id="@+id/iv_moreGallery"
-                            android:layout_width="@dimen/iv_height_30"
-                            android:layout_height="@dimen/iv_height_30"
+                            android:layout_width="@dimen/iv_height_25"
+                            android:layout_height="@dimen/iv_height_25"
                             android:layout_alignParentEnd="true"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
-                            android:padding="@dimen/iv_height_8"
+                            android:padding="@dimen/iv_height_5"
                             android:src="@drawable/ic_more" />
                     </RelativeLayout>
 
@@ -75,6 +75,7 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycleKey"
+                        android:layout_marginTop="@dimen/iv_height_10"
                         android:padding="@dimen/iv_height_5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -88,6 +89,7 @@
                         android:layout_height="wrap_content"/>
 
                     <RelativeLayout
+                        android:layout_marginTop="@dimen/iv_height_10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <androidx.viewpager.widget.ViewPager
@@ -120,6 +122,7 @@
                         android:layout_height="wrap_content"/>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycleColor"
+                        android:layout_marginTop="@dimen/iv_height_10"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -137,12 +140,12 @@
 
             <TextView
                 android:id="@+id/tv_price"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginTop="@dimen/iv_height_20"
-                android:textSize="@dimen/text_size_medium"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/iv_height_20"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_large" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnFinance"
@@ -188,7 +191,12 @@
                         android:text="@string/contact_for"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
-                    <androidx.cardview.widget.CardView
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginTop="@dimen/iv_height_15"
+                        android:id="@+id/recyclePhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <!--<androidx.cardview.widget.CardView
                         android:id="@+id/btn_phone1"
                         app:cardBackgroundColor="@color/colorPrimary"
                         android:layout_width="match_parent"
@@ -236,8 +244,9 @@
                                 android:text="@string/phone_2"
                                 android:textSize="@dimen/text_size_small" />
                         </LinearLayout>
-                    </androidx.cardview.widget.CardView>
+                    </androidx.cardview.widget.CardView>-->
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
 

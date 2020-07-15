@@ -23,8 +23,10 @@ import com.sabayosja.fordcambodia.android.adapter.AdapterBanner;
 import com.sabayosja.fordcambodia.android.adapter.AdapterColor;
 import com.sabayosja.fordcambodia.android.adapter.AdapterFeature;
 import com.sabayosja.fordcambodia.android.adapter.AdapterGallery;
+import com.sabayosja.fordcambodia.android.adapter.AdapterPhone;
 import com.sabayosja.fordcambodia.android.adapter.AdapterVideo;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
@@ -52,7 +54,7 @@ public class ActivityProductDetail extends ActivityController {
         setContentView(R.layout.activity_product_detail);
         Tools.setSystemBarColor(this, R.color.white);
         Tools.setSystemBarLight(this);
-        MyFont.getInstance().setFont(ActivityProductDetail.this, getWindow().getDecorView().findViewById(android.R.id.content), 3);
+        MyFont.getInstance().setFont(ActivityProductDetail.this, getWindow().getDecorView().findViewById(android.R.id.content), 1);
         initView();
 
     }
@@ -203,7 +205,9 @@ public class ActivityProductDetail extends ActivityController {
     private void initPrice(final String price){
         final TextView tv_price = findViewById(R.id.tv_price);
         tv_price.setText(String.format("$"+price));
-        findViewById(R.id.btn_phone1).setOnClickListener(new View.OnClickListener() {
+        MyFont.getInstance().setFont(this,tv_price,3);
+        initRecyclerPhone();
+        /*findViewById(R.id.btn_phone1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String phone = "012333975";
@@ -218,9 +222,26 @@ public class ActivityProductDetail extends ActivityController {
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
+    private void initRecyclerPhone(){
+        try{
+            final JSONArray arrPhone = new JSONArray();
+            for(int i = 0 ; i < ModelBooking.getInstance().getProductContact().length();i++){
+                arrPhone.put(ModelBooking.getInstance().getProductContact().getJSONObject(i).getString(Global.arData[51]));
+            }
+            final LinearLayoutManager manager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
+            final RecyclerView recyclerPhone = findViewById(R.id.recyclePhone);
+            final AdapterPhone adapterPhone = new AdapterPhone(this,arrPhone);
+            recyclerPhone.setLayoutManager(manager);
+            recyclerPhone.setAdapter(adapterPhone);
+
+        }catch (Exception e){
+            Log.e("Err",e.getMessage());
+        }
+
+    }
     private void initCalculator(final String price){
         findViewById(R.id.btnFinance).setOnClickListener(new View.OnClickListener() {
             @Override

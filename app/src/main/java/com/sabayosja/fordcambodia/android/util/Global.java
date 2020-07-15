@@ -23,6 +23,7 @@ public class Global {
     public static final String URI_MESSENGER = "fb-messenger://user-thread/";
     public static final String URI_STORE = "https://play.google.com/store/apps/details?id=";
     public static final String PACKAGE_MG = "com.facebook.orca";
+    public static final String URL_POWER_BY = "http://www.cambodia.rmagroup.net/locations/phnom-penh/";
     public static final  String HTML_HEADER_CONTENT_TYPE = "Content-Type";
     public static final String HTML_HEADER_CONTENT_TYPE_VALUE_JSON = "application/json; charset=UTF-8";
     public static int PERMISSION_ALL = 1;

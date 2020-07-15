@@ -4,12 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,22 +28,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.google.android.material.navigation.NavigationView;
 import com.sabayosja.fordcambodia.android.R;
 import com.sabayosja.fordcambodia.android.adapter.AdapterBannerHome;
+import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
+import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
+import com.sabayosja.fordcambodia.android.model.ModelBooking;
 import com.sabayosja.fordcambodia.android.util.Global;
 import com.sabayosja.fordcambodia.android.util.MyFont;
 import com.sabayosja.fordcambodia.android.util.MyFunction;
 import com.sabayosja.fordcambodia.android.util.Tools;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ActivityHome extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ActivityHome extends ActivityController implements NavigationView.OnNavigationItemSelectedListener {
 
     private AdapterBannerHome adapter;
     private ViewPager viewPager;
@@ -119,8 +131,18 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         Menu m = navigationView.getMenu();
         for (int i = 0; i < m.size(); i++) {
-            MenuItem mi = m.getItem(i);
+            final MenuItem mi = m.getItem(i);
             MyFont.getInstance().applyFontToMenuItem(ActivityHome.this, mi);
+            if (i == 6) {
+                Drawable drawable = m.findItem(R.id.assistant).getIcon();
+                drawable.mutate();
+                drawable.setColorFilter(new PorterDuffColorFilter(getResources().getColor(R.color.red_500), PorterDuff.Mode.SRC_IN));
+                mi.setIcon(drawable);
+            }
+            if (i == 7) {
+                final View view = m.findItem(R.id.social).getActionView();
+                loadSocial(view);
+            }
         }
     }
 
@@ -232,22 +254,13 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
         }
     }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        //final String lang  = MyFunction.getInstance().getText(ActivityHome.this, Global.arData[6]);
-        //
+
         switch (menuItem.getItemId()) {
-            case R.id.social:
-                CircleImageView img = menuItem.getActionView().findViewById(R.id.fb);
-                img.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(ActivityHome.this, "Hello", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                break;
             case R.id.power_by:
-                Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show();
+                initOpenSocial(Global.URL_POWER_BY);
                 break;
             case R.id.vehecle:
                 final HashMap<String, String> map = new HashMap<>();
@@ -271,5 +284,80 @@ public class ActivityHome extends AppCompatActivity implements NavigationView.On
                 break;
         }
         return true;
+    }
+
+    private void initSocial(final JSONArray arr, final View view) {
+        try {
+            final ImageView[] iv = {view.findViewById(R.id.fb), view.findViewById(R.id.yt), view.findViewById(R.id.in), view.findViewById(R.id.ig)};
+            for (int i = 0; i < iv.length; i++) {
+                final JSONObject obj = arr.getJSONObject(i);
+                ModelBooking.getInstance().setAccessoryContact(obj.getJSONArray(Global.arData[118]));
+                ModelBooking.getInstance().setProductContact(obj.getJSONArray(Global.arData[119]));
+                Picasso.get().load(obj.getString(Global.arData[9])).error(R.drawable.img_loading).placeholder(R.drawable.img_loading).into(iv[i]);
+                iv[i].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        try {
+                            initOpenSocial(obj.getString(Global.arData[24]));
+                        } catch (Exception e) {
+                            Log.e("Err",e.getMessage()+"");
+                        }
+                    }
+                });
+            }
+            
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
+        }
+    }
+
+
+    private void initOpenSocial(final String url) {
+        Uri uri = Uri.parse(url);
+        Intent likeIng = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(likeIng);
+    }
+
+    public void loadSocial(final View view) {
+        final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
+        final String lang = MyFunction.getInstance().getText(ActivityHome.this, Global.arData[6]);
+        final HashMap<String, String> param = new HashMap<>();
+        param.put(Global.arData[6], lang);
+        param.put(Global.arData[7], Global.arData[117]);
+        loadDataServer(param, url, new LoadDataListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    if (MyFunction.getInstance().isValidJSON(response)) {
+                        final JSONArray arr = new JSONArray(response);
+                        initSocial(arr, view);
+                    }
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+            }
+        });
+    }
+
+    private void loadDataServer(HashMap<String, String> param, final String url, final LoadDataListener loadData) {
+        showDialog();
+        MyFunction.getInstance().requestString(this, Request.Method.POST, url, param, new VolleyCallback() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    loadData.onSuccess(response);
+                } catch (Exception e) {
+                    Log.e("Err", e.getMessage() + "");
+                }
+                hideDialog();
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError e) {
+                Log.e("Err", e.getMessage() + "");
+                MyFunction.getInstance().alertMessage(ActivityHome.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
+                hideDialog();
+            }
+        });
     }
 }

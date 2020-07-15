@@ -24,7 +24,7 @@
             android:id="@+id/gradient"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/service_gradient" />
+             />
 
         <TextView
             android:id="@+id/tv_service"

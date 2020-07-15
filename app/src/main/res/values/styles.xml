@@ -66,4 +66,8 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
+    <style name="MyOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:tint">@color/red_500</item>
+    </style>
 </resources>

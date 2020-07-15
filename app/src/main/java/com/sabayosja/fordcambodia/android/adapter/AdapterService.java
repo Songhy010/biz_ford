@@ -1,6 +1,8 @@
 package com.sabayosja.fordcambodia.android.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Random;
 
 public class AdapterService extends RecyclerView.Adapter<AdapterService.ItemHolder> {
 
@@ -47,6 +50,13 @@ public class AdapterService extends RecyclerView.Adapter<AdapterService.ItemHold
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
         try {
+            Random rnd = new Random();
+            int color = Color.argb(150, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+            GradientDrawable gd = new GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT,
+                    new int[] {0x80303F9F,color});
+            holder.gradient.setBackground(gd);
+
             final JSONObject object = array.getJSONObject(position);
             holder.tv_service.setText(object.getString(Global.arData[18]));
             final String url = object.getJSONObject(Global.arData[9]).getString(Global.arData[10]);

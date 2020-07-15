@@ -1,6 +1,8 @@
 package com.sabayosja.fordcambodia.android.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class AdapterAssistant extends RecyclerView.Adapter<AdapterAssistant.ItemHolder> {
     final Context context;
@@ -49,6 +52,14 @@ public class AdapterAssistant extends RecyclerView.Adapter<AdapterAssistant.Item
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, final int position) {
         try {
+
+            Random rnd = new Random();
+            int color = Color.argb(150, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+            GradientDrawable gd = new GradientDrawable(
+                    GradientDrawable.Orientation.LEFT_RIGHT,
+                    new int[] {0x80303F9F,color});
+            holder.gradient.setBackground(gd);
+
             final JSONObject object = array.getJSONObject(position);
             holder.tvTitle.setText(title.get(position));
             String urlImg = object.getJSONObject(Global.arData[105]).getString(Global.arData[10]);
@@ -83,12 +94,13 @@ public class AdapterAssistant extends RecyclerView.Adapter<AdapterAssistant.Item
     static class ItemHolder extends RecyclerView.ViewHolder {
         private CardView cardView;
         private TextView tvTitle;
-        private ImageView ivCar;
+        private ImageView ivCar,gradient;
         public ItemHolder(@NonNull View itemView, Context context) {
             super(itemView);
             MyFont.getInstance().setFont(context, itemView, 1);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             ivCar = itemView.findViewById(R.id.ivCar);
+            gradient = itemView.findViewById(R.id.gradient);
             cardView = itemView.findViewById(R.id.cardView);
             final int height = MyFunction.getInstance().getHeight_350(context);
             cardView.getLayoutParams().height = height;

@@ -4,25 +4,25 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/fb"
         android:layout_marginRight="@dimen/iv_height_25"
         android:src="@drawable/ic_fb"
         android:layout_width="@dimen/iv_height_25"
         android:layout_height="@dimen/iv_height_25"/>
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/yt"
         android:layout_marginRight="@dimen/iv_height_25"
         android:src="@drawable/ic_fb"
         android:layout_width="@dimen/iv_height_25"
         android:layout_height="@dimen/iv_height_25"/>
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:layout_marginRight="@dimen/iv_height_25"
         android:id="@+id/in"
         android:src="@drawable/ic_fb"
         android:layout_width="@dimen/iv_height_25"
         android:layout_height="@dimen/iv_height_25"/>
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/ig"
         android:layout_marginRight="@dimen/iv_height_40"
         android:src="@drawable/ic_fb"

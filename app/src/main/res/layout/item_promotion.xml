@@ -14,10 +14,11 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:textAlignment="center"
             android:ellipsize="end"
             android:maxLines="2"
             android:id="@+id/tvPromotion"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/iv_height_35"
             android:layout_marginBottom="@dimen/iv_height_10"

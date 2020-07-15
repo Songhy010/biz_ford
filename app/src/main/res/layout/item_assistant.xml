@@ -23,7 +23,7 @@
             android:scaleType="centerCrop"
             android:src="@drawable/img_nav_head" />
         <ImageView
-            android:src="@drawable/service_gradient"
+            android:id="@+id/gradient"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <TextView

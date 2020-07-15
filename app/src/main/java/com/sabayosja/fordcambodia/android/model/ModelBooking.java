@@ -33,6 +33,25 @@ public class ModelBooking {
     private String duration;
     private String tokenFCM;
 
+    private JSONArray accessoryContact;
+    private JSONArray productContact;
+
+    public JSONArray getProductContact() {
+        return productContact;
+    }
+
+    public void setProductContact(JSONArray productContact) {
+        this.productContact = productContact;
+    }
+
+    public JSONArray getAccessoryContact() {
+        return accessoryContact;
+    }
+
+    public void setAccessoryContact(JSONArray accessoryContact) {
+        this.accessoryContact = accessoryContact;
+    }
+
     public String getTokenFCM() {
         return tokenFCM;
     }
