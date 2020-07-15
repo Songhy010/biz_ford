@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabayosja.fordcambodia.android.R;
 
+import com.sabayosja.fordcambodia.android.activity.ActivityAddVehicle;
 import com.sabayosja.fordcambodia.android.activity.ActivityVehicle;
 import com.sabayosja.fordcambodia.android.listener.SelectedListener;
 import com.sabayosja.fordcambodia.android.util.Global;
@@ -24,7 +25,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import static com.sabayosja.fordcambodia.android.util.Global.ActivityVehicle;
+import java.util.HashMap;
 
 public class AdapterVehicle extends RecyclerView.Adapter<AdapterVehicle.ItemHolder> {
     private Context context;
@@ -38,8 +39,8 @@ public class AdapterVehicle extends RecyclerView.Adapter<AdapterVehicle.ItemHold
     @NonNull
     @Override
     public ItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_vehicle,parent,false);
-        return new ItemHolder(view,context);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_vehicle, parent, false);
+        return new ItemHolder(view, context);
     }
 
     @Override
@@ -49,43 +50,50 @@ public class AdapterVehicle extends RecyclerView.Adapter<AdapterVehicle.ItemHold
             holder.tvModel.setText(object.getString(Global.arData[57]));
             holder.tvYear.setText(String.format("%s: %s", context.getString(R.string.all_year), object.getString(Global.arData[42])));
             holder.tvPlate.setText(String.format("%s: %s", context.getString(R.string.plate_number), object.getString(Global.arData[58])));
-            String [] item = new String[]{context.getString(R.string.delete),context.getString(R.string.edit)};
+            String[] item = new String[]{context.getString(R.string.delete), context.getString(R.string.edit)};
             MyFunction.getInstance().initSelectItem(context, holder.iv_more, holder.tvNotShow, item, 1, new SelectedListener() {
                 @Override
                 public void onSelected(int str) {
-
+                    if (str == 0)
+                        ((ActivityVehicle) context).editAndDelete(object);
+                    else {
+                        final HashMap<String, String> map = new HashMap<>();
+                        map.put(Global.arData[12],object.toString());
+                        MyFunction.getInstance().openActivity(context, ActivityAddVehicle.class,map);
+                    }
                 }
             });
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    try{
-                        ((ActivityVehicle)context).loadVehicleHistory(object.getString(Global.arData[7]),object);
-                    }catch (Exception e){
-                        Log.e("Err",e.getMessage()+"");
+                    try {
+                        ((ActivityVehicle) context).loadVehicleHistory(object.getString(Global.arData[7]), object);
+                    } catch (Exception e) {
+                        Log.e("Err", e.getMessage() + "");
                     }
                 }
             });
             final String urlImage = object.getJSONObject(Global.arData[9]).getString(Global.arData[10]);
             Picasso.get().load(urlImage).error(R.drawable.img_loading).placeholder(R.drawable.img_loading).into(holder.ivCar);
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
         }
     }
 
     @Override
     public int getItemCount() {
-        return array != null? array.length() : 0;
+        return array != null ? array.length() : 0;
     }
 
     static class ItemHolder extends RecyclerView.ViewHolder {
         private ImageView iv_more;
         private CardView cardView;
         private ImageView ivCar;
-        private TextView tvModel, tvYear, tvPlate,tvNotShow;
+        private TextView tvModel, tvYear, tvPlate, tvNotShow;
+
         public ItemHolder(@NonNull View itemView, Context context) {
             super(itemView);
-            MyFont.getInstance().setFont(context,itemView,1);
+            MyFont.getInstance().setFont(context, itemView, 1);
             iv_more = itemView.findViewById(R.id.iv_more);
             cardView = itemView.findViewById(R.id.cardcar);
             ivCar = itemView.findViewById(R.id.ivCar);

@@ -74,7 +74,7 @@ public class ActivityViewBooking extends ActivityController {
     private void initCount() {
         final TextView tvCount = findViewById(R.id.tvCount);
         tvCount.setVisibility(View.VISIBLE);
-        countDownTimer = new CountDownTimer(60000, 1000) {
+        countDownTimer = new CountDownTimer(300000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 tvCount.setText(String.format("%d min, %d sec",

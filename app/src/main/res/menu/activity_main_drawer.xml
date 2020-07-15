@@ -20,15 +20,16 @@
         android:title="@string/survey" />
     <item
         android:id="@+id/financing"
-        android:icon="@drawable/ic_comment"
+        android:icon="@drawable/ic_financing"
         android:title="@string/financing" />
     <item
         android:id="@+id/setting"
-        android:icon="@drawable/ic_connect"
+        android:icon="@drawable/ic_setting"
         android:title="@string/setting" />
     <item
+        android:iconTint="@color/red_500"
         android:id="@+id/assistant"
-        android:icon="@drawable/ic_comment"
+        android:icon="@drawable/ic_assistat"
         android:title="@string/assistant" />
     <item
         android:id="@+id/social_main"

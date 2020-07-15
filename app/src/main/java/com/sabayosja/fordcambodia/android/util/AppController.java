@@ -161,6 +161,7 @@ public class AppController extends Application {
         Global.arData[113] = "give_us_a_call_anytime";
         Global.arData[114] = "booking/booking_history_list_";
         Global.arData[115] = "booking";
+        Global.arData[116] = "row_id";
 
 
 

@@ -33,10 +33,11 @@ import java.util.HashMap;
 
 public class ActivityAddVehicle extends ActivityController {
 
-    private String model;
-    private String year;
+    private String model = "";
+    private String year = "";
     private String vehicle;
-    private String plate;
+    private boolean isEdit = false;
+    private String row_id;
 
 
     @Override
@@ -55,6 +56,7 @@ public class ActivityAddVehicle extends ActivityController {
         loadModel();
         loadPrefix();
         initAdd();
+        initEdit();
     }
 
     private void initToolbar() {
@@ -73,6 +75,27 @@ public class ActivityAddVehicle extends ActivityController {
         iv_ford.setVisibility(View.GONE);
         iv_search.setVisibility(View.GONE);
         tv_title.setText(getString(R.string.add_vehicle));
+    }
+
+    private void initEdit(){
+        try {
+            final JSONObject object = new JSONObject(MyFunction.getInstance().getIntentHashMap(getIntent()).get(Global.arData[12]));
+            final TextView tvYear = findViewById(R.id.tvYear);
+            final TextView tvModel = findViewById(R.id.tvModel);
+            final TextView tvPrefix = findViewById(R.id.tvPrefix);
+            final EditText edtPlate = findViewById(R.id.edtPlate);
+            tvYear.setText(object.getString(Global.arData[42]));
+            tvModel.setText(object.getString(Global.arData[57]));
+            edtPlate.setText(object.getString(Global.arData[58]));
+            vehicle = object.getString(Global.arData[7]);
+            row_id = object.getString(Global.arData[116]);
+            final ImageView ivCar = findViewById(R.id.ivCar);
+            final JSONObject objImage =  object.getJSONObject(Global.arData[9]);
+            Picasso.get().load(objImage.getString(Global.arData[10])).placeholder(R.drawable.img_loading).error(R.drawable.img_loading).into(ivCar);
+            isEdit = true;
+        }catch (Exception e){
+            Log.e("Err",e.getMessage()+"");
+        }
     }
 
     private void initCheckBox() {
@@ -281,6 +304,8 @@ public class ActivityAddVehicle extends ActivityController {
         param.put(Global.arData[51],getPhone());
         param.put(Global.arData[58],edtPlate.getText().toString());
         param.put(Global.arData[97],"1");
+        if(isEdit)
+            param.put(Global.arData[116],row_id);
         loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
@@ -288,6 +313,7 @@ public class ActivityAddVehicle extends ActivityController {
                     if(response.equals(Global.SUCCESS)){
                         setResult(RESULT_OK);
                         MyFunction.getInstance().finishActivity(ActivityAddVehicle.this);
+                        isEdit = false;
                     }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");

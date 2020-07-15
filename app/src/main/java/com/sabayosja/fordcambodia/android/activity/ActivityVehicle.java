@@ -3,6 +3,7 @@ package com.sabayosja.fordcambodia.android.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -141,6 +142,34 @@ public class ActivityVehicle extends ActivityController {
                 }
             }
         });
+    }
+
+    public void editAndDelete(final JSONObject object){
+        try{
+            final String url = Global.arData[0] + Global.arData[1] + Global.arData[96];
+            final HashMap<String, String> param = new HashMap<>();
+            param.put(Global.arData[70],object.getString(Global.arData[7]));
+            param.put(Global.arData[57],object.getString(Global.arData[57]));
+            param.put(Global.arData[42],object.getString(Global.arData[42]));
+            param.put(Global.arData[51],getPhone());
+            param.put(Global.arData[58],object.getString(Global.arData[58]));
+            param.put(Global.arData[97],"0");
+            param.put(Global.arData[116],object.getString(Global.arData[116]));
+            loadDataServer(param, url, new LoadDataListener() {
+                @Override
+                public void onSuccess(String response) {
+                    try {
+                        if(response.equals(Global.SUCCESS)){
+                            loadVehicle();
+                        }
+                    } catch (Exception e) {
+                        Log.e("Err", e.getMessage() + "");
+                    }
+                }
+            });
+        }catch (Exception e){
+            Log.e("Err",e.getMessage()+"");
+        }
     }
 
     private void loadDataServer(HashMap<String, String> param, final String url, final LoadDataListener loadData) {
