@@ -207,22 +207,6 @@ public class ActivityProductDetail extends ActivityController {
         tv_price.setText(String.format("$"+price));
         MyFont.getInstance().setFont(this,tv_price,3);
         initRecyclerPhone();
-        /*findViewById(R.id.btn_phone1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String phone = "012333975";
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
-                startActivity(intent);
-            }
-        });
-        findViewById(R.id.btn_phone2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String phone = "063766661";
-                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
-                startActivity(intent);
-            }
-        });*/
     }
 
     private void initRecyclerPhone(){

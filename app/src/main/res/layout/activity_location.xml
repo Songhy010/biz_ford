@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ActivityLocation">
+
+    <include
+        android:id="@+id/tool"
+        layout="@layout/top_menu_activity" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:padding="@dimen/iv_height_5"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/iv_height_45">
+
+            <RelativeLayout
+                android:id="@+id/tabShow"
+                android:onClick="initTab"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/tvShow"
+                    android:text="@string/show_room"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:id="@+id/lineShow"
+                    android:visibility="visible"
+                    android:layout_marginRight="@dimen/iv_height_10"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/iv_height_1" />
+            </RelativeLayout>
+
+            <View
+                android:background="@color/grey_4"
+                android:layout_width="@dimen/iv_height_1"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:id="@+id/tabGas"
+                android:onClick="initTab"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/grey_5"
+                    android:id="@+id/tvGas"
+                    android:text="@string/gas_station"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:visibility="gone"
+                    android:id="@+id/lineGas"
+                    android:layout_marginLeft="@dimen/iv_height_10"
+                    android:layout_marginRight="@dimen/iv_height_10"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/iv_height_1" />
+            </RelativeLayout>
+
+            <View
+                android:background="@color/grey_4"
+                android:layout_width="@dimen/iv_height_1"
+                android:layout_height="match_parent" />
+            <RelativeLayout
+                android:id="@+id/tabOSC"
+                android:onClick="initTab"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:textColor="@color/grey_5"
+                    android:id="@+id/tvOSC"
+                    android:text="@string/osc"
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:visibility="gone"
+                    android:id="@+id/lineOSC"
+                    android:layout_marginLeft="@dimen/iv_height_10"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/iv_height_1" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <fragment
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map_view"
+            android:layout_below="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <androidx.cardview.widget.CardView
+            android:layout_marginRight="@dimen/iv_height_10"
+            android:layout_marginLeft="@dimen/iv_height_10"
+            android:layout_marginTop="@dimen/iv_height_10"
+            android:layout_below="@id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="@dimen/text_size_small"
+                    android:layout_marginLeft="@dimen/iv_height_10"
+                    android:layout_centerVertical="true"
+                    android:text="@string/filter_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:padding="@dimen/iv_height_10"
+                    android:rotation="90"
+                    android:src="@drawable/ic_more"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="@dimen/iv_height_35"
+                    android:layout_height="@dimen/iv_height_35"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/iv_height_40"
+            android:layout_height="@dimen/iv_height_40"/>
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

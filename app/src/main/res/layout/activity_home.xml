@@ -256,7 +256,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/ivBook" />
 
             <ImageView
-                android:id="@+id/imageView5"
+                android:id="@+id/ivLocation"
                 android:layout_width="@dimen/iv_height_20"
                 android:layout_height="@dimen/iv_height_20"
                 android:layout_alignParentBottom="true"
@@ -274,9 +274,9 @@
                 android:layout_height="wrap_content"
                 android:text="@string/location"
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintEnd_toEndOf="@+id/imageView5"
-                app:layout_constraintStart_toStartOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+                app:layout_constraintEnd_toEndOf="@+id/ivLocation"
+                app:layout_constraintStart_toStartOf="@+id/ivLocation"
+                app:layout_constraintTop_toBottomOf="@+id/ivLocation" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 

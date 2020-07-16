@@ -102,6 +102,14 @@ public class ActivityHome extends ActivityController implements NavigationView.O
                 MyFunction.getInstance().openActivityForResult(ActivityHome.this, ActivityLogin.class, map, Global.ActivityLogin);
             }
         });
+        findViewById(R.id.ivLocation).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final HashMap<String, String> map = new HashMap<>();
+                map.put(Global.arData[12], Global.ActivitySelectCar + "");
+                MyFunction.getInstance().openActivity(ActivityHome.this, ActivityLocation.class);
+            }
+        });
     }
 
     private String getIntentData() {
