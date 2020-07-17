@@ -35,7 +35,7 @@ public class ActivityAddVehicle extends ActivityController {
 
     private String model = "";
     private String year = "";
-    private String vehicle;
+    private String vehicle = "";
     private boolean isEdit = false;
     private String row_id;
 
@@ -77,7 +77,7 @@ public class ActivityAddVehicle extends ActivityController {
         tv_title.setText(getString(R.string.add_vehicle));
     }
 
-    private void initEdit(){
+    private void initEdit() {
         try {
             final JSONObject object = new JSONObject(MyFunction.getInstance().getIntentHashMap(getIntent()).get(Global.arData[12]));
             final TextView tvYear = findViewById(R.id.tvYear);
@@ -90,11 +90,11 @@ public class ActivityAddVehicle extends ActivityController {
             vehicle = object.getString(Global.arData[7]);
             row_id = object.getString(Global.arData[116]);
             final ImageView ivCar = findViewById(R.id.ivCar);
-            final JSONObject objImage =  object.getJSONObject(Global.arData[9]);
+            final JSONObject objImage = object.getJSONObject(Global.arData[9]);
             Picasso.get().load(objImage.getString(Global.arData[10])).placeholder(R.drawable.img_loading).error(R.drawable.img_loading).into(ivCar);
             isEdit = true;
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
         }
     }
 
@@ -135,11 +135,11 @@ public class ActivityAddVehicle extends ActivityController {
     }
 
     private String getPhone() {
-        final String phone = MyFunction.getInstance().getText(this,Global.INFO_FILE);
+        final String phone = MyFunction.getInstance().getText(this, Global.INFO_FILE);
         return phone;
     }
 
-    private void initSelectModelYear(final JSONArray array,final String modelID) {
+    private void initSelectModelYear(final JSONArray array, final String modelID) {
         try {
 
             final RelativeLayout relativeYear = findViewById(R.id.relativeYear);
@@ -147,18 +147,18 @@ public class ActivityAddVehicle extends ActivityController {
             initSelectItem(array, Global.arData[42], relativeYear, tvYear, new SelectedListener() {
                 @Override
                 public void onSelected(int str) {
-                    try{
+                    try {
                         String id = "";
                         final JSONObject object = array.getJSONObject(str);
-                        if(object.getString(Global.arData[47]).equals("") || object.isNull(Global.arData[47])){
+                        if (object.getString(Global.arData[47]).equals("") || object.isNull(Global.arData[47])) {
                             id = modelID;
-                        }else{
+                        } else {
                             id = object.getString(Global.arData[47]);
                         }
                         year = object.getString(Global.arData[47]);
                         loadImage(id);
-                    }catch (Exception e){
-                        Log.e("Err",e.getMessage()+"");
+                    } catch (Exception e) {
+                        Log.e("Err", e.getMessage() + "");
                     }
                 }
             });
@@ -180,7 +180,7 @@ public class ActivityAddVehicle extends ActivityController {
                         tvYear.setText(getString(R.string.all_year));
                         final JSONObject object = array.getJSONObject(str);
                         model = object.getString(Global.arData[46]);
-                        initSelectModelYear(object.getJSONArray(Global.arData[41]),object.getString(Global.arData[46]));
+                        initSelectModelYear(object.getJSONArray(Global.arData[41]), object.getString(Global.arData[46]));
                     } catch (Exception e) {
                         Log.e("Err", e.getMessage() + "");
                     }
@@ -198,16 +198,20 @@ public class ActivityAddVehicle extends ActivityController {
             initSelectItem(array, Global.arData[94], relativePrefix, tvPrefix, new SelectedListener() {
                 @Override
                 public void onSelected(int str) {
+                    final TextView tvSetPrefix = findViewById(R.id.tvSetPrefix);
                     final EditText edtPlate = findViewById(R.id.edtPlate);
                     if (str != 0) {
                         try {
                             final JSONObject obj = array.getJSONObject(str);
-                            edtPlate.setText(String.format("%s 2", obj.getString(Global.arData[94])));
+                            edtPlate.setText("2");
+                            tvSetPrefix.setVisibility(View.VISIBLE);
+                            tvSetPrefix.setText(String.format("%s", obj.getString(Global.arData[94])));
                         } catch (Exception e) {
                             Log.e("Err", e.getMessage() + "");
                         }
                     } else {
-                        edtPlate.setText("");
+                        tvSetPrefix.setText("");
+                        tvSetPrefix.setVisibility(View.GONE);
                         edtPlate.setHint(getString(R.string.plate));
                     }
                 }
@@ -254,7 +258,7 @@ public class ActivityAddVehicle extends ActivityController {
                         final JSONObject obj = new JSONObject(response);
                         vehicle = obj.getString(Global.arData[98]);
                         final ImageView ivCar = findViewById(R.id.ivCar);
-                        final JSONObject objImage =  obj.getJSONObject(Global.arData[9]);
+                        final JSONObject objImage = obj.getJSONObject(Global.arData[9]);
                         Picasso.get().load(objImage.getString(Global.arData[10])).placeholder(R.drawable.img_loading).error(R.drawable.img_loading).into(ivCar);
                     }
                 } catch (Exception e) {
@@ -285,32 +289,41 @@ public class ActivityAddVehicle extends ActivityController {
         });
     }
 
-    private void initAdd(){
+    private void initAdd() {
+        final EditText edtPlate = findViewById(R.id.edtPlate);
         findViewById(R.id.btnAdd).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadAddCar();
+                if (!vehicle.isEmpty()) {
+                    if (!edtPlate.getText().toString().isEmpty())
+                        loadAddCar();
+                    else
+                        MyFunction.getInstance().alertMessage(ActivityAddVehicle.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.input_plate), 1);
+                } else
+                    MyFunction.getInstance().alertMessage(ActivityAddVehicle.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.select_model), 1);
             }
         });
     }
 
-    private void loadAddCar(){
+
+    private void loadAddCar() {
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[96];
         final EditText edtPlate = findViewById(R.id.edtPlate);
+        final TextView tvSetPrefix = findViewById(R.id.tvSetPrefix);
         final HashMap<String, String> param = new HashMap<>();
         param.put(Global.arData[70], vehicle);
         param.put(Global.arData[57], model);
-        param.put(Global.arData[42],year);
-        param.put(Global.arData[51],getPhone());
-        param.put(Global.arData[58],edtPlate.getText().toString());
-        param.put(Global.arData[97],"1");
-        if(isEdit)
-            param.put(Global.arData[116],row_id);
+        param.put(Global.arData[42], year);
+        param.put(Global.arData[51], getPhone());
+        param.put(Global.arData[58], String.format("%s %s", tvSetPrefix.getText().toString(), edtPlate.getText().toString()));
+        param.put(Global.arData[97], "1");
+        if (isEdit)
+            param.put(Global.arData[116], row_id);
         loadDataServer(param, url, new LoadDataListener() {
             @Override
             public void onSuccess(String response) {
                 try {
-                    if(response.equals(Global.SUCCESS)){
+                    if (response.equals(Global.SUCCESS)) {
                         setResult(RESULT_OK);
                         MyFunction.getInstance().finishActivity(ActivityAddVehicle.this);
                         isEdit = false;

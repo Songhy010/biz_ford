@@ -79,6 +79,8 @@
     <string name="require_input">Please fill all required fields</string>
     <string name="verify_code">Verify Code</string>
     <string name="wrong_code">Your code is invalid! Please check and try again</string>
+    <string name="wrong_phone">Your phone number is invalid! Please check and try again</string>
+
     <string name="your_booking">Your Booking</string>
     <string name="mileage">Mileage: </string>
     <string name="inspection">Inspection</string>
@@ -143,5 +145,8 @@
     <string name="gas_station">Gas Station</string>
     <string name="osc">OSC</string>
     <string name="filter_location">Filter your location</string>
+    <string name="select_model">Please select model and model year</string>
+    <string name="input_plate">Please select and input plate number</string>
+
     <string name="google_maps_key">AIzaSyCpxO71kfVCbr1hOaqx8ZQK8advYnL7PCI</string>
 </resources>

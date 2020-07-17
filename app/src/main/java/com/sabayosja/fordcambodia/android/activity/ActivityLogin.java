@@ -83,7 +83,10 @@ public class ActivityLogin extends ActivityController {
                 final EditText edtPhone = findViewById(R.id.edtPhone);
                 ModelBooking.getInstance().setUserName(edtName.getText().toString());
                 if (!edtPhone.getText().toString().isEmpty() && !edtName.getText().toString().isEmpty()) {
-                    loadDataServer();
+                    if (edtPhone.getText().toString().length() > 8 && edtPhone.getText().toString().length() < 11)
+                        loadDataServer();
+                    else
+                        MyFunction.getInstance().alertMessage(ActivityLogin.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.wrong_phone), 1);
                 } else {
                     MyFunction.getInstance().alertMessage(ActivityLogin.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.require_input), 1);
                 }
@@ -113,7 +116,7 @@ public class ActivityLogin extends ActivityController {
                     } else if (response.equals("0")) {
                         final HashMap<String, String> map = new HashMap<>();
                         map.put(Global.arData[51], phone);
-                        map.put(Global.arData[12],getDataIntent().get(Global.arData[12]));
+                        map.put(Global.arData[12], getDataIntent().get(Global.arData[12]));
                         MyFunction.getInstance().openActivity(ActivityLogin.this, ActivityOtp.class, map);
                     } else {
                         MyFunction.getInstance().alertMessage(ActivityLogin.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);

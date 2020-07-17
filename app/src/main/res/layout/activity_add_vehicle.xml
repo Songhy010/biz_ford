@@ -167,19 +167,28 @@
                         android:id="@+id/imgtopic"
                         android:layout_width="@dimen/iv_height_35"
                         android:layout_height="@dimen/iv_height_35"/>
+                    <TextView
+                        android:visibility="gone"
+                        android:textSize="@dimen/text_size_small"
+                        android:layout_marginLeft="@dimen/iv_height_10"
+                        android:id="@+id/tvSetPrefix"
+                        android:layout_toEndOf="@+id/imgtopic"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                     <EditText
                         android:padding="@dimen/iv_height_5"
                         android:id="@+id/edtPlate"
                         android:inputType="textCapCharacters"
-                        android:layout_marginLeft="@dimen/iv_height_10"
+                        android:layout_marginLeft="@dimen/iv_height_5"
                         android:textSize="@dimen/text_size_small"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:hint="@string/plate"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@id/imgtopic"/>
+                        android:layout_toEndOf="@id/tvSetPrefix"/>
                     <View
                         android:layout_below="@+id/imgtopic"
                         android:layout_marginTop="@dimen/iv_height_10"

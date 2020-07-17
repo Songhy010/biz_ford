@@ -165,6 +165,16 @@ public class AppController extends Application {
         Global.arData[117] = "social_media";
         Global.arData[118] = "accessory_contact";
         Global.arData[119] = "seller_contact";
+        Global.arData[120] = "results";
+        Global.arData[121] = "geometry";
+        Global.arData[122] = "location";
+        Global.arData[123] = "vicinity";
+        Global.arData[124] = "lat";
+        Global.arData[125] = "lng";
+        Global.arData[126] = "location_type";
+        Global.arData[127] = "category";
+        Global.arData[128] = "province";
+        Global.arData[129] = "address";
 
 
 
