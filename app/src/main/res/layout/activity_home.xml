@@ -73,6 +73,7 @@
                         android:orientation="vertical">
 
                         <ImageView
+                            android:id="@+id/ivProduct"
                             android:layout_width="@dimen/iv_height_30"
                             android:layout_height="@dimen/iv_height_30"
                             android:src="@drawable/ic_product" />
@@ -109,6 +110,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <ImageView
+                            android:id="@+id/ivPromotion"
                             android:src="@drawable/ic_new"
                             android:layout_width="@dimen/iv_height_30"
                             android:layout_height="@dimen/iv_height_30"/>
@@ -144,6 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <ImageView
+                            android:id="@+id/ivLiveChat"
                             android:src="@drawable/ic_chat"
                             android:layout_width="@dimen/iv_height_30"
                             android:layout_height="@dimen/iv_height_30"/>
@@ -179,6 +182,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                         <ImageView
+                            android:id="@+id/ivService"
                             android:src="@drawable/ic_service"
                             android:layout_width="@dimen/iv_height_30"
                             android:layout_height="@dimen/iv_height_30"/>
@@ -208,75 +212,92 @@
                 tools:layout_editor_absoluteX="-51dp"
                 tools:layout_editor_absoluteY="0dp" />
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="@dimen/iv_height_20"
-                android:layout_height="@dimen/iv_height_20"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="@dimen/iv_height_50"
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/iv_height_50"
-                android:layout_marginBottom="@dimen/iv_height_15"
-                android:src="@drawable/ic_home"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ivBook"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent">
+                <ImageView
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/imageView4"
+                    android:layout_width="@dimen/iv_height_20"
+                    android:layout_height="@dimen/iv_height_20"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ic_home" />
 
-            <TextView
-                android:layout_marginTop="@dimen/iv_height_2"
-                android:textColor="@color/colorPrimary"
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                app:layout_constraintStart_toStartOf="@+id/imageView4"
-                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                <TextView
+                    android:layout_marginTop="@dimen/iv_height_2"
+                    android:textColor="@color/colorPrimary"
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home"
+                    android:textSize="@dimen/text_size_tiny" />
+            </LinearLayout>
 
-            <ImageView
+
+
+            <LinearLayout
                 android:id="@+id/ivBook"
-                android:layout_width="@dimen/iv_height_35"
-                android:layout_height="@dimen/iv_height_35"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/iv_height_20"
-                android:src="@drawable/ic_booking"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingTop="@dimen/iv_height_15"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent">
+                <ImageView
+                    android:layout_width="@dimen/iv_height_35"
+                    android:layout_height="@dimen/iv_height_35"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ic_booking" />
 
-            <TextView
-                android:layout_marginTop="@dimen/iv_height_3"
-                android:id="@+id/textView2"
+                <TextView
+                    android:layout_marginTop="@dimen/iv_height_3"
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/booking"
+                    android:textSize="@dimen/text_size_tiny"
+                    app:layout_constraintEnd_toEndOf="@+id/ivBook"
+                    app:layout_constraintStart_toStartOf="@+id/ivBook"
+                    app:layout_constraintTop_toBottomOf="@+id/ivBook" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ivLocation"
+                android:gravity="center"
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/booking"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintEnd_toEndOf="@+id/ivBook"
-                app:layout_constraintStart_toStartOf="@+id/ivBook"
-                app:layout_constraintTop_toBottomOf="@+id/ivBook" />
-
-            <ImageView
-                android:id="@+id/ivLocation"
-                android:layout_width="@dimen/iv_height_20"
-                android:layout_height="@dimen/iv_height_20"
-                android:layout_alignParentBottom="true"
                 android:layout_marginStart="@dimen/iv_height_50"
                 android:layout_marginLeft="@dimen/iv_height_50"
-                android:layout_marginBottom="@dimen/iv_height_15"
-                android:src="@drawable/ic_location"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ivBook" />
+                app:layout_constraintStart_toEndOf="@+id/ivBook">
+                <ImageView
+                    android:layout_width="@dimen/iv_height_20"
+                    android:layout_height="@dimen/iv_height_20"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ic_location"/>
 
-            <TextView
-                android:layout_marginTop="@dimen/iv_height_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/location"
-                android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintEnd_toEndOf="@+id/ivLocation"
-                app:layout_constraintStart_toStartOf="@+id/ivLocation"
-                app:layout_constraintTop_toBottomOf="@+id/ivLocation" />
+                <TextView
+                    android:layout_marginTop="@dimen/iv_height_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"
+                    android:textSize="@dimen/text_size_tiny"
+                    app:layout_constraintEnd_toEndOf="@+id/ivLocation"
+                    app:layout_constraintStart_toStartOf="@+id/ivLocation"
+                    app:layout_constraintTop_toBottomOf="@+id/ivLocation" />
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </RelativeLayout>
 

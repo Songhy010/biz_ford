@@ -111,27 +111,20 @@
                     android:layout_height="@dimen/iv_height_1" />
             </RelativeLayout>
         </LinearLayout>
-
-        <fragment
-            android:id="@+id/map_view"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/linear"
-            android:layout_marginTop="0dp" />
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cardFilter"
-            android:layout_marginRight="@dimen/iv_height_10"
-            android:layout_marginLeft="@dimen/iv_height_10"
+            android:layout_marginRight="@dimen/iv_height_8"
+            android:layout_marginLeft="@dimen/iv_height_8"
             android:layout_marginTop="@dimen/iv_height_10"
             android:layout_below="@id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RelativeLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:padding="@dimen/iv_height_15"
                     android:textSize="@dimen/text_size_small"
                     android:layout_marginLeft="@dimen/iv_height_10"
                     android:layout_centerVertical="true"
@@ -139,6 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <ImageView
+                    android:layout_centerVertical="true"
                     android:padding="@dimen/iv_height_10"
                     android:rotation="90"
                     android:src="@drawable/ic_more"
@@ -150,30 +144,51 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardCurrent"
-            android:layout_width="@dimen/iv_height_40"
-            android:layout_height="@dimen/iv_height_40"
-            android:layout_marginRight="@dimen/iv_height_10"
+            android:layout_marginTop="@dimen/iv_height_5"
+            android:layout_width="@dimen/iv_height_50"
+            android:layout_height="@dimen/iv_height_50"
+            android:layout_marginRight="@dimen/iv_height_5"
             android:layout_below="@+id/cardFilter"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/iv_height_15"
-            app:cardCornerRadius="@dimen/iv_height_20" >
+
+            app:cardCornerRadius="@dimen/iv_height_25" >
             <ImageView
                 android:src="@drawable/ic_current_location"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/iv_height_40"
-            android:layout_height="@dimen/iv_height_40"
+            android:id="@+id/cardCollapsed"
+            android:layout_width="@dimen/iv_height_50"
+            android:layout_height="@dimen/iv_height_50"
             android:layout_below="@+id/cardCurrent"
             android:layout_alignRight="@+id/cardCurrent"
             android:layout_marginTop="@dimen/iv_height_10"
-            app:cardCornerRadius="@dimen/iv_height_20" >
+            app:cardCornerRadius="@dimen/iv_height_25" >
             <ImageView
+                android:id="@+id/ivCollapsed"
                 android:src="@drawable/ic_zoom_in"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </androidx.cardview.widget.CardView>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linear">
+            <fragment
+                android:id="@+id/map_view"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/linear"
+                android:layout_marginTop="0dp" />
+
+            <include layout="@layout/sheet_map"/>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,16 +3,24 @@ package com.sabayosja.fordcambodia.android.activity;
 import androidx.annotation.DrawableRes;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +39,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -38,6 +47,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.sabayosja.fordcambodia.android.R;
+import com.sabayosja.fordcambodia.android.adapter.AdapterCollapsedList;
 import com.sabayosja.fordcambodia.android.listener.LoadDataListener;
 import com.sabayosja.fordcambodia.android.listener.VolleyCallback;
 import com.sabayosja.fordcambodia.android.util.Global;
@@ -50,6 +60,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class ActivityLocation extends ActivityController implements OnMapReadyCallback {
 
@@ -59,9 +70,7 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
     private LocationCallback locationCallback;
     private GoogleMap mMap;
     private final int PIN_W = 75;
-    private final int PIN_H = 75;
     private final int PIN_H_GAS = 140;
-    private Marker userMaker;
     private LocationRequest locationRequest;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private final String RADIUS = "5000";
@@ -70,6 +79,7 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
     private double lat = 11.556289;
     private double lng = 104.928170;
     private JSONArray arrTitle;
+    private BottomSheetBehavior bottomSheetBehavior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +113,8 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
         initToolbar();
         findView();
         getCurrentLocation();
+        initCurrentLocation();
+        initCollapsedListLocation();
     }
 
     private void findView() {
@@ -131,7 +143,7 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
         iv_search.setVisibility(View.GONE);
     }
 
-    private void getCurrentLocation(){
+    private void getCurrentLocation() {
         try {
             Dexter.withActivity(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
                 @Override
@@ -140,7 +152,7 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
                     getLocation();
                     fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(ActivityLocation.this);
                     setSupportMap();
-                    loadTitleLocation();
+                    loadLocation();
                 }
 
                 @Override
@@ -159,17 +171,17 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
     }
 
     public void initTab(View view) {
-        try{
+        try {
             switch (view.getId()) {
                 case R.id.tabShow:
-                    tvShow.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tvGas.setTextColor(getResources().getColor(R.color.grey_5));
+                    tvShow.setTextColor(getResources().getColor(R.color.colorPrimary));
                     tvOSC.setTextColor(getResources().getColor(R.color.grey_5));
                     lineShow.setVisibility(View.VISIBLE);
                     lineGas.setVisibility(View.GONE);
                     lineOSC.setVisibility(View.GONE);
                     cardFilter.setVisibility(View.VISIBLE);
-                    loadAnyTab(2,R.drawable.ic_pin_ford,12f);
+                    loadAnyTab(2, R.drawable.ic_pin_ford, 12f);
                     break;
                 case R.id.tabGas:
                     tvGas.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -189,11 +201,11 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
                     lineGas.setVisibility(View.GONE);
                     lineOSC.setVisibility(View.VISIBLE);
                     cardFilter.setVisibility(View.VISIBLE);
-                    loadAnyTab(0,R.drawable.ic_pin_osc,7f);
+                    loadAnyTab(0, R.drawable.ic_pin_osc, 7f);
                     break;
             }
-        }catch (Exception e){
-            Log.e("Err",e.getMessage()+"");
+        } catch (Exception e) {
+            Log.e("Err", e.getMessage() + "");
         }
     }
 
@@ -211,15 +223,9 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
             public void onLocationResult(LocationResult locationResult) {
                 if (mMap != null) {
                     try {
-                        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.img_location);
-                        Bitmap b = bitmapdraw.getBitmap();
-                        Bitmap smallMarker = Bitmap.createScaledBitmap(b, PIN_W, PIN_H, false);
-
-                        if (userMaker != null) userMaker.remove();
-                        userMaker = mMap.addMarker(new MarkerOptions().position(new LatLng(locationResult.getLastLocation().getLatitude(), locationResult.getLastLocation().getLongitude())).title("You").icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userMaker.getPosition(), 12f));
                         lat = locationResult.getLastLocation().getLatitude();
                         lng = locationResult.getLastLocation().getLongitude();
+                        mMap.setMyLocationEnabled(true);
                     } catch (Exception e) {
                         Log.e("Err", e.getMessage() + "");
                     }
@@ -228,7 +234,41 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
         };
     }
 
-    private void setMakerGas(final JSONArray arr, @DrawableRes final int id,final float camera) {
+    private void initCurrentLocation() {
+        findViewById(R.id.cardCurrent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final LatLng latLng = new LatLng(lat, lng);
+                moveCamera(latLng);
+            }
+        });
+    }
+
+    public void moveCamera(final LatLng latLng) {
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12f));
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+    }
+
+    private void initCollapsedListLocation() {
+        final LinearLayout bottom_sheet = findViewById(R.id.bottom_sheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        final ImageView ivCollapsed = findViewById(R.id.ivCollapsed);
+        findViewById(R.id.cardCollapsed).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+                    ivCollapsed.setImageDrawable(getResources().getDrawable(R.drawable.ic_zoom_in));
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                } else {
+                    ivCollapsed.setImageDrawable(getResources().getDrawable(R.drawable.ic_zoom_out));
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+        });
+    }
+
+    private void setMaker(final JSONArray arr, @DrawableRes final int id, final float camera) {
         try {
             BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(id);
             Bitmap b = bitmapdraw.getBitmap();
@@ -240,19 +280,55 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
                 final double lat = Double.parseDouble(objLocation.getJSONObject(Global.arData[122]).getString(Global.arData[124]));
                 final double lng = Double.parseDouble(objLocation.getJSONObject(Global.arData[122]).getString(Global.arData[125]));
                 final LatLng latLng = new LatLng(lat, lng);
+                mMap.addMarker(new MarkerOptions().position(latLng)
+                        .title(objLocation.getString(Global.arData[35]))
+                        .snippet(objLocation.getString(Global.arData[123]))
+                        .icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+                    @Override
+                    public View getInfoWindow(Marker marker) {
+                        return null;
+                    }
 
-                mMap.addMarker(new MarkerOptions().position(latLng).title(objLocation.getString(Global.arData[35])).snippet(objLocation.getString(Global.arData[123])).icon(BitmapDescriptorFactory.fromBitmap(smallMarker)));
+                    @Override
+                    public View getInfoContents(Marker marker) {
+                        try{
+                            View v = getLayoutInflater().inflate(R.layout.item_maker, null);
+                            MyFont.getInstance().setFont(ActivityLocation.this,v,1);
+                            final TextView tvTitle = v.findViewById(R.id.tvTitle);
+                            final TextView tvSnippet = v.findViewById(R.id.tvSnippet);
+                            tvTitle.setText(objLocation.getString(Global.arData[35]));
+                            tvSnippet.setText(objLocation.getString(Global.arData[123]));
+                            return v;
+                        }catch (Exception e){
+                            Log.e("Err",e.getMessage()+"");
+                        }
+                        return null;
+                    }
+                });
 
             }
-            BitmapDrawable draw = (BitmapDrawable) getResources().getDrawable(R.drawable.img_location);
-            Bitmap bitmap = draw.getBitmap();
-            Bitmap youMarker = Bitmap.createScaledBitmap(bitmap, PIN_W, PIN_H, false);
             final LatLng latLng = new LatLng(lat, lng);
-            mMap.addMarker(new MarkerOptions().position(latLng).title("you").icon(BitmapDescriptorFactory.fromBitmap(youMarker)));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, camera));
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                            Uri.parse(String.format("http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s",lat,lng,marker.getPosition().latitude,marker.getPosition().longitude)));
+                    startActivity(intent);
+                }
+            });
         } catch (Exception e) {
             Log.e("Err", e.getMessage() + "");
         }
+    }
+
+    private void setCollapsedList(final JSONArray arr) {
+        final LinearLayoutManager manager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        final RecyclerView recyclerCollapsed = findViewById(R.id.recycleCollapsed);
+        final AdapterCollapsedList adapterCollapsedList = new AdapterCollapsedList(this, arr);
+        recyclerCollapsed.setLayoutManager(manager);
+        recyclerCollapsed.setAdapter(adapterCollapsedList);
     }
 
     private void loadGasStation() {
@@ -273,7 +349,8 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
                             objData.put(Global.arData[123], objResult.getString(Global.arData[123]));
                             arr.put(i, objData);
                         }
-                        setMakerGas(arr,R.drawable.ic_pin_gas_station,12f);
+                        setMaker(arr, R.drawable.ic_pin_gas_station, 12f);
+                        setCollapsedList(arr);
                     } else {
                         MyFunction.getInstance().alertMessage(ActivityLocation.this, getString(R.string.warning), getString(R.string.ok), getString(R.string.server_error), 1);
                     }
@@ -284,7 +361,7 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
         });
     }
 
-    private void loadTitleLocation() {
+    private void loadLocation() {
         final String lang = MyFunction.getInstance().getText(ActivityLocation.this, Global.arData[6]);
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
         final HashMap<String, String> param = new HashMap<>();
@@ -294,9 +371,9 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
             @Override
             public void onSuccess(String response) {
                 try {
-                    if(MyFunction.getInstance().isValidJSON(response)){
+                    if (MyFunction.getInstance().isValidJSON(response)) {
                         arrTitle = new JSONArray(response);
-                        loadAnyTab(2,R.drawable.ic_pin_ford,12f);
+                        loadAnyTab(2, R.drawable.ic_pin_ford, 12f);
                     }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");
@@ -305,13 +382,13 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
         });
     }
 
-    private void loadAnyTab(final int position,@DrawableRes final int id,final float camera) throws JSONException {
+    private void loadAnyTab(final int position, @DrawableRes final int id, final float camera) throws JSONException {
         final String lang = MyFunction.getInstance().getText(ActivityLocation.this, Global.arData[6]);
         final String url = Global.arData[0] + Global.arData[1] + Global.arData[5];
         final HashMap<String, String> param = new HashMap<>();
         param.put(Global.arData[6], lang);
-        param.put(Global.arData[124], lat+"");
-        param.put(Global.arData[125], lng+"");
+        param.put(Global.arData[124], lat + "");
+        param.put(Global.arData[125], lng + "");
         param.put(Global.arData[127], arrTitle.getJSONObject(position).getString(Global.arData[7]));
         param.put(Global.arData[128], "0");
         loadDataServer(Request.Method.POST, param, url, new LoadDataListener() {
@@ -319,20 +396,21 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
             public void onSuccess(String response) {
                 try {
                     final JSONArray arr = new JSONArray();
-                    if(MyFunction.getInstance().isValidJSON(response)){
+                    if (MyFunction.getInstance().isValidJSON(response)) {
                         final JSONArray array = new JSONArray(response);
                         for (int i = 0; i < array.length(); i++) {
                             final JSONObject objData = new JSONObject();
                             final JSONObject objLatLng = new JSONObject();
                             final JSONObject obj = array.getJSONObject(i);
-                            objLatLng.put(Global.arData[124],obj.getString(Global.arData[124]));
-                            objLatLng.put(Global.arData[125],obj.getString(Global.arData[125]));
+                            objLatLng.put(Global.arData[124], obj.getString(Global.arData[124]));
+                            objLatLng.put(Global.arData[125], obj.getString(Global.arData[125]));
                             objData.put(Global.arData[122], objLatLng);
                             objData.put(Global.arData[35], obj.getString(Global.arData[18]));
                             objData.put(Global.arData[123], obj.getString(Global.arData[129]));
                             arr.put(i, objData);
                         }
-                        setMakerGas(arr,id,camera);
+                        setMaker(arr, id, camera);
+                        setCollapsedList(arr);
                     }
                 } catch (Exception e) {
                     Log.e("Err", e.getMessage() + "");
@@ -363,4 +441,5 @@ public class ActivityLocation extends ActivityController implements OnMapReadyCa
             }
         });
     }
+
 }
